@@ -52,9 +52,24 @@ namespace MusicControl
             ClockUpdate.Start();
         }
 
-        private void OpenSchedule()
+        private void OpenSchedulePage()
         {
-            Environment.Exit(0);
+            //TODO
+        }
+
+        private void OpenClientInfoPage()
+        {
+            //TODO
+        }
+
+        private void OpenSessionPage()
+        {
+            _navigationService?.Navigate(new Uri("SessionPage.xaml", UriKind.Relative));
+        }
+
+        private void OpenHistoryPage()
+        {
+            //TODO
         }
 
         public void ClockTick()
@@ -67,19 +82,67 @@ namespace MusicControl
             });
         }
 
-        private ICommand _doOpenSchedule;
+        private ICommand _doOpenSchedulePage;
 
-        public ICommand DoOpenSchedule
+        public ICommand DoOpenSchedulePage
         {
             get
             {
-                if (_doOpenSchedule == null)
+                if (_doOpenSchedulePage == null)
                 {
-                    _doOpenSchedule = new Command(
+                    _doOpenSchedulePage = new Command(
                         p => true,
-                        p => OpenSchedule());
+                        p => OpenSchedulePage());
                 }
-                return _doOpenSchedule;
+                return _doOpenSchedulePage;
+            }
+        }
+
+        private ICommand _doOpenClientInfoPage;
+
+        public ICommand DoOpenClientInfoPage
+        {
+            get
+            {
+                if (_doOpenClientInfoPage == null)
+                {
+                    _doOpenClientInfoPage = new Command(
+                        p => true,
+                        p => OpenClientInfoPage());
+                }
+                return _doOpenClientInfoPage;
+            }
+        }
+
+        private ICommand _doOpenSessionPage;
+
+        public ICommand DoOpenSessionPage
+        {
+            get
+            {
+                if (_doOpenSessionPage == null)
+                {
+                    _doOpenSessionPage = new Command(
+                        p => true,
+                        p => OpenSessionPage());
+                }
+                return _doOpenSessionPage;
+            }
+        }
+
+        private ICommand _doOpenHistoryPage;
+
+        public ICommand DoOpenHistoryPage
+        {
+            get
+            {
+                if (_doOpenHistoryPage == null)
+                {
+                    _doOpenHistoryPage = new Command(
+                        p => true,
+                        p => OpenHistoryPage());
+                }
+                return _doOpenHistoryPage;
             }
         }
     }

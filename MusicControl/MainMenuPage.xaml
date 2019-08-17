@@ -24,6 +24,9 @@
             <RowDefinition></RowDefinition>
             <RowDefinition Height="0.3*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Button x:Name="ScheduleButton" Grid.Row="1" Margin="90,0,90,0" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenSchedule}"></Button>
+        <Button Content="График сеансов" Style="{StaticResource ButtonStyle}" x:Name="ScheduleButton" Grid.Row="1" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenSchedulePage}"></Button>
+        <Button Content="Информация о клиентах" Style="{StaticResource ButtonStyle}" x:Name="ClientInfoButton" Grid.Row="2" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenClientInfoPage}"></Button>
+        <Button Content="Запустить сеанс" Style="{StaticResource ButtonStyle}" x:Name="StartSessionButton" Grid.Row="3" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenSessionPage}"></Button>
+        <Button Content="Просмотреть историю" Style="{StaticResource ButtonStyle}" x:Name="HistoryButton" Grid.Row="4" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenHistoryPage}"></Button>
     </Grid>
 </Page>

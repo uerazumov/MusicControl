@@ -9,7 +9,5 @@ using System.Windows;
 namespace MusicControl
 {
     public partial class App : Application
-    {
-        public static Window ActivatedWindow { get; set; }
-    }
+    { }
 }

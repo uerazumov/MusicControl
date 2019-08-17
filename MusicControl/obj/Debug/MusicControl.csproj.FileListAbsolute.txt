@@ -18,3 +18,5 @@ C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\GeneratedInternal
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\App.baml
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MainMenuPage.g.cs
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MainMenuPage.baml
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\SessionPage.g.cs
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\SessionPage.baml
