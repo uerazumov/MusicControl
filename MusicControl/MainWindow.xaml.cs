@@ -24,6 +24,11 @@ namespace MusicControl
             InitializeComponent();
         }
 
+        private void Close(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             _vm.AssignMainWindow(this);

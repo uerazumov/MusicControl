@@ -6,8 +6,22 @@
         xmlns:local="clr-namespace:MusicControl"
         mc:Ignorable="d"
         Height="600" Width="1000"
-        Title="Управление сеансами звукозаписи" WindowStartupLocation="CenterScreen" Loaded="OnWindowLoaded">
+        Title="Управление сеансами звукозаписи" WindowStartupLocation="CenterScreen" Loaded="OnWindowLoaded" Closing="Close">
+    <Window.Resources>
+        <ResourceDictionary>
+            <FrameworkElement x:Key="KinectCursor" Cursor="VisualResources\Normal.cur"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourceDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="985*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel LastChildFill="True" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding Source={StaticResource ViewModel}, Path=Clock}" FontSize="25" Margin="5,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        </DockPanel>
     </Grid>
 </Window>
