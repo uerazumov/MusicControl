@@ -16,3 +16,5 @@ C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.exe
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.pdb
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\App.baml
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MainMenuPage.g.cs
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MainMenuPage.baml

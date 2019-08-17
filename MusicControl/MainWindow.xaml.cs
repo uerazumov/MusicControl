@@ -29,6 +29,11 @@ namespace MusicControl
             Environment.Exit(0);
         }
 
+        public void SetNavigationService(Page page)
+        {
+            _vm.SetNavigationService(page);
+        }
+
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             _vm.AssignMainWindow(this);

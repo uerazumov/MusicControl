@@ -8,10 +8,8 @@ using System.Windows;
 
 namespace MusicControl
 {
-    /// <summary>
-    /// Логика взаимодействия для App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        public static Window ActivatedWindow { get; set; }
     }
 }

@@ -2,11 +2,12 @@
 using System.ComponentModel;
 using System.Threading;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace MusicControl
 {
-    class ViewModel : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
         private MainWindow _mainWindow;
         private NavigationService _navigationService;
@@ -26,6 +27,12 @@ namespace MusicControl
         {
             StartClock();
         }
+
+        public void SetNavigationService(Object page)
+        {
+            _navigationService = NavigationService.GetNavigationService(page as MainMenuPage);
+        }
+
         public void AssignMainWindow(MainWindow mw)
         {
             _mainWindow = mw;
@@ -45,6 +52,11 @@ namespace MusicControl
             ClockUpdate.Start();
         }
 
+        private void OpenSchedule()
+        {
+            Environment.Exit(0);
+        }
+
         public void ClockTick()
         {
             while (true)
@@ -53,6 +65,22 @@ namespace MusicControl
                 _clock = DateTime.Now.ToString("HH:mm:ss");
                 DoPropertyChanged("Clock");
             });
+        }
+
+        private ICommand _doOpenSchedule;
+
+        public ICommand DoOpenSchedule
+        {
+            get
+            {
+                if (_doOpenSchedule == null)
+                {
+                    _doOpenSchedule = new Command(
+                        p => true,
+                        p => OpenSchedule());
+                }
+                return _doOpenSchedule;
+            }
         }
     }
 }
