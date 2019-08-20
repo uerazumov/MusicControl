@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -15,14 +17,53 @@ namespace MusicControl
         private bool _isSessionExist;
         private bool _isSessionStarted;
         private bool _isSessionPaussed;
-        private Thread _session;
-        private Thread _pause;
-        private Timer _sessionTimer;
+        private System.Timers.Timer _pauseTimer;
+        private System.Timers.Timer _sessionTimer;
+        private System.Timers.Timer _clockTimer;
+        private DateTime _timerStartTime;
+        private TimeSpan _sessionDuration;
+        private TimeSpan _pauseDuration;
+        private List<Session> _sessions;
 
+        private int _selectedSession;
+        public int SelectedSession
+        {
+            get { return _selectedSession; }
+            set
+            {
+                UpdateNewSessionParametrs(value);
+                DoPropertyChanged("SelectedSession");
+                DoPropertyChanged("TimeBalance");
+                DoPropertyChanged("PauseTime");
+                DoPropertyChanged("StartTime");
+                DoPropertyChanged("EndTime");
+                DoPropertyChanged("SessionTime");
+                _selectedSession = value;
+            }
+        }
+
+        public List<String> Sessions
+        {
+            get
+            {
+                var sessions = new List<String>();
+                for(int i = 0; i < _sessions.Count; i++)
+                {
+                    sessions.Add(_sessions[i].Client.ClientName + " " + _sessions[i].StartSessionTime.ToString("HH:mm") + "-" + (_sessions[i].StartSessionTime + _sessions[i].SessionDuration).ToString("HH:mm"));
+                }
+                return sessions;
+            }
+        }
+
+        private TimeSpan _timeBalance;
+        public String TimeBalance
+        {
+            get { return _timeBalance.Hours.ToString() + "," + _timeBalance.Minutes.ToString(); }
+        }
         private TimeSpan _pauseTime;
         public string PauseTime
         {
-            get { return _pauseTime.ToString(); }
+            get { return new DateTime(_pauseTime.Ticks).ToString("HH:mm:ss"); ; }
         }
 
         private Nullable<DateTime> _startTime;
@@ -48,7 +89,7 @@ namespace MusicControl
         private TimeSpan _sessionTime;
         public string SessionTime
         {
-            get { return _sessionTime.ToString(); }
+            get { return new DateTime(_sessionTime.Ticks).ToString("HH:mm:ss"); ; }
         }
 
         private string _clock;
@@ -64,11 +105,15 @@ namespace MusicControl
 
         public ViewModel()
         {
-            StartClock();
             _sessionPage = new Uri("SessionPage.xaml", UriKind.Relative);
             _isSessionExist = false;
             _isSessionStarted = false;
             _isSessionPaussed = false;
+            _clockTimer = new System.Timers.Timer();
+            _clockTimer.Elapsed += new ElapsedEventHandler(ClockTick);
+            _clockTimer.Interval = 1000;
+            _clockTimer.Start();
+            ClockTick(new object(), new EventArgs());
         }
 
         public void SetNavigationService(Object page)
@@ -88,13 +133,6 @@ namespace MusicControl
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public void StartClock()
-        {
-            Thread ClockUpdate = new Thread(ClockTick);
-            ClockUpdate.IsBackground = true;
-            ClockUpdate.Start();
-        }
-
         private void OpenSchedulePage()
         {
             //TODO
@@ -105,18 +143,18 @@ namespace MusicControl
             //TODO
         }
 
-        private void UpdateNewSessionParametrs()
+        private void UpdateNewSessionParametrs(int index)
         {
-            _sessionTime = new TimeSpan(0, 2, 30, 0);
+            _sessionTime = _sessions[index].SessionDuration;
             _pauseTime = new TimeSpan(0, 1, 10, 0);
-            _session = new Thread(SessionTick);
-            _session.IsBackground = true;
-            _pause = new Thread(PauseTick);
-            _pause.IsBackground = true;
+            _sessionDuration = _sessionTime;
+            _pauseDuration = _pauseTime;
+            _timeBalance = _sessions[index].Client.TimeBalance;
             _isSessionExist = true;
+            _isSessionPaussed = false;
+            _isSessionStarted = false;
             _startTime = null;
             _endTime = null;
-            
         }
 
         private void OpenSessionPage()
@@ -124,7 +162,17 @@ namespace MusicControl
             if(!_isSessionExist)
             {
                 //TODO
-                UpdateNewSessionParametrs();
+                _sessions = new List<Session>();
+                _sessions.Add(new Session(new TimeSpan(2, 30, 0), new Client(1, "Иванов Иван Иванович", new TimeSpan(3, 0, 0)), new DateTime(2019, 8, 19, 22, 30, 0), 1));
+                _sessions.Add(new Session(new TimeSpan(3, 0, 0), new Client(2, "Петров Петр Петрович", new TimeSpan(2, 0, 0)), new DateTime(2019, 8, 20, 01, 00, 0), 2));
+                _sessions.Add(new Session(new TimeSpan(4, 30, 0), new Client(3, "Семёнов Семён Семёнович", new TimeSpan(1, 30, 0)), new DateTime(2019, 8, 20, 01, 00, 0), 3));
+                UpdateNewSessionParametrs(0);
+                _sessionTimer = new System.Timers.Timer();
+                _sessionTimer.Elapsed += new ElapsedEventHandler(SessionTick);
+                _sessionTimer.Interval = 300;
+                _pauseTimer = new System.Timers.Timer();
+                _pauseTimer.Elapsed += new ElapsedEventHandler(PauseTick);
+                _pauseTimer.Interval = 300;
             }
             _navigationService?.Navigate(_sessionPage);
         }
@@ -146,27 +194,42 @@ namespace MusicControl
 
         private void StartSession()
         {
-            if((!_isSessionStarted)&&(_isSessionExist))
+            if (_isSessionExist)
             {
-                _session.Start();
-                _startTime = DateTime.Now;
-                DoPropertyChanged("StartTime");
-                _isSessionStarted = true;
+                if (!_isSessionStarted)
+                {
+                    _timerStartTime = DateTime.Now;
+                    _sessionTimer.Start();
+                    _startTime = DateTime.Now;
+                    DoPropertyChanged("StartTime");
+                    _isSessionStarted = true;
+                    _sessionDuration = _sessionTime;
+                }
+                else if (_isSessionPaussed)
+                {
+                    _timerStartTime = DateTime.Now;
+                    _isSessionPaussed = false;
+                    _sessionTimer.Start();
+                    _pauseTimer.Stop();
+                    _sessionDuration = _sessionTime;
+                }
             }
-            else if(_isSessionPaussed)
-            {
-                _isSessionPaussed = false;
-                _session.Start();
-                _pause.Abort();
-            }
+        }
+
+        private void UpdateStopSessionParametrs()
+        {
+            _isSessionStarted = false;
+            _isSessionExist = false;
+            _isSessionPaussed = false;
+            _sessionTimer.Stop();
+            _pauseTimer.Stop();
         }
 
         private void StopSession()
         {
             if(_isSessionStarted)
             {
-                _isSessionStarted = false;
-                _isSessionExist = false;
+                UpdateStopSessionParametrs();
                 _endTime = DateTime.Now;
                 DoPropertyChanged("EndTime");
             }
@@ -174,52 +237,32 @@ namespace MusicControl
 
         private void PauseSession()
         {
-            if((!_isSessionPaussed)&&(IsTimeOver(_pauseTime)))
+            if((!_isSessionPaussed)&&(!IsTimeOver(_pauseTime)))
             {
-                _session.Abort();
+                _pauseDuration = _pauseTime;
+                _timerStartTime = DateTime.Now;
+                _sessionTimer.Stop();
                 _isSessionPaussed = true;
-                _pause.Start();
+                _pauseTimer.Start();
             }
         }
 
-        public void ClockTick()
+        private void ClockTick(object sender, EventArgs e)
         {
-            while (true)
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                _clock = DateTime.Now.ToString("HH:mm");
-                DoPropertyChanged("Clock");
-            });
+            _clock = DateTime.Now.ToString("HH:mm");
+            DoPropertyChanged("Clock");
         }
 
-        public void SessionTick()
+        private void SessionTick(object sender, EventArgs e)
         {
-            _sessionTimer = new Timer(NewSessionTick, null, 10, 1000); //Тут нужно получить время сессии
-            //
-            //    Application.Current.Dispatcher.Invoke(() =>
-            //    {
-            //        _sessionTime -= new TimeSpan(0, 0, 0, 1);
-            //        DoPropertyChanged("SessionTime");
-            //    });
+            _sessionTime = (TimeSpan)(_timerStartTime + _sessionDuration - DateTime.Now);
+            DoPropertyChanged("SessionTime");
         }
 
-        private void NewSessionTick(object sender)
+        private void PauseTick(object sender, EventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                _sessionTime -= new TimeSpan(0, 0, 0, 1);
-                DoPropertyChanged("SessionTime");
-            });
-        }
-
-        public void PauseTick()
-        {
-            while (!IsTimeOver(_pauseTime))
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    _pauseTime.Add(-new TimeSpan(0,0,0,1));
-                    DoPropertyChanged("PauseTime");
-                });
+            _pauseTime = (TimeSpan)(_timerStartTime + _pauseDuration - DateTime.Now);
+            DoPropertyChanged("PauseTime");
         }
 
         private ICommand _doOpenSchedulePage;

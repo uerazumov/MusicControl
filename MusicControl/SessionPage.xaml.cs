@@ -23,6 +23,7 @@ namespace MusicControl
         public SessionPage()
         {
             InitializeComponent();
+            ClientList.SelectedIndex = 0;
         }
     }
 }
