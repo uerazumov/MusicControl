@@ -15,7 +15,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
+    <Grid Background="{StaticResource BackgroundImage}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="985*"/>
             <ColumnDefinition Width="8*"/>

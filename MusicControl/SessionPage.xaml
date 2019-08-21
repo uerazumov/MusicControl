@@ -33,7 +33,15 @@
             <Button Grid.Column="0" Style="{StaticResource MainMenuButtonStyle}" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" HorizontalAlignment="Left"></Button>
             <TextBlock Style="{StaticResource HeadlineTextStyle}" Grid.Column="1" Text="Сеанс"></TextBlock>
         </Grid>
-        <ComboBox Name="ClientList"  Grid.Row="1" Margin="90,10,90,10" FontSize="30" ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Sessions}" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedSession, Mode=TwoWay}"></ComboBox>
+        <ComboBox IsEnabled="{Binding Source={StaticResource ViewModel}, Path=ComboboxIsEnabled}" Name="ClientList"  Grid.Row="1" Margin="90,10,90,10" FontSize="30" ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Sessions}" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedSession, Mode=TwoWay}"></ComboBox>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Visibility="{Binding Source={StaticResource ViewModel}, Path=UnpaidTimeVisibility}" Grid.Row="0" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="Неоплаченное время:" FontSize="24" Foreground="Red"></TextBlock>
+            <TextBlock Visibility="{Binding Source={StaticResource ViewModel}, Path=UnpaidTimeVisibility}" Text="{Binding Source={StaticResource ViewModel}, Path=UnpaidTime}" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="24" Foreground="Red"></TextBlock>
+        </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
@@ -44,7 +52,7 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="0.3*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Source={StaticResource ViewModel}, Path=SessionTime}" FontSize="60"></TextBlock>
+                <TextBlock Foreground="{Binding Source={StaticResource ViewModel}, Path=SessionTimeColor}" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Source={StaticResource ViewModel}, Path=SessionTime}" FontSize="60"></TextBlock>
                 <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="сеанс" FontSize="20"></TextBlock>
             </Grid>
             <Grid Grid.Column="1">
@@ -62,9 +70,9 @@
                 <ColumnDefinition Width="120"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Style="{StaticResource SessionButtonStyle}" Command="{Binding Source={StaticResource ViewModel}, Path=DoStartSession}" HorizontalAlignment="Right"></Button>
-            <Button Grid.Column="1" Style="{StaticResource SessionButtonStyle}" Command="{Binding Source={StaticResource ViewModel}, Path=DoPauseSession}" HorizontalAlignment="Center"></Button>
-            <Button Grid.Column="2" Style="{StaticResource SessionButtonStyle}" Command="{Binding Source={StaticResource ViewModel}, Path=DoStopSession}" HorizontalAlignment="Left"></Button>
+            <Button Content="►" FontSize="60" Grid.Column="0" Style="{StaticResource SessionButtonStyle}" IsEnabled="{Binding Source={StaticResource ViewModel}, Path=StartIsEnabled}" Command="{Binding Source={StaticResource ViewModel}, Path=DoStartSession}" HorizontalAlignment="Right"></Button>
+            <Button Content="| |" FontSize="40" Grid.Column="1" Style="{StaticResource SessionButtonStyle}" IsEnabled="{Binding Source={StaticResource ViewModel}, Path=PauseIsEnabled}" Command="{Binding Source={StaticResource ViewModel}, Path=DoPauseSession}" HorizontalAlignment="Center"></Button>
+            <Button Content="⚫" FontSize="40" Grid.Column="2" Style="{StaticResource SessionButtonStyle}" IsEnabled="{Binding Source={StaticResource ViewModel}, Path=StopIsEnabled}" Command="{Binding Source={StaticResource ViewModel}, Path=DoStopSession}" HorizontalAlignment="Left"></Button>
         </Grid>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
@@ -74,7 +82,7 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Неиспользованное время:" FontSize="40" VerticalAlignment="Center"></TextBlock>
             <TextBlock Grid.Column="1" Text="{Binding Source={StaticResource ViewModel}, Path=TimeBalance}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-            <Button Grid.Column="2" Content="Использовать" FontSize="36" Margin="10"></Button>
+            <Button Command="{Binding Source={StaticResource ViewModel}, Path=DoAddTime}" Grid.Column="2" Content="Использовать" FontSize="36" Margin="10"></Button>
         </Grid>
         <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>

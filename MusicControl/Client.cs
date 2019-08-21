@@ -11,6 +11,13 @@ namespace MusicControl
         private int _clientID;
         private string _clientName;
         private TimeSpan _timeBalance;
+        private TimeSpan _unpaidTime;
+
+        public TimeSpan UnpaidTime
+        {
+            get { return _unpaidTime; }
+            set { _unpaidTime = value; }
+        }
 
         public TimeSpan TimeBalance
         {
@@ -30,11 +37,12 @@ namespace MusicControl
             set { _clientName = value; }
         }
 
-        public Client(int clientID, string clientName, TimeSpan timeBalance)
+        public Client(int clientID, string clientName, TimeSpan timeBalance, TimeSpan unpaidTime)
         {
             _clientID = clientID;
             _clientName = clientName;
             _timeBalance = timeBalance;
+            _unpaidTime = unpaidTime;
         }
     }
 }

@@ -11,6 +11,7 @@ namespace MusicControl
         private TimeSpan _sessionDuration;
         private Client _client;
         private DateTime _startSessionTime;
+        private DateTime _endSessionTime;
         private int _sessionID;
 
         public int SessionID
@@ -34,12 +35,19 @@ namespace MusicControl
             set { _startSessionTime = value; }
         }
 
+        public DateTime EndSessionTime
+        {
+            get { return _endSessionTime; }
+            set { _endSessionTime = value; }
+        }
+
         public Session(TimeSpan sessionDuration, Client client, DateTime startSessionTime, int sessionID)
         {
             _sessionDuration = sessionDuration;
             _client = client;
             _startSessionTime = startSessionTime;
             _sessionID = sessionID;
+            _endSessionTime = startSessionTime + sessionDuration;
         }
     }
 }

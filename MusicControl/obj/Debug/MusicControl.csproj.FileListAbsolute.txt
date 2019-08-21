@@ -20,3 +20,5 @@ C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MainMenuPage.g.cs
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MainMenuPage.baml
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\SessionPage.g.cs
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\SessionPage.baml
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\BackgroundImage.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\icon.ico
