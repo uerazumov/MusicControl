@@ -7,7 +7,6 @@ C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\App.g.cs
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl_MarkupCompile.cache
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl_MarkupCompile.lref
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MainWindow.baml
-C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\ResourceDictionary.baml
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.g.resources
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.Properties.Resources.resources
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.csproj.GenerateResource.cache
@@ -60,3 +59,18 @@ C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualRes
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\stopButton.png
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\stopButtonDisabled.png
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\stopButtonActive.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\playButton.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\playButtonAction.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\playButtonDisabled.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\mainMenuButton.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\mainMenuButtonActive.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\mainMenuButtonDisabled.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\pauseButton.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\pauseButtonActive.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\pauseButtonDisabled.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\stopButton.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\stopButtonDisabled.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\stopButtonActive.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\ControlButton.g.cs
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\ControlButton.baml
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\ResourcesDictionary.baml
