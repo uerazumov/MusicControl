@@ -71,9 +71,9 @@ namespace MusicControl
             circularButton.DoPropertyChanged("IsEnabled");
         }
 
-        public ImageBrush BackgroundImageActive => IsButtonEnabled ? DisableBackgroundImageActive : EnableBackgroundImageActive;
+        public ImageBrush BackgroundImageActive => !IsButtonEnabled ? DisableBackgroundImageActive : EnableBackgroundImageActive;
 
-        public ImageBrush BackgroundImage => IsButtonEnabled ? DisableBackgroundImage : EnableBackgroundImage;
+        public ImageBrush BackgroundImage => !IsButtonEnabled ? DisableBackgroundImage : EnableBackgroundImage;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

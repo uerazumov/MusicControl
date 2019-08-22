@@ -24,17 +24,12 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
+        <local:ControlButton Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" x:Name="MainMenuButton" EnableBackgroundImage="{StaticResource mainMenuButton}" DisableBackgroundImage="{StaticResource mainMenuButtonDisabled}" EnableBackgroundImageActive="{StaticResource mainMenuButtonAction}"></local:ControlButton>
         <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <local:ControlButton HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" x:Name="MainMenuButton" Grid.Column="0" EnableBackgroundImage="{StaticResource mainMenuButton}" DisableBackgroundImage="{StaticResource mainMenuButtonDisabled}" EnableBackgroundImageActive="{StaticResource mainMenuButtonAction}"></local:ControlButton>
             <!--<Button Grid.Column="0" Style="{StaticResource MainMenuButtonStyle}" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" HorizontalAlignment="Left"></Button>-->
-            <TextBlock Style="{StaticResource HeadlineTextStyle}" Grid.Column="1" Text="Сеанс"></TextBlock>
+            <TextBlock Style="{StaticResource HeadlineTextStyle}" HorizontalAlignment="Center" Text="Сеанс"></TextBlock>
         </Grid>
-        <ComboBox IsEnabled="{Binding Source={StaticResource ViewModel}, Path=ComboboxIsEnabled}" Name="ClientList"  Grid.Row="1" Margin="90,10,90,10" FontSize="30" ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Sessions}" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedSession, Mode=TwoWay}"></ComboBox>
+        <ComboBox IsEnabled="{Binding Source={StaticResource ViewModel}, Path=ComboboxIsEnabled}" Name="ClientList"  Grid.Row="1" Margin="120,10,120,10" FontSize="30" ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Sessions}" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedSession, Mode=TwoWay}"></ComboBox>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -84,24 +79,24 @@
                 <ColumnDefinition Width="0.3*"></ColumnDefinition>
                 <ColumnDefinition Width="0.7*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Неиспользованное время:" FontSize="40" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Margin="10,0,0,0" Grid.Column="0" Text="Неиспользованное время:" FontSize="40" VerticalAlignment="Center"></TextBlock>
             <TextBlock Grid.Column="1" Text="{Binding Source={StaticResource ViewModel}, Path=TimeBalance}" FontSize="40" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-            <Button Command="{Binding Source={StaticResource ViewModel}, Path=DoAddTime}" Grid.Column="2" Content="Использовать" FontSize="36" Margin="10"></Button>
+            <Button Style="{StaticResource ButtonStyle}" Command="{Binding Source={StaticResource ViewModel}, Path=DoAddTime}" Grid.Column="2" Content="Использовать" FontSize="30"></Button>
         </Grid>
         <Grid Grid.Row="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.15*"></ColumnDefinition>
+                <ColumnDefinition Width="1.35*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Фактическое время начала:" FontSize="40" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Margin="10,0,0,0" Grid.Column="0" Text="Фактическое время начала:" FontSize="40" VerticalAlignment="Center"></TextBlock>
             <TextBlock Grid.Column="1" Text="{Binding Source={StaticResource ViewModel}, Path=StartTime}" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
         </Grid>
         <Grid Grid.Row="6">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.55*"></ColumnDefinition>
+                <ColumnDefinition Width="1.80*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="Фактическое время окончания:" FontSize="40" VerticalAlignment="Center"></TextBlock>
+            <TextBlock Margin="10,0,0,0" Grid.Column="0" Text="Фактическое время окончания:" FontSize="40" VerticalAlignment="Center"></TextBlock>
             <TextBlock Grid.Column="1" Text="{Binding Source={StaticResource ViewModel}, Path=EndTime}" FontSize="40" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
         </Grid>
     </Grid>

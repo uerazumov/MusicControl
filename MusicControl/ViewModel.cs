@@ -331,7 +331,7 @@ namespace MusicControl
         private void UpdateStopSessionParametrs()
         {
             _isSessionStarted = false;
-            _isSessionExist = false;
+            //_isSessionExist = false;
             _isSessionPaussed = false;
             DoPropertyChanged("PauseIsEnabled");
             DoPropertyChanged("ComboboxIsEnabled");

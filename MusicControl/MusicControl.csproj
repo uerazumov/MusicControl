@@ -127,62 +127,68 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VisualResources\BackgroundImage.png">
+    <Content Include="VisualResources\BackgroundImage.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VisualResources\icon.ico">
+    <Content Include="VisualResources\button.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
+    <Content Include="VisualResources\buttonActive.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VisualResources\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VisualResources\playButton.png">
+    <Content Include="VisualResources\playButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VisualResources\playButtonAction.png">
+    <Content Include="VisualResources\playButtonAction.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VisualResources\playButtonDisabled.png">
+    <Content Include="VisualResources\playButtonDisabled.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VisualResources\mainMenuButton.png">
+    <Content Include="VisualResources\mainMenuButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VisualResources\mainMenuButtonActive.png">
+    </Content>
+    <Content Include="VisualResources\mainMenuButtonActive.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VisualResources\mainMenuButtonDisabled.png">
+    </Content>
+    <Content Include="VisualResources\mainMenuButtonDisabled.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VisualResources\pauseButton.png">
+    </Content>
+    <Content Include="VisualResources\pauseButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VisualResources\pauseButtonActive.png">
+    </Content>
+    <Content Include="VisualResources\pauseButtonActive.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VisualResources\pauseButtonDisabled.png">
+    </Content>
+    <Content Include="VisualResources\pauseButtonDisabled.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VisualResources\stopButton.png">
+    <Content Include="VisualResources\stopButton.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VisualResources\stopButtonDisabled.png">
+    </Content>
+    <Content Include="VisualResources\stopButtonDisabled.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="VisualResources\stopButtonActive.png">
+    <Content Include="VisualResources\stopButtonActive.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,7 +10,8 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ResourcesDictionary.xaml"></ResourceDictionary>
+                <ResourceDictionary  Source="ResourcesDictionary.xaml"></ResourceDictionary>
+                <!--<ResourceDictionary Source="pack://application:,,,/MusicControl;component/ResourcesDictionary.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
