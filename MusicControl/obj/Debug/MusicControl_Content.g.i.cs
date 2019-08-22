@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/playbuttondisabled.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/stopbuttonactive.png")]
 
 

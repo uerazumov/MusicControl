@@ -5,6 +5,15 @@
     <ImageBrush x:Key="playButton" ImageSource="VisualResources\playButton.png"></ImageBrush>
     <ImageBrush x:Key="playButtonAction" ImageSource="VisualResources\playButtonAction.png"></ImageBrush>
     <ImageBrush x:Key="playButtonDisabled" ImageSource="VisualResources\playButtonDisabled.png"></ImageBrush>
+    <ImageBrush x:Key="stopButton" ImageSource="VisualResources\stopButton.png"></ImageBrush>
+    <ImageBrush x:Key="stopButtonAction" ImageSource="VisualResources\stopButtonActive.png"></ImageBrush>
+    <ImageBrush x:Key="stopButtonDisabled" ImageSource="VisualResources\stopButtonDisabled.png"></ImageBrush>
+    <ImageBrush x:Key="pauseButton" ImageSource="VisualResources\pauseButton.png"></ImageBrush>
+    <ImageBrush x:Key="pauseButtonAction" ImageSource="VisualResources\pauseButtonActive.png"></ImageBrush>
+    <ImageBrush x:Key="pauseButtonDisabled" ImageSource="VisualResources\pauseButtonDisabled.png"></ImageBrush>
+    <ImageBrush x:Key="mainMenuButton" ImageSource="VisualResources\mainMenuButton.png"></ImageBrush>
+    <ImageBrush x:Key="mainMenuButtonAction" ImageSource="VisualResources\mainMenuButtonActive.png"></ImageBrush>
+    <ImageBrush x:Key="mainMenuButtonDisabled" ImageSource="VisualResources\mainMenuButtonDisabled.png"></ImageBrush>
     <Style x:Key="ButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="90,10,90,10"></Setter>
         <Setter Property="FontSize" Value="50"></Setter>

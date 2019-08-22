@@ -51,3 +51,12 @@ C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicCont
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.csproj.CoreCompileInputs.cache
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ResourcesDictionary.baml
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\BackgroundImage.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\mainMenuButton.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\mainMenuButtonActive.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\mainMenuButtonDisabled.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\pauseButton.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\pauseButtonActive.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\pauseButtonDisabled.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\stopButton.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\stopButtonDisabled.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\stopButtonActive.png
