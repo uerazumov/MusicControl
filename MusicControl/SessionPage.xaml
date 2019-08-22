@@ -10,7 +10,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ResourceDictionary.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="ResourcesDictionary.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -70,7 +70,8 @@
                 <ColumnDefinition Width="120"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Content="►" FontSize="60" Grid.Column="0" Style="{StaticResource SessionButtonStyle}" IsEnabled="{Binding Source={StaticResource ViewModel}, Path=StartIsEnabled}" Command="{Binding Source={StaticResource ViewModel}, Path=DoStartSession}" HorizontalAlignment="Right"></Button>
+            <local:ControlButton IsButtonEnabled="{Binding Source={StaticResource ViewModel}, Path=StartIsEnabled}" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoStartSession}" x:Name="StartButton" Grid.Column="0" EnableBackgroundImage="{StaticResource playButton}" DisableBackgroundImage="{StaticResource playButtonDisabled}" EnableBackgroundImageActive="{StaticResource playButtonAction}"></local:ControlButton>
+            <!--<Button Content="►" FontSize="60" Grid.Column="0" Style="{StaticResource SessionButtonStyle}" IsEnabled="{Binding Source={StaticResource ViewModel}, Path=StartIsEnabled}" Command="{Binding Source={StaticResource ViewModel}, Path=DoStartSession}" HorizontalAlignment="Right"></Button>-->
             <Button Content="| |" FontSize="40" Grid.Column="1" Style="{StaticResource SessionButtonStyle}" IsEnabled="{Binding Source={StaticResource ViewModel}, Path=PauseIsEnabled}" Command="{Binding Source={StaticResource ViewModel}, Path=DoPauseSession}" HorizontalAlignment="Center"></Button>
             <Button Content="⚫" FontSize="40" Grid.Column="2" Style="{StaticResource SessionButtonStyle}" IsEnabled="{Binding Source={StaticResource ViewModel}, Path=StopIsEnabled}" Command="{Binding Source={StaticResource ViewModel}, Path=DoStopSession}" HorizontalAlignment="Left"></Button>
         </Grid>

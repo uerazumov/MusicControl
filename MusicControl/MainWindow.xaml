@@ -9,19 +9,14 @@
         Title="Управление сеансами звукозаписи" WindowStartupLocation="CenterScreen" Loaded="OnWindowLoaded" Closing="Close">
     <Window.Resources>
         <ResourceDictionary>
-            <FrameworkElement x:Key="KinectCursor" Cursor="VisualResources\Normal.cur"/>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ResourceDictionary.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="ResourcesDictionary.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Background="{StaticResource BackgroundImage}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="985*"/>
-            <ColumnDefinition Width="8*"/>
-        </Grid.ColumnDefinitions>
-        <Frame Name="Main" NavigationUIVisibility="Hidden" Source="/MusicControl;component/MainMenuPage.xaml" Grid.ColumnSpan="2"></Frame>
-        <DockPanel LastChildFill="True" Grid.ColumnSpan="2">
+    <Grid>
+        <Frame Background="{StaticResource BackgroundImage}" Name="Main" NavigationUIVisibility="Hidden" Source="/MusicControl;component/MainMenuPage.xaml" Grid.ColumnSpan="2"></Frame>
+        <DockPanel LastChildFill="True">
             <TextBlock Text="{Binding Source={StaticResource ViewModel}, Path=Clock}" FontSize="25" Margin="5,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         </DockPanel>
     </Grid>

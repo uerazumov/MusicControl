@@ -2,6 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:MusicControl">
     <ImageBrush x:Key="BackgroundImage" ImageSource="VisualResources\BackgroundImage.png"></ImageBrush>
+    <ImageBrush x:Key="playButton" ImageSource="VisualResources\playButton.png"></ImageBrush>
+    <ImageBrush x:Key="playButtonAction" ImageSource="VisualResources\playButtonAction.png"></ImageBrush>
+    <ImageBrush x:Key="playButtonDisabled" ImageSource="VisualResources\playButtonDisabled.png"></ImageBrush>
     <Style x:Key="ButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="90,10,90,10"></Setter>
         <Setter Property="FontSize" Value="50"></Setter>
