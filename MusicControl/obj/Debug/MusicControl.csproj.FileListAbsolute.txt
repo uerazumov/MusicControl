@@ -76,3 +76,6 @@ C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\s
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\stopButtonActive.png
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\button.png
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\buttonActive.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\button.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\buttonActive.png
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl_Content.g.cs

@@ -14,6 +14,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -29,7 +30,7 @@
             <!--<Button Grid.Column="0" Style="{StaticResource MainMenuButtonStyle}" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" HorizontalAlignment="Left"></Button>-->
             <TextBlock Style="{StaticResource HeadlineTextStyle}" HorizontalAlignment="Center" Text="Сеанс"></TextBlock>
         </Grid>
-        <ComboBox IsEnabled="{Binding Source={StaticResource ViewModel}, Path=ComboboxIsEnabled}" Name="ClientList"  Grid.Row="1" Margin="120,10,120,10" FontSize="30" ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Sessions}" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedSession, Mode=TwoWay}"></ComboBox>
+        <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Sessions}" Foreground="Black" Style="{StaticResource ComboBoxStyle}" IsEnabled="{Binding Source={StaticResource ViewModel}, Path=ComboboxIsEnabled}" Name="ClientList"  Grid.Row="1" Margin="120,10,120,10" FontSize="30" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedSession, Mode=TwoWay}"/>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
