@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MusicControl"
         mc:Ignorable="d"
-        Height="600" Width="1000"
+        Height="600" Width="1000" ResizeMode="NoResize"
         Title="Управление сеансами звукозаписи" WindowStartupLocation="CenterScreen" Loaded="OnWindowLoaded" Closing="Close">
     <Window.Resources>
         <ResourceDictionary>
@@ -18,7 +18,7 @@
     <Grid>
         <Frame Background="{StaticResource BackgroundImage}" Name="Main" NavigationUIVisibility="Hidden" Source="/MusicControl;component/MainMenuPage.xaml" Grid.ColumnSpan="2"></Frame>
         <DockPanel LastChildFill="True">
-            <TextBlock Text="{Binding Source={StaticResource ViewModel}, Path=Clock}" FontSize="25" Margin="5,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <TextBlock Text="{Binding Source={StaticResource ViewModel}, Path=Clock}" FontSize="25" Margin="5,10,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         </DockPanel>
     </Grid>
 </Window>

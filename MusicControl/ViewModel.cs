@@ -6,6 +6,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using System.Linq;
 
 namespace MusicControl
 {
@@ -23,7 +24,26 @@ namespace MusicControl
         private DateTime _timerStartTime;
         private TimeSpan _sessionDuration;
         private TimeSpan _pauseDuration;
-        private List<Session> _sessions;
+        private List<Session> _todaysSessions;
+        private List<Client> _clients;
+
+        public int ClientID
+        {
+            get { return _clients[_selectedClient].ClientID; }
+        }
+
+        public List<String> Clients
+        {
+            get
+            {
+                var clients = new List<String>();
+                for (int i = 0; i < _clients.Count; i++)
+                {
+                    clients.Add(_clients[i].ClientName);
+                }
+                return clients;
+            }
+        }
 
         private int _selectedSession;
         public int SelectedSession
@@ -40,6 +60,18 @@ namespace MusicControl
             }
         }
 
+        private int _selectedClient;
+        public int SelectedClient
+        {
+            get { return _selectedClient; }
+            set
+            {
+                _selectedClient = value;
+                DoPropertyChanged("ClientID");
+                DoPropertyChanged("TotalHours");
+            }
+        }
+
         public System.Windows.Media.Brush SessionTimeColor
         {
             get
@@ -51,7 +83,26 @@ namespace MusicControl
 
         public bool ComboboxIsEnabled
         {
-            get { return !_isSessionStarted; }
+            get { return !_isSessionStarted && (_todaysSessions.Count != 0); }
+        }
+
+        public string TotalHours
+        {
+            get
+            {
+                var time = new TimeSpan(0);
+                for (int i = 0; i < _clients[_selectedClient].Sessions.Count; i++)
+                {
+                    time += _clients[_selectedClient].Sessions[i].CurrentDuration;
+                }
+                if (time.Minutes != 0) return time.Hours.ToString() + "ч. " + time.Minutes.ToString() + "мин.";
+                else return time.Hours.ToString() + "ч. ";
+            }
+        }
+
+        public bool AddTimeIsEnabled
+        {
+            get { return _isSessionStarted && (_todaysSessions.Count != 0); }
         }
 
 
@@ -76,7 +127,7 @@ namespace MusicControl
 
         public bool StartIsEnabled
         {
-            get { return !_isSessionStarted || _isSessionPaussed; }
+            get { return (!_isSessionStarted || _isSessionPaussed) && (_todaysSessions.Count != 0); }
         }
 
         public bool StopIsEnabled
@@ -86,7 +137,7 @@ namespace MusicControl
 
         public bool PauseIsEnabled
         {
-            get { return !_isSessionPaussed; }
+            get { return _isSessionStarted && !_isSessionPaussed; }
         }
 
         public List<String> Sessions
@@ -94,9 +145,9 @@ namespace MusicControl
             get
             {
                 var sessions = new List<String>();
-                for(int i = 0; i < _sessions.Count; i++)
+                if (_todaysSessions.Count != 0) for (int i = 0; i < _todaysSessions.Count; i++)
                 {
-                    sessions.Add(_sessions[i].Client.ClientName + " " + _sessions[i].StartSessionTime.ToString("HH:mm") + "-" + _sessions[i].EndSessionTime.ToString("HH:mm"));
+                    sessions.Add(_clients.First(x => x.ClientID == _todaysSessions[i].ClientID).ClientName + " " + _todaysSessions[i].StartSessionTime.ToString("HH:mm") + "-" + _todaysSessions[i].EndSessionTime.ToString("HH:mm"));
                 }
                 return sessions;
             }
@@ -105,7 +156,11 @@ namespace MusicControl
         private TimeSpan _timeBalance;
         public String TimeBalance
         {
-            get { return _timeBalance.Hours.ToString() + ":" + _timeBalance.Minutes.ToString(); }
+            get
+            {
+                if (_timeBalance.Minutes != 0) return _timeBalance.Hours.ToString() + ":" + _timeBalance.Minutes.ToString();
+                else return _timeBalance.Hours.ToString() + "ч. ";
+            }
         }
         private TimeSpan _pauseTime;
         public string PauseTime
@@ -166,6 +221,7 @@ namespace MusicControl
             _isSessionPaussed = false;
             DoPropertyChanged("PauseIsEnabled");
             DoPropertyChanged("ComboboxIsEnabled");
+            DoPropertyChanged("AddTimeIsEnabled");
             DoPropertyChanged("StartIsEnabled");
             DoPropertyChanged("StopIsEnabled");
             _clockTimer = new System.Timers.Timer();
@@ -173,6 +229,51 @@ namespace MusicControl
             _clockTimer.Interval = 1000;
             _clockTimer.Start();
             ClockTick(new object(), new EventArgs());
+            _todaysSessions = new List<Session>();
+
+            _clients = new List<Client>();
+
+            List<Session> sessions = new List<Session>();
+            sessions = new List<Session>();
+            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 23, 11, 30, 0), 1, 1, new TimeSpan(1, 30, 0)));
+            sessions.Add(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 7, 21, 14, 00, 0), 2, 1, new TimeSpan(3, 0, 0)));
+            sessions.Add(new Session(new TimeSpan(4, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 21, 30, 0), 3, 1, new TimeSpan(0)));
+            _clients.Add(new Client(1, "Иванов Иван Иванович", new TimeSpan(2, 0, 0), new TimeSpan(0), sessions));
+
+            sessions = new List<Session>();
+            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 6, 22, 11, 30, 0), 4, 2, new TimeSpan(1, 0, 0)));
+            sessions.Add(new Session(new TimeSpan(3, 30, 0), new DateTime(2019, 7, 19, 14, 00, 0), 5, 2, new TimeSpan(3, 30, 0)));
+            sessions.Add(new Session(new TimeSpan(3, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 11, 30, 0), 6, 2, new TimeSpan(0)));
+            _clients.Add(new Client(2, "Петров Петр Иванович", new TimeSpan(3, 0, 0), new TimeSpan(0), sessions));
+
+            sessions = new List<Session>();
+            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 3, 11, 30, 0), 7, 3, new TimeSpan(2, 30, 0)));
+            sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(2019, 7, 1, 14, 00, 0), 8, 3, new TimeSpan(1, 30, 0)));
+            sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 01, 30, 0), 9, 3, new TimeSpan(0)));
+            sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 30, 0), 10, 3, new TimeSpan(0)));
+            _clients.Add(new Client(3, "Семёнов Иван Григорьевич", new TimeSpan(0), new TimeSpan(0), sessions));
+
+            sessions = new List<Session>();
+            _clients.Add(new Client(3, "Семёнов Иван Григорьевич", new TimeSpan(0), new TimeSpan(0), sessions));
+
+            sessions = new List<Session>();
+            sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2019, 6, 4, 11, 30, 0), 11, 4, new TimeSpan(2, 30, 0)));
+            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 2, 14, 00, 0), 12, 4, new TimeSpan(1, 30, 0)));
+            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 8, 23, 16, 30, 0), 13, 4, new TimeSpan(1, 0, 0)));
+            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 30, 0), 14, 4, new TimeSpan(0)));
+            _clients.Add(new Client(4, "Караванов Генадий Иванович", new TimeSpan(5, 30, 0), new TimeSpan(0), sessions));
+
+            sessions = new List<Session>();
+            sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2018, 6, 5, 11, 30, 0), 15, 5, new TimeSpan(1, 30, 0)));
+            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 6, 14, 00, 0), 16, 5, new TimeSpan(1, 30, 0)));
+            _clients.Add(new Client(5, "Сидоров Сергей Сергеевич", new TimeSpan(1, 0, 0), new TimeSpan(2, 0, 0), sessions));
+
+            sessions = new List<Session>();
+            sessions.Add(new Session(new TimeSpan(5, 30, 0), new DateTime(2018, 1, 5, 16, 30, 0), 16, 6, new TimeSpan(5, 30, 0)));
+            _clients.Add(new Client(6, "Куликов Петр Петрович", new TimeSpan(0), new TimeSpan(0), sessions));
+
+            sessions = new List<Session>();
+            _clients.Add(new Client(7, "Григорьев Иван Анатольевич", new TimeSpan(1, 30, 0), new TimeSpan(0), sessions));
         }
 
         public void SetNavigationService(Object page)
@@ -199,20 +300,37 @@ namespace MusicControl
 
         private void OpenClientInfoPage()
         {
-            //TODO
+            _navigationService?.Navigate(new Uri("ClientInfoPage.xaml", UriKind.Relative));
+        }
+
+        private void UpdateTodaysSessions()
+        {
+            var todaysClients = _clients.FindAll(x => x.Sessions.FindAll(y => y.StartSessionTime.Date == DateTime.Now.Date).Count != 0);
+            for (int i = 0; i < todaysClients.Count; i++)
+            {
+                var tempSessions = todaysClients[i].Sessions.FindAll(x => x.StartSessionTime.Date == DateTime.Now.Date);
+                for (int j = 0; j < tempSessions.Count; j++)
+                {
+                    _todaysSessions.Add(tempSessions[j]);
+                }
+            }
         }
 
         private void UpdateNewSessionParametrs(int index)
         {
-            _sessionTime = _sessions[index].SessionDuration;
+            UpdateTodaysSessions();
+            if (_todaysSessions.Count != 0) _sessionTime = _todaysSessions[index].SessionDuration;
+            else _sessionTime = new TimeSpan(0);
             _pauseTime = new TimeSpan(0, 1, 10, 0);
             _sessionDuration = _sessionTime;
             _pauseDuration = _pauseTime;
-            _timeBalance = _sessions[index].Client.TimeBalance;
+            if (_todaysSessions.Count != 0) _timeBalance = _clients.First(x => x.ClientID == _todaysSessions[index].ClientID).TimeBalance;
+            else _timeBalance = new TimeSpan(0);
             _isSessionExist = true;
             _isSessionPaussed = false;
             _isSessionStarted = false;
             DoPropertyChanged("ComboboxIsEnabled");
+            DoPropertyChanged("AddTimeIsEnabled");
             DoPropertyChanged("StartIsEnabled");
             DoPropertyChanged("StopIsEnabled");
             DoPropertyChanged("PauseIsEnabled");
@@ -223,16 +341,23 @@ namespace MusicControl
             DoPropertyChanged("UnpaidTimeVisibility");
         }
 
+        private void AddNewClient()
+        {
+            //TODO
+        }
+
+        private void EditClient()
+        {
+            //TODO
+        }
+
         private void OpenSessionPage()
         {
             if(!_isSessionExist)
             {
                 //TODO
-                _sessions = new List<Session>();
-                _sessions.Add(new Session(new TimeSpan(2, 0, 0), new Client(1, "Иванов Иван Иванович", new TimeSpan(3, 0, 0), new TimeSpan(0, 0, 0)), new DateTime(2019, 8, 20, 11, 30, 0), 1));
-                _sessions.Add(new Session(new TimeSpan(3, 0, 0), new Client(2, "Петров Петр Петрович", new TimeSpan(2, 0, 0), new TimeSpan(0, 0, 0)), new DateTime(2019, 8, 21, 14, 00, 0), 2));
-                _sessions.Add(new Session(new TimeSpan(4, 30, 0), new Client(3, "Семёнов Семён Семёнович", new TimeSpan(1, 30, 0), new TimeSpan(0, 0, 0)), new DateTime(2019, 8, 21, 21, 45, 0), 3));
-                UpdateNewSessionParametrs(0);
+
+                if (_todaysSessions.Count != 0) UpdateNewSessionParametrs(0);
                 _sessionTimer = new System.Timers.Timer();
                 _sessionTimer.Elapsed += new ElapsedEventHandler(SessionTick);
                 _sessionTimer.Interval = 300;
@@ -256,29 +381,29 @@ namespace MusicControl
 
         private void AddTime()
         {
-            if(_isSessionStarted)
+            if ((_isSessionStarted)&&(_todaysSessions.Count != 0))
             {
-                if (_selectedSession <= _sessions.Count - 2)
+                if (_selectedSession <= _todaysSessions.Count - 2)
                 {
                     int i = 1;
-                    while((_sessions[_selectedSession].Client.TimeBalance >= new TimeSpan(0, 15, 0)) && (_startTime + _sessions[_selectedSession].SessionDuration + (new TimeSpan(1, 10, 0) - _pauseTime) + new TimeSpan(0, i * 15, 0) < _sessions[_selectedSession + 1].StartSessionTime))
+                    while((_clients.First(x => x.ClientID == _todaysSessions[_selectedSession].ClientID).TimeBalance >= new TimeSpan(0, 15, 0)) && (_startTime + _todaysSessions[_selectedSession].SessionDuration + (new TimeSpan(1, 10, 0) - _pauseTime) + new TimeSpan(0, i * 15, 0) < _todaysSessions[_selectedSession + 1].StartSessionTime))
                     {
                         i++;
                         _sessionTime += new TimeSpan(0, 15, 0);
                         _sessionDuration += new TimeSpan(0, 15, 0);
-                        _sessions[_selectedSession].Client.TimeBalance -= new TimeSpan(0, 15, 0);
+                        _clients.First(x => x.ClientID == _todaysSessions[_selectedSession].ClientID).TimeBalance -= new TimeSpan(0, 15, 0);
                     }
-                    _timeBalance = _sessions[_selectedSession].Client.TimeBalance;
+                    _timeBalance = _clients.First(x => x.ClientID == _todaysSessions[_selectedSession].ClientID).TimeBalance;
                     DoPropertyChanged("SessionTime");
                     DoPropertyChanged("TimeBalance");
                 }
                 else
                 {
-                    _sessionTime += _sessions[_selectedSession].Client.TimeBalance;
-                    _sessionDuration += _sessions[_selectedSession].Client.TimeBalance;
+                    _sessionTime += _clients.First(x => x.ClientID == _todaysSessions[_selectedSession].ClientID).TimeBalance;
+                    _sessionDuration += _clients.First(x => x.ClientID == _todaysSessions[_selectedSession].ClientID).TimeBalance;
                     DoPropertyChanged("SessionTime");
-                    _sessions[_selectedSession].Client.TimeBalance = new TimeSpan(0, 0, 0);
-                    _timeBalance = _sessions[_selectedSession].Client.TimeBalance;
+                    _clients.First(x => x.ClientID == _todaysSessions[_selectedSession].ClientID).TimeBalance = new TimeSpan(0, 0, 0);
+                    _timeBalance = _clients.First(x => x.ClientID == _todaysSessions[_selectedSession].ClientID).TimeBalance;
                     DoPropertyChanged("TimeBalance");
                 }
             }
@@ -312,6 +437,8 @@ namespace MusicControl
                     _isSessionStarted = true;
                     DoPropertyChanged("StartIsEnabled");
                     DoPropertyChanged("StopIsEnabled");
+                    DoPropertyChanged("PauseIsEnabled");
+                    DoPropertyChanged("AddTimeIsEnabled");
                     DoPropertyChanged("ComboboxIsEnabled");
                     _sessionDuration = _sessionTime;
                 }
@@ -330,11 +457,12 @@ namespace MusicControl
 
         private void UpdateStopSessionParametrs()
         {
+            UpdateTodaysSessions();
             _isSessionStarted = false;
-            //_isSessionExist = false;
             _isSessionPaussed = false;
             DoPropertyChanged("PauseIsEnabled");
             DoPropertyChanged("ComboboxIsEnabled");
+            DoPropertyChanged("AddTimeIsEnabled");
             DoPropertyChanged("StartIsEnabled");
             DoPropertyChanged("StopIsEnabled");
             _sessionTimer.Stop();
@@ -351,20 +479,23 @@ namespace MusicControl
                 if (_sessionTime.Ticks >= 0)
                 {
                     _timeBalance += new TimeSpan(_sessionTime.Hours, (_sessionTime.Minutes / 15) * 15, 0);
-                    _sessionTime = new TimeSpan(0, 0, 0);
-                    _sessions[_selectedSession].Client.TimeBalance = _timeBalance;
-                    _sessions[_selectedSession].SessionDuration = _sessionTime;
+                    _clients.First(x => x.ClientID == _todaysSessions[_selectedSession].ClientID).TimeBalance = _timeBalance;
                     DoPropertyChanged("TimeBalance");
-                    DoPropertyChanged("SessionTime");
                 }
                 else
                 {
                     int temp = 0;
                     if (_sessionTime.Minutes > 31) temp++;
                     _unpaidTime = new TimeSpan(Math.Abs(_sessionTime.Hours), (Math.Abs(_sessionTime.Minutes / 30) + temp) * 30, 0);
+                    _sessionTime = new TimeSpan(0, 0, 0);
                     DoPropertyChanged("UnpaidTime");
                     DoPropertyChanged("UnpaidTimeVisibility");
                 }
+                _todaysSessions[_selectedSession].SessionDuration = _sessionTime;
+                _todaysSessions[_selectedSession].CurrentDuration += _sessionDuration - _sessionTime;
+                _sessionTime = new TimeSpan(0, 0, 0);
+                DoPropertyChanged("SessionTime");
+                DoPropertyChanged("StopIsEnabled");
             }
         }
 
@@ -544,7 +675,38 @@ namespace MusicControl
                 return _doAddTime;
             }
         }
-
         
+
+        private ICommand _doAddNewClient;
+
+        public ICommand DoAddNewClient
+        {
+            get
+            {
+                if (_doAddNewClient == null)
+                {
+                    _doAddNewClient = new Command(
+                        p => true,
+                        p => AddNewClient());
+                }
+                return _doAddNewClient;
+            }
+        }
+
+        private ICommand _doEditClient;
+
+        public ICommand DoEditClient
+        {
+            get
+            {
+                if (_doEditClient == null)
+                {
+                    _doEditClient = new Command(
+                        p => true,
+                        p => EditClient());
+                }
+                return _doEditClient;
+            }
+        }
     }
 }

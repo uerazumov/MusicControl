@@ -79,3 +79,11 @@ C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\b
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\button.png
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\VisualResources\buttonActive.png
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl_Content.g.cs
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.csprojAssemblyReference.cache
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\ClientInfoPage.g.cs
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\ClientInfoPage.baml
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\plusButton.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\plusButtonActive.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\editButton.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\editButtonActive.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\buttonDisabled.png

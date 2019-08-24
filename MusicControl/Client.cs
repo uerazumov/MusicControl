@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace MusicControl
 {
-    class Client
+    public class Client
     {
         private int _clientID;
         private string _clientName;
         private TimeSpan _timeBalance;
         private TimeSpan _unpaidTime;
+        private List<Session> _sessions;
+
+        public List<Session> Sessions
+        {
+            get { return _sessions; }
+            set { _sessions = value; }
+        }
 
         public TimeSpan UnpaidTime
         {
@@ -37,12 +44,13 @@ namespace MusicControl
             set { _clientName = value; }
         }
 
-        public Client(int clientID, string clientName, TimeSpan timeBalance, TimeSpan unpaidTime)
+        public Client(int clientID, string clientName, TimeSpan timeBalance, TimeSpan unpaidTime, List<Session> sessions)
         {
             _clientID = clientID;
             _clientName = clientName;
             _timeBalance = timeBalance;
             _unpaidTime = unpaidTime;
+            _sessions = sessions;
         }
     }
 }

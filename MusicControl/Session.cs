@@ -6,14 +6,25 @@ using System.Threading.Tasks;
 
 namespace MusicControl
 {
-    class Session
+    public class Session
     {
         private TimeSpan _sessionDuration;
-        private Client _client;
         private DateTime _startSessionTime;
         private DateTime _endSessionTime;
         private int _sessionID;
+        private int _clientID;
+        private TimeSpan _currentDuration;
 
+        public TimeSpan CurrentDuration
+        {
+            get { return _currentDuration; }
+            set { _currentDuration = value; }
+        }
+        public int ClientID
+        {
+            get { return _clientID; }
+            set { _clientID = value; }
+        }
         public int SessionID
         {
             get { return _sessionID; }
@@ -23,11 +34,6 @@ namespace MusicControl
         {
             get { return _sessionDuration; }
             set { _sessionDuration = value; }
-        }
-        public Client Client
-        {
-            get { return _client; }
-            set { _client = value; }
         }
         public DateTime StartSessionTime
         {
@@ -41,13 +47,14 @@ namespace MusicControl
             set { _endSessionTime = value; }
         }
 
-        public Session(TimeSpan sessionDuration, Client client, DateTime startSessionTime, int sessionID)
+        public Session(TimeSpan sessionDuration, DateTime startSessionTime, int sessionID, int clientID, TimeSpan currentDuration)
         {
             _sessionDuration = sessionDuration;
-            _client = client;
             _startSessionTime = startSessionTime;
             _sessionID = sessionID;
+            _clientID = clientID;
             _endSessionTime = startSessionTime + sessionDuration;
+            _currentDuration = currentDuration;
         }
     }
 }

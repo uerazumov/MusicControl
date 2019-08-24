@@ -14,6 +14,10 @@
     <ImageBrush x:Key="mainMenuButton" ImageSource="/MusicControl;component/VisualResources/mainMenuButton.png"></ImageBrush>
     <ImageBrush x:Key="mainMenuButtonAction" ImageSource="/MusicControl;component/VisualResources/mainMenuButtonActive.png"></ImageBrush>
     <ImageBrush x:Key="mainMenuButtonDisabled" ImageSource="/MusicControl;component/VisualResources/mainMenuButtonDisabled.png"></ImageBrush>
+    <ImageBrush x:Key="addNewClientButton" ImageSource="/MusicControl;component/VisualResources/plusButton.png"></ImageBrush>
+    <ImageBrush x:Key="addNewClientButtonAction" ImageSource="/MusicControl;component/VisualResources/plusButtonActive.png"></ImageBrush>
+    <ImageBrush x:Key="editClientButton" ImageSource="/MusicControl;component/VisualResources/editButton.png"></ImageBrush>
+    <ImageBrush x:Key="editClientButtonAction" ImageSource="/MusicControl;component/VisualResources/editButtonActive.png"></ImageBrush>
     <Style x:Key="MainMenuButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="10,10,10,10"></Setter>
         <Setter Property="BorderThickness" Value="0"></Setter>
@@ -52,6 +56,13 @@
                                         <Setter Property="Border.Background">
                                             <Setter.Value>
                                                 <ImageBrush ImageSource="/MusicControl;component/VisualResources/buttonActive.png"></ImageBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="Border.IsEnabled" Value="False">
+                                        <Setter Property="Border.Background">
+                                            <Setter.Value>
+                                                <ImageBrush ImageSource="/MusicControl;component/VisualResources/buttonDisabled.png"></ImageBrush>
                                             </Setter.Value>
                                         </Setter>
                                     </Trigger>
@@ -111,7 +122,7 @@
                 <Setter TargetName="Border" Property="Background" Value="#A1D3A2" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="Border" Property="Background" Value="#EEEEEE" />
+                <Setter TargetName="Border" Property="Background" Value="#E1E1E1" />
                 <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
                 <Setter Property="Foreground" Value="#888888"/>
                 <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
@@ -174,7 +185,7 @@
                             <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="#888888"/>
+                            <Setter Property="Foreground" Value="#E1E1E1"/>
                         </Trigger>
                         <Trigger Property="IsGrouping" Value="true">
                             <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>

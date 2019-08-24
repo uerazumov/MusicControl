@@ -41,5 +41,25 @@ namespace MusicControl
             _vm.AssignMainWindow(this);
             //Main.NavigationService.Navigated += (obj, args) => { Main.NavigationService.RemoveBackEntry(); };
         }
+
+        public bool GetStopButtonStatus()
+        {
+            return _vm.StopIsEnabled;
+        }
+
+        public bool GetPauseButtonStatus()
+        {
+            return _vm.PauseIsEnabled;
+        }
+
+        public bool GetStartButtonStatus()
+        {
+            return _vm.StartIsEnabled;
+        }
+
+        public List<String> GetSessions()
+        {
+            return _vm.Sessions;
+        }
     }
 }

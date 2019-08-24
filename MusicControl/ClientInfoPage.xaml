@@ -1,0 +1,46 @@
+﻿<Page x:Class="MusicControl.ClientInfoPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MusicControl"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="ClientInfoPage">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourcesDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="110"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <local:ControlButton Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" x:Name="MainMenuButton" EnableBackgroundImage="{StaticResource mainMenuButton}" DisableBackgroundImage="{StaticResource mainMenuButtonDisabled}" EnableBackgroundImageActive="{StaticResource mainMenuButtonAction}"></local:ControlButton>
+        <TextBlock Grid.RowSpan="2" Grid.Row="0" Style="{StaticResource HeadlineTextStyle}" HorizontalAlignment="Center" Text="Информация о клиентах"></TextBlock>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Clients}" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="ClientsList"  Grid.Row="1" Margin="100,30,10,30" FontSize="30" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedClient, Mode=TwoWay}" />
+            <local:ControlButton Grid.Row="1" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoAddNewClient}" x:Name="AddNewClientButton" Grid.Column="1" EnableBackgroundImage="{StaticResource addNewClientButton}" DisableBackgroundImage="{StaticResource addNewClientButton}" EnableBackgroundImageActive="{StaticResource addNewClientButtonAction}"/>
+            <local:ControlButton Margin="110,0,0,0" Grid.Row="1" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoEditClient}" x:Name="EditClientButton" Grid.Column="1" EnableBackgroundImage="{StaticResource editClientButton}" DisableBackgroundImage="{StaticResource editClientButton}" EnableBackgroundImageActive="{StaticResource editClientButtonAction}"/>
+        </Grid>
+        <TextBlock Margin="20,0,0,0" Text="ID Клиента:" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="190,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=ClientID}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="20,0,0,0" Text="Общее число часов на студии:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="455,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=TotalHours}" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+    </Grid>
+</Page>
