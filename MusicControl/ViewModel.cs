@@ -45,6 +45,19 @@ namespace MusicControl
             }
         }
 
+        public List<String> ClientSessions
+        {
+            get
+            {
+                var clientSessions = new List<String>();
+                for (int i = 0; i < _clients[_selectedClient].Sessions.Count; i++)
+                {
+                    clientSessions.Add(_clients[_selectedClient].Sessions[i].StartSessionTime.ToString("yyyy/MM/dd/ HH:mm") + "-" + (_clients[_selectedClient].Sessions[i].StartSessionTime + _clients[_selectedClient].Sessions[i].SessionDuration).ToString("HH:mm"));
+                }
+                return clientSessions;
+            }
+        }
+
         private int _selectedSession;
         public int SelectedSession
         {
@@ -60,6 +73,19 @@ namespace MusicControl
             }
         }
 
+        private int _selectedClientSession;
+        public int SelectedClientSession
+        {
+            get { return _selectedClientSession; }
+            set
+            {
+                _selectedClientSession = value;
+                DoPropertyChanged("SelectedClientSession");
+                DoPropertyChanged("UnpaidTime");
+                DoPropertyChanged("CurrentClientSessionTime");
+            }
+        }
+
         private int _selectedClient;
         public int SelectedClient
         {
@@ -69,6 +95,23 @@ namespace MusicControl
                 _selectedClient = value;
                 DoPropertyChanged("ClientID");
                 DoPropertyChanged("TotalHours");
+                DoPropertyChanged("TotalHoursPerYear");
+                DoPropertyChanged("ClientTimeBalance");
+                DoPropertyChanged("ClientSessions");
+                SelectedClientSession = 0;
+            }
+        }
+
+        public String CurrentClientSessionTime
+        {
+            get
+            {
+                if ((_clients[_selectedClient].Sessions.Count != 0) && (_selectedClientSession >= 0))
+                {
+                    if (_clients[_selectedClient].Sessions[_selectedClientSession].CurrentDuration.Minutes != 0) return _clients[_selectedClient].Sessions[_selectedClientSession].CurrentDuration.Hours.ToString() + "ч. " + _clients[_selectedClient].Sessions[_selectedClientSession].CurrentDuration.Minutes.ToString() + "мин.";
+                    else return _clients[_selectedClient].Sessions[_selectedClientSession].CurrentDuration.Hours.ToString() + "ч. ";
+                }
+                else return "--:--";
             }
         }
 
@@ -100,6 +143,30 @@ namespace MusicControl
             }
         }
 
+        public String ClientTimeBalance
+        {
+            get
+            {
+                if (_clients[_selectedClient].TimeBalance.Minutes != 0) return _clients[_selectedClient].TimeBalance.Hours.ToString() + "ч. " + _clients[_selectedClient].TimeBalance.Minutes.ToString() + "мин.";
+                else return _clients[_selectedClient].TimeBalance.Hours.ToString() + "ч. ";
+            }
+        }
+
+        public string TotalHoursPerYear
+        {
+            get
+            {
+                var time = new TimeSpan(0);
+                for (int i = 0; i < _clients[_selectedClient].Sessions.Count; i++)
+                {
+                    if (_clients[_selectedClient].Sessions[i].StartSessionTime > DateTime.Now - new TimeSpan(365,0,0,0))
+                    time += _clients[_selectedClient].Sessions[i].CurrentDuration;
+                }
+                if (time.Minutes != 0) return time.Hours.ToString() + "ч. " + time.Minutes.ToString() + "мин.";
+                else return time.Hours.ToString() + "ч. ";
+            }
+        }
+
         public bool AddTimeIsEnabled
         {
             get { return _isSessionStarted && (_todaysSessions.Count != 0); }
@@ -120,6 +187,19 @@ namespace MusicControl
         {
             get
             {
+                if (_clients[_selectedClient].UnpaidTime.Ticks != 0)
+                {
+                    if (_clients[_selectedClient].UnpaidTime.Minutes != 0) return _clients[_selectedClient].UnpaidTime.Hours.ToString() + "ч. " + _clients[_selectedClient].UnpaidTime.Minutes.ToString() + "мин.";
+                    else return _clients[_selectedClient].UnpaidTime.Hours.ToString() + "ч. ";
+                }
+                else return "--:--";
+            }
+        }
+
+        public String ClientUnpaidTime
+        {
+            get
+            {
                 if (_unpaidTime != null) return ((TimeSpan)_unpaidTime).Hours.ToString() + ":" + ((TimeSpan)_unpaidTime).Minutes.ToString();
                 else return "--:--";
             }
@@ -133,6 +213,11 @@ namespace MusicControl
         public bool StopIsEnabled
         {
             get { return _isSessionStarted; }
+        }
+
+        public bool UpdateIsEnabled
+        {
+            get { return !_isSessionStarted; }
         }
 
         public bool PauseIsEnabled
@@ -224,6 +309,7 @@ namespace MusicControl
             DoPropertyChanged("AddTimeIsEnabled");
             DoPropertyChanged("StartIsEnabled");
             DoPropertyChanged("StopIsEnabled");
+            DoPropertyChanged("UpdateIsEnabled");
             _clockTimer = new System.Timers.Timer();
             _clockTimer.Elapsed += new ElapsedEventHandler(ClockTick);
             _clockTimer.Interval = 1000;
@@ -333,6 +419,7 @@ namespace MusicControl
             DoPropertyChanged("AddTimeIsEnabled");
             DoPropertyChanged("StartIsEnabled");
             DoPropertyChanged("StopIsEnabled");
+            DoPropertyChanged("UpdateIsEnabled");
             DoPropertyChanged("PauseIsEnabled");
             _startTime = null;
             _endTime = null;
@@ -437,6 +524,7 @@ namespace MusicControl
                     _isSessionStarted = true;
                     DoPropertyChanged("StartIsEnabled");
                     DoPropertyChanged("StopIsEnabled");
+                    DoPropertyChanged("UpdateIsEnabled");
                     DoPropertyChanged("PauseIsEnabled");
                     DoPropertyChanged("AddTimeIsEnabled");
                     DoPropertyChanged("ComboboxIsEnabled");
@@ -465,6 +553,7 @@ namespace MusicControl
             DoPropertyChanged("AddTimeIsEnabled");
             DoPropertyChanged("StartIsEnabled");
             DoPropertyChanged("StopIsEnabled");
+            DoPropertyChanged("UpdateIsEnabled");
             _sessionTimer.Stop();
             _pauseTimer.Stop();
         }
@@ -487,6 +576,7 @@ namespace MusicControl
                     int temp = 0;
                     if (_sessionTime.Minutes > 31) temp++;
                     _unpaidTime = new TimeSpan(Math.Abs(_sessionTime.Hours), (Math.Abs(_sessionTime.Minutes / 30) + temp) * 30, 0);
+                    _clients.First(x => x.ClientID == _todaysSessions[_selectedSession].ClientID).UnpaidTime = (TimeSpan)_unpaidTime;
                     _sessionTime = new TimeSpan(0, 0, 0);
                     DoPropertyChanged("UnpaidTime");
                     DoPropertyChanged("UnpaidTimeVisibility");
@@ -496,6 +586,7 @@ namespace MusicControl
                 _sessionTime = new TimeSpan(0, 0, 0);
                 DoPropertyChanged("SessionTime");
                 DoPropertyChanged("StopIsEnabled");
+                DoPropertyChanged("UpdateIsEnabled");
             }
         }
 
@@ -706,6 +797,22 @@ namespace MusicControl
                         p => EditClient());
                 }
                 return _doEditClient;
+            }
+        }
+
+        private ICommand _doUpdateNewSessionParametrs;
+
+        public ICommand DoUpdateNewSessionParametrs
+        {
+            get
+            {
+                if (_doUpdateNewSessionParametrs == null)
+                {
+                    _doUpdateNewSessionParametrs = new Command(
+                        p => true,
+                        p => UpdateNewSessionParametrs(0));
+                }
+                return _doUpdateNewSessionParametrs;
             }
         }
     }

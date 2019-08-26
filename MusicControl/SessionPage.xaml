@@ -30,6 +30,8 @@
             <TextBlock Style="{StaticResource HeadlineTextStyle}" HorizontalAlignment="Center" Text="Сеанс"></TextBlock>
         </Grid>
         <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Sessions}" Foreground="Black" Style="{StaticResource ComboBoxStyle}" IsEnabled="{Binding Source={StaticResource ViewModel}, Path=ComboboxIsEnabled}" Name="SessionsList"  Grid.Row="1" Margin="120,10,120,10" FontSize="30" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedSession, Mode=TwoWay}"/>
+        <local:ControlButton Margin="0,0,0,30" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" IsButtonEnabled="{Binding Source={StaticResource ViewModel}, Path=UpdateIsEnabled}" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoUpdateNewSessionParametrs}" x:Name="UpdateButton" Grid.Row="0" EnableBackgroundImage="{StaticResource updateButton}" DisableBackgroundImage="{StaticResource updateButtonDisabled}" EnableBackgroundImageActive="{StaticResource updateButtonAction}"></local:ControlButton>
+
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>

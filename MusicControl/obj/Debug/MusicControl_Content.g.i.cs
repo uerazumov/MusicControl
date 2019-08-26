@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/backgroundimage.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/updatebutton.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/updatebuttonactive.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/updatebuttondisabled.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/button.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/buttonactive.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/buttondisabled.png")]

@@ -18,6 +18,9 @@
     <ImageBrush x:Key="addNewClientButtonAction" ImageSource="/MusicControl;component/VisualResources/plusButtonActive.png"></ImageBrush>
     <ImageBrush x:Key="editClientButton" ImageSource="/MusicControl;component/VisualResources/editButton.png"></ImageBrush>
     <ImageBrush x:Key="editClientButtonAction" ImageSource="/MusicControl;component/VisualResources/editButtonActive.png"></ImageBrush>
+    <ImageBrush x:Key="updateButton" ImageSource="/MusicControl;component/VisualResources/updateButton.png"></ImageBrush>
+    <ImageBrush x:Key="updateButtonAction" ImageSource="/MusicControl;component/VisualResources/updateButtonActive.png"></ImageBrush>
+    <ImageBrush x:Key="updateButtonDisabled" ImageSource="/MusicControl;component/VisualResources/updateButtonDisabled.png"></ImageBrush>
     <Style x:Key="MainMenuButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="10,10,10,10"></Setter>
         <Setter Property="BorderThickness" Value="0"></Setter>

@@ -23,15 +23,17 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
         <local:ControlButton Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" x:Name="MainMenuButton" EnableBackgroundImage="{StaticResource mainMenuButton}" DisableBackgroundImage="{StaticResource mainMenuButtonDisabled}" EnableBackgroundImageActive="{StaticResource mainMenuButtonAction}"></local:ControlButton>
         <TextBlock Grid.RowSpan="2" Grid.Row="0" Style="{StaticResource HeadlineTextStyle}" HorizontalAlignment="Center" Text="Информация о клиентах"></TextBlock>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                <ColumnDefinition Width="1.8*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Clients}" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="ClientsList"  Grid.Row="1" Margin="100,30,10,30" FontSize="30" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedClient, Mode=TwoWay}" />
@@ -42,5 +44,15 @@
         <TextBlock Margin="190,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=ClientID}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="20,0,0,0" Text="Общее число часов на студии:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="455,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=TotalHours}" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="20,0,0,0" Text="Число часов на студии (за год):" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="465,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=TotalHoursPerYear}" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="20,0,0,0" Text="Остаток времени:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="280,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=ClientTimeBalance}" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="20,0,0,0" Text="Неоплаченное время:" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="335,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=UnpaidTime}" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="20,0,0,0" Text="Информация о сеансах:" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=ClientSessions}" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="SessionsList"  Grid.Row="9" Margin="20,5,500,0" FontSize="30" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedClientSession, Mode=TwoWay}" />
+        <TextBlock Margin="20,0,0,0" Text="Фактическое время на студии:" Grid.Row="10" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBlock Margin="450,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=CurrentClientSessionTime}" Grid.Row="10" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
     </Grid>
 </Page>
