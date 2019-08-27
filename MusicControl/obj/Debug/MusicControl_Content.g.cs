@@ -8,7 +8,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/applybutton.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/applybuttonactive.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/applybuttondisabled.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/backgroundimage.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/cancelbutton.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/cancelbuttonactive.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/cancelbuttondisabled.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/textbox.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/updatebutton.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/updatebuttonactive.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/updatebuttondisabled.png")]

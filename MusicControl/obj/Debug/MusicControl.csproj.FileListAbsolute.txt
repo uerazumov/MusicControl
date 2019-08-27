@@ -90,3 +90,10 @@ C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\b
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\updateButton.png
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\updateButtonActive.png
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\updateButtonDisabled.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\textBox.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\applyButton.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\applyButtonActive.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\applyButtonDisabled.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\cancelButton.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\cancelButtonActive.png
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\VisualResources\cancelButtonDisabled.png

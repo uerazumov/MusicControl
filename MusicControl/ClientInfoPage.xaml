@@ -36,12 +36,24 @@
                 <ColumnDefinition Width="1.8*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Clients}" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="ClientsList"  Grid.Row="1" Margin="100,30,10,30" FontSize="30" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedClient, Mode=TwoWay}" />
-            <local:ControlButton Grid.Row="1" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoAddNewClient}" x:Name="AddNewClientButton" Grid.Column="1" EnableBackgroundImage="{StaticResource addNewClientButton}" DisableBackgroundImage="{StaticResource addNewClientButton}" EnableBackgroundImageActive="{StaticResource addNewClientButtonAction}"/>
-            <local:ControlButton Margin="110,0,0,0" Grid.Row="1" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoEditClient}" x:Name="EditClientButton" Grid.Column="1" EnableBackgroundImage="{StaticResource editClientButton}" DisableBackgroundImage="{StaticResource editClientButton}" EnableBackgroundImageActive="{StaticResource editClientButtonAction}"/>
+            <ComboBox IsEnabled="{Binding Source={StaticResource ViewModel}, Path=ClientInfoIsEnabled}" ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Clients}" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="ClientsList"  Grid.Row="1" Margin="100,30,10,30" FontSize="30" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedClient, Mode=TwoWay}" />
+            <local:ControlButton Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}" Grid.Row="1" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoApplyNewClient}" x:Name="ApplyNewClient" Grid.Column="1" EnableBackgroundImage="{StaticResource applyButton}" DisableBackgroundImage="{StaticResource applyButton}" EnableBackgroundImageActive="{StaticResource applyButtonAction}"/>
+            <local:ControlButton Visibility="{Binding Source={StaticResource ViewModel}, Path=AddButtonVisibility}" Grid.Row="1" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoAddNewClient}" x:Name="AddNewClientButton" Grid.Column="1" EnableBackgroundImage="{StaticResource addNewClientButton}" DisableBackgroundImage="{StaticResource addNewClientButton}" EnableBackgroundImageActive="{StaticResource addNewClientButtonAction}"/>
+            <local:ControlButton Visibility="{Binding Source={StaticResource ViewModel}, Path=AddButtonVisibility}" Margin="110,0,0,0" Grid.Row="1" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoEditClient}" x:Name="EditClientButton" Grid.Column="1" EnableBackgroundImage="{StaticResource editClientButton}" DisableBackgroundImage="{StaticResource editClientButton}" EnableBackgroundImageActive="{StaticResource editClientButtonAction}"/>
+            <local:ControlButton Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}" Margin="110,0,0,0" Grid.Row="1" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoCancel}" x:Name="CancelButton" Grid.Column="1" EnableBackgroundImage="{StaticResource cancelButton}" DisableBackgroundImage="{StaticResource cancelButton}" EnableBackgroundImageActive="{StaticResource cancelButtonAction}"/>
         </Grid>
         <TextBlock Margin="20,0,0,0" Text="ID Клиента:" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="190,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=ClientID}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
+        <TextBox x:Name="AddNewClientTextBox" Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}" Grid.Row="2" Margin="350,0,50,0" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="30">
+            <TextBox.Template>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid >
+                        <Rectangle Stroke="{StaticResource textBoxImage}" StrokeThickness="1"/>
+                        <TextBox Background="{StaticResource textBoxImage}" Margin="1" Text="{TemplateBinding Text}" BorderThickness="0"/>
+                    </Grid>
+                </ControlTemplate>
+            </TextBox.Template>
+        </TextBox>
         <TextBlock Margin="20,0,0,0" Text="Общее число часов на студии:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="455,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=TotalHours}" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="20,0,0,0" Text="Число часов на студии (за год):" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
@@ -51,7 +63,7 @@
         <TextBlock Margin="20,0,0,0" Text="Неоплаченное время:" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="335,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=UnpaidTime}" Grid.Row="6" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="20,0,0,0" Text="Информация о сеансах:" Grid.Row="8" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
-        <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=ClientSessions}" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="SessionsList"  Grid.Row="9" Margin="20,5,500,0" FontSize="30" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedClientSession, Mode=TwoWay}" />
+        <ComboBox IsEnabled="{Binding Source={StaticResource ViewModel}, Path=ClientInfoIsEnabled}" ItemsSource="{Binding Source={StaticResource ViewModel}, Path=ClientSessions}" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="SessionsList"  Grid.Row="9" Margin="20,5,500,0" FontSize="30" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedClientSession, Mode=TwoWay}" />
         <TextBlock Margin="20,0,0,0" Text="Фактическое время на студии:" Grid.Row="10" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="450,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=CurrentClientSessionTime}" Grid.Row="10" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
     </Grid>

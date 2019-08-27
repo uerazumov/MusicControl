@@ -183,6 +183,34 @@ namespace MusicControl
             }
         }
 
+        private bool _addBoxVisibility;
+
+        public Visibility AddBoxVisibility
+        {
+            get
+            {
+                if (_addBoxVisibility) return Visibility.Visible;
+                else return Visibility.Hidden;
+            }
+        }
+
+        public Visibility AddButtonVisibility
+        {
+            get
+            {
+                if (!_addBoxVisibility) return Visibility.Visible;
+                else return Visibility.Hidden;
+            }
+        }
+
+        public bool ClientInfoIsEnabled
+        {
+            get
+            {
+                return !_addBoxVisibility;
+            }
+        }
+
         public String UnpaidTime
         {
             get
@@ -386,6 +414,9 @@ namespace MusicControl
 
         private void OpenClientInfoPage()
         {
+            _addBoxVisibility = false;
+            DoPropertyChanged("AddBoxVisibility");
+            DoPropertyChanged("AddButtonVisibility");
             _navigationService?.Navigate(new Uri("ClientInfoPage.xaml", UriKind.Relative));
         }
 
@@ -430,7 +461,26 @@ namespace MusicControl
 
         private void AddNewClient()
         {
-            //TODO
+            _addBoxVisibility = true;
+            DoPropertyChanged("ClientInfoIsEnabled");
+            DoPropertyChanged("AddBoxVisibility");
+            DoPropertyChanged("AddButtonVisibility");
+        }
+
+        private void ApplyNewClient()
+        {
+            _addBoxVisibility = false;
+            DoPropertyChanged("ClientInfoIsEnabled");
+            DoPropertyChanged("AddBoxVisibility");
+            DoPropertyChanged("AddButtonVisibility");
+        }
+
+        private void Cancel()
+        {
+            _addBoxVisibility = false;
+            DoPropertyChanged("ClientInfoIsEnabled");
+            DoPropertyChanged("AddBoxVisibility");
+            DoPropertyChanged("AddButtonVisibility");
         }
 
         private void EditClient()
@@ -813,6 +863,38 @@ namespace MusicControl
                         p => UpdateNewSessionParametrs(0));
                 }
                 return _doUpdateNewSessionParametrs;
+            }
+        }
+
+        private ICommand _doApplyNewClient;
+
+        public ICommand DoApplyNewClient
+        {
+            get
+            {
+                if (_doApplyNewClient == null)
+                {
+                    _doApplyNewClient = new Command(
+                        p => true,
+                        p => ApplyNewClient());
+                }
+                return _doApplyNewClient;
+            }
+        }
+
+        private ICommand _doCancel;
+
+        public ICommand DoCancel
+        {
+            get
+            {
+                if (_doCancel == null)
+                {
+                    _doCancel = new Command(
+                        p => true,
+                        p => Cancel());
+                }
+                return _doCancel;
             }
         }
     }
