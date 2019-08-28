@@ -208,8 +208,11 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-        </Style.Triggers>
+        <!--<Style.Triggers>
+            <Trigger Property="SelectedItem" Value="{x:Null}">
+                <Setter Property="SelectedIndex" Value="0" />
+            </Trigger>
+        </Style.Triggers>-->
     </Style>
 
     <!-- SimpleStyles: ComboBoxItem -->
