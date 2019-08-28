@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Linq;
+using System.Windows.Controls;
 
 namespace MusicControl
 {
@@ -26,6 +27,20 @@ namespace MusicControl
         private TimeSpan _pauseDuration;
         private List<Session> _todaysSessions;
         private List<Client> _clients;
+        private bool _isEditMode;
+
+        private string _newClientName;
+        private TextBox _clientNameTextBox;
+
+        public string NewClientName
+        {
+            get { return _newClientName; }
+            set
+            {
+                _newClientName = value;
+                DoPropertyChanged("NewClientName");
+            }
+        }
 
         public int ClientID
         {
@@ -420,6 +435,13 @@ namespace MusicControl
             _navigationService?.Navigate(new Uri("ClientInfoPage.xaml", UriKind.Relative));
         }
 
+        public void SetClientNameTextBox(TextBox textBox)
+        {
+            _clientNameTextBox = textBox;
+            _newClientName = "Введите ФИО";
+            DoPropertyChanged("NewClientName");
+        }
+
         private void UpdateTodaysSessions()
         {
             var todaysClients = _clients.FindAll(x => x.Sessions.FindAll(y => y.StartSessionTime.Date == DateTime.Now.Date).Count != 0);
@@ -461,18 +483,44 @@ namespace MusicControl
 
         private void AddNewClient()
         {
+            _isEditMode = false;
             _addBoxVisibility = true;
             DoPropertyChanged("ClientInfoIsEnabled");
             DoPropertyChanged("AddBoxVisibility");
             DoPropertyChanged("AddButtonVisibility");
+            _clientNameTextBox.Focus();
+            _clientNameTextBox.SelectAll();
         }
 
         private void ApplyNewClient()
         {
-            _addBoxVisibility = false;
-            DoPropertyChanged("ClientInfoIsEnabled");
-            DoPropertyChanged("AddBoxVisibility");
-            DoPropertyChanged("AddButtonVisibility");
+            if (!Validation.GetHasError(_clientNameTextBox))
+            {
+                if (!_isEditMode)
+                {
+                    _addBoxVisibility = false;
+                    var sessionsList = new List<Session>();
+                    _clients.Add(new Client(_clients.Count, _clientNameTextBox.Text, new TimeSpan(0), new TimeSpan(0), sessionsList));
+                    SelectedClient = _clients.Count - 1;
+                    DoPropertyChanged("ClientSessions");
+                    SelectedClientSession = 0;
+                    DoPropertyChanged("Clients");
+                    DoPropertyChanged("ClientInfoIsEnabled");
+                    DoPropertyChanged("AddBoxVisibility");
+                    DoPropertyChanged("AddButtonVisibility");
+                    NewClientName = "Введите ФИО";
+                }
+                else
+                {
+                    _clients[_selectedClient].ClientName = _clientNameTextBox.Text;
+                    //Исправить ошибку при редактировании первого клиента
+                }
+                _addBoxVisibility = false;
+                DoPropertyChanged("Clients");
+                DoPropertyChanged("ClientInfoIsEnabled");
+                DoPropertyChanged("AddBoxVisibility");
+                DoPropertyChanged("AddButtonVisibility");
+            }
         }
 
         private void Cancel()
@@ -481,11 +529,18 @@ namespace MusicControl
             DoPropertyChanged("ClientInfoIsEnabled");
             DoPropertyChanged("AddBoxVisibility");
             DoPropertyChanged("AddButtonVisibility");
+            NewClientName = "Введите ФИО";
         }
 
         private void EditClient()
         {
-            //TODO
+            _isEditMode = true;
+            NewClientName = _clients[_selectedClient].ClientName;
+            _addBoxVisibility = true;
+            DoPropertyChanged("ClientInfoIsEnabled");
+            DoPropertyChanged("AddBoxVisibility");
+            DoPropertyChanged("AddButtonVisibility");
+            _clientNameTextBox.Focus();
         }
 
         private void OpenSessionPage()

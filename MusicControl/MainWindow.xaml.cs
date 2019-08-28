@@ -61,5 +61,10 @@ namespace MusicControl
         {
             return _vm.Sessions;
         }
+
+        public void SetClientNameTextBoxToViewModel(TextBox textBox)
+        {
+            _vm.SetClientNameTextBox(textBox);
+        }
     }
 }

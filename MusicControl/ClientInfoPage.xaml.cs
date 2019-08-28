@@ -20,9 +20,16 @@ namespace MusicControl
     /// </summary>
     public partial class ClientInfoPage : Page
     {
+        private MainWindow _window;
         public ClientInfoPage()
         {
             InitializeComponent();
+            _window = Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(w => w.IsActive);
+        }
+
+        private void SetClientNameTextBox(object sender, RoutedEventArgs e)
+        {
+            _window.SetClientNameTextBoxToViewModel(AddNewClientTextBox);
         }
     }
 }

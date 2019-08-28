@@ -44,15 +44,26 @@
         </Grid>
         <TextBlock Margin="20,0,0,0" Text="ID Клиента:" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="190,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=ClientID}" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
-        <TextBox x:Name="AddNewClientTextBox" Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}" Grid.Row="2" Margin="350,0,50,0" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="30">
-            <TextBox.Template>
-                <ControlTemplate TargetType="{x:Type TextBox}">
-                    <Grid >
-                        <Rectangle Stroke="{StaticResource textBoxImage}" StrokeThickness="1"/>
-                        <TextBox Background="{StaticResource textBoxImage}" Margin="1" Text="{TemplateBinding Text}" BorderThickness="0"/>
-                    </Grid>
+        <TextBox Background="{StaticResource textBoxImage}" BorderThickness="0" DataContext="{StaticResource ViewModel}" x:Name="AddNewClientTextBox" Loaded="SetClientNameTextBox"  Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}" Grid.Row="2" Margin="350,0,50,0" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="30">
+            <!--<Triggers>
+                <EventTrigger EventName="GotFocus">
+                    <i:InvokeCommandAction Command="{Binding Source={StaticResource MainWindowVM}, Path=DoOnTextBoxFocused}" CommandParameter="{Binding ElementName=UsernameTextBox}"/>
+                </EventTrigger>
+            </Triggers>-->
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <DockPanel>
+                        <AdornedElementPlaceholder x:Name="controlWithError"/>
+                    </DockPanel>
                 </ControlTemplate>
-            </TextBox.Template>
+            </Validation.ErrorTemplate>
+            <TextBox.Text>
+                <Binding Path="NewClientName" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <local:ClientNameValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
         </TextBox>
         <TextBlock Margin="20,0,0,0" Text="Общее число часов на студии:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="455,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=TotalHours}" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>

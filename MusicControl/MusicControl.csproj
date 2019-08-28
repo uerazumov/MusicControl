@@ -61,6 +61,7 @@
     <Compile Include="ClientInfoPage.xaml.cs">
       <DependentUpon>ClientInfoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ClientNameValidationRule.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="ControlButton.xaml.cs">
       <DependentUpon>ControlButton.xaml</DependentUpon>
