@@ -15,6 +15,7 @@ namespace MusicControl
     {
         private TextBox _clientNameTextBox;
         private List<Client> _clients;
+        private List<TextBox> _clientTimeTextBoxes;
         private System.Timers.Timer _clockTimer;
         private bool _isEditMode;
         private bool _isSessionExist;
@@ -100,6 +101,17 @@ namespace MusicControl
                     clientSessions.Add(_clients[_selectedClient].Sessions[i].StartSessionTime.ToString("yyyy/MM/dd/ HH:mm") + "-" + (_clients[_selectedClient].Sessions[i].StartSessionTime + _clients[_selectedClient].Sessions[i].SessionDuration).ToString("HH:mm"));
                 }
                 return clientSessions;
+            }
+        }
+
+        public List<string> ClientTimeTextBoxesText
+        {
+            get
+            {
+                var texts = new List<string>();
+                if (_clientTimeTextBoxes != null) for (int i = 0; i < _clientTimeTextBoxes.Count; i++)
+                    texts.Add(_clientTimeTextBoxes[i].Text);
+                return texts;
             }
         }
 
@@ -408,6 +420,9 @@ namespace MusicControl
 
         private void AddNewClient()
         {
+            NewClientName = "Введите ФИО";
+            for (int i = 0; i < _clientTimeTextBoxes.Count; i++)
+                _clientTimeTextBoxes[i].Text = "0";
             _isEditMode = false;
             _addBoxVisibility = true;
             DoPropertyChanged("ClientInfoIsEnabled");
@@ -449,21 +464,25 @@ namespace MusicControl
 
         private void ApplyNewClient()
         {
-            if (!Validation.GetHasError(_clientNameTextBox))
+            var valid = !Validation.GetHasError(_clientNameTextBox);
+            for (int i = 0; i < _clientTimeTextBoxes.Count; i++)
+                valid &= !Validation.GetHasError(_clientTimeTextBoxes[i]);
+            if (valid)
             {
                 if (!_isEditMode)
                 {
                     _addBoxVisibility = false;
-                    _clients.Add(new Client(_clients.Count, _clientNameTextBox.Text, new TimeSpan(0), new TimeSpan(0), new List<Session>()));
+                    _clients.Add(new Client(_clients.Count, _clientNameTextBox.Text, new TimeSpan(int.Parse(_clientTimeTextBoxes[0].Text), int.Parse(_clientTimeTextBoxes[1].Text), 0), new TimeSpan(int.Parse(_clientTimeTextBoxes[2].Text), int.Parse(_clientTimeTextBoxes[3].Text), 0), new List<Session>()));
                     SelectedClient = _clients.Count - 1;
                     DoPropertyChanged("ClientSessions");
                     SelectedClientSession = 0;
                     DoPropertyChanged("Clients");
-                    NewClientName = "Введите ФИО";
                 }
                 else
                 {
                     _clients[_selectedClient].ClientName = _clientNameTextBox.Text;
+                    _clients[_selectedClient].TimeBalance = new TimeSpan(int.Parse(_clientTimeTextBoxes[0].Text), int.Parse(_clientTimeTextBoxes[1].Text), 0);
+                    _clients[_selectedClient].UnpaidTime = new TimeSpan(int.Parse(_clientTimeTextBoxes[2].Text), int.Parse(_clientTimeTextBoxes[3].Text), 0);
                     var temp = _selectedClient;
                     DoPropertyChanged("Clients");
                     //Адский костыль, чтобы при изменении первого пользователя он оставался выбран в ComboBox
@@ -516,6 +535,10 @@ namespace MusicControl
         {
             _isEditMode = true;
             NewClientName = _clients[_selectedClient].ClientName;
+            _clientTimeTextBoxes[0].Text = _clients[_selectedClient].TimeBalance.Hours.ToString();
+            _clientTimeTextBoxes[1].Text = _clients[_selectedClient].TimeBalance.Minutes.ToString();
+            _clientTimeTextBoxes[2].Text = _clients[_selectedClient].UnpaidTime.Hours.ToString();
+            _clientTimeTextBoxes[3].Text = _clients[_selectedClient].UnpaidTime.Minutes.ToString();
             _addBoxVisibility = true;
             DoPropertyChanged("ClientInfoIsEnabled");
             DoPropertyChanged("AddBoxVisibility");
@@ -596,9 +619,12 @@ namespace MusicControl
             DoPropertyChanged("SessionTimeColor");
         }
 
-        public void SetClientNameTextBox(TextBox textBox)
+        public void SetClientTextBoxes(TextBox textBox, List<TextBox> textBoxes)
         {
+            _clientTimeTextBoxes = textBoxes;
             _clientNameTextBox = textBox;
+            for (int i = 0; i < _clientTimeTextBoxes.Count; i++)
+                _clientTimeTextBoxes[i].Text = "0";
             _newClientName = "Введите ФИО";
             DoPropertyChanged("NewClientName");
         }
