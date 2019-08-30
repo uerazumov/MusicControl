@@ -663,7 +663,8 @@ namespace MusicControl
                     DoPropertyChanged("UnpaidTime");
                     DoPropertyChanged("UnpaidTimeVisibility");
                 }
-                _todaysSessions[_selectedSession].SessionDuration = _sessionTime;
+                _clients.First(x => x.ClientID == _todaysSessions[_selectedSession].ClientID).Sessions.First(x => x.SessionID == _todaysSessions[_selectedSession].SessionID).SessionDuration = new TimeSpan(0);
+                _todaysSessions[_selectedSession].SessionDuration = new TimeSpan(0);
                 _todaysSessions[_selectedSession].CurrentDuration += _sessionDuration - _sessionTime;
                 _sessionTime = new TimeSpan(0, 0, 0);
                 DoPropertyChanged("SessionTime");
