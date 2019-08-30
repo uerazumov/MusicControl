@@ -73,6 +73,7 @@
     <Compile Include="SessionPage.xaml.cs">
       <DependentUpon>SessionPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TimeValidationRule.cs" />
     <Compile Include="ViewModel.cs" />
     <Page Include="ClientInfoPage.xaml">
       <SubType>Designer</SubType>

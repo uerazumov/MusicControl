@@ -29,7 +29,12 @@ namespace MusicControl
 
         private void SetClientNameTextBox(object sender, RoutedEventArgs e)
         {
-            _window.SetClientNameTextBoxToViewModel(AddNewClientTextBox);
+            var textBoxes = new List<TextBox>();
+            textBoxes.Add(AddNewClientTimeBalanceHoursTextBox);
+            textBoxes.Add(AddNewClientTimeBalanceMinutesTextBox);
+            textBoxes.Add(AddNewClientUnpaidTimeHoursTextBox);
+            textBoxes.Add(AddNewClientUnpaidTimeMinutesTextBox);
+            _window.SetClientTextBoxesToViewModel(AddNewClientTextBox, textBoxes);
         }
     }
 }
