@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\
 MusicControl
 none
 false
 DEBUG;TRACE
-C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\App.xaml
-61534400583
-31972772488
-15-2128043686
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\App.xaml
+8-211449118
+
+181447017302
 151397803362
-ClientInfoPage.xaml;ControlButton.xaml;MainMenuPage.xaml;MainWindow.xaml;ResourcesDictionary.xaml;SessionPage.xaml;
+ClientInfoPage.xaml;ControlButton.xaml;MainMenuPage.xaml;MainWindow.xaml;ResourcesDictionary.xaml;ScheduleLine.xaml;ScheduleMonthPage.xaml;SessionPage.xaml;
 
 False
 

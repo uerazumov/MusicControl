@@ -69,6 +69,13 @@
     <Compile Include="MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Schedule.cs" />
+    <Compile Include="ScheduleLine.xaml.cs">
+      <DependentUpon>ScheduleLine.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScheduleMonthPage.xaml.cs">
+      <DependentUpon>ScheduleMonthPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Session.cs" />
     <Compile Include="SessionPage.xaml.cs">
       <DependentUpon>SessionPage.xaml</DependentUpon>
@@ -104,6 +111,14 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
+    <Page Include="ScheduleLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ScheduleMonthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SessionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,113 +151,54 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VisualResources\applyButton.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\applyButtonActive.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\applyButtonDisabled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\BackgroundImage.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\cancelButton.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\cancelButtonActive.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\cancelButtonDisabled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\textBox.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\updateButton.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\updateButtonActive.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\updateButtonDisabled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="VisualResources\applyButton.png" />
+    <Resource Include="VisualResources\applyButtonActive.png" />
+    <Resource Include="VisualResources\applyButtonDisabled.png" />
+    <Resource Include="VisualResources\BackgroundImage.png" />
+    <Resource Include="VisualResources\cancelButton.png" />
+    <Resource Include="VisualResources\cancelButtonActive.png" />
+    <Resource Include="VisualResources\cancelButtonDisabled.png" />
+    <Resource Include="VisualResources\saveButton.png" />
+    <Resource Include="VisualResources\saveButtonActive.png" />
+    <Resource Include="VisualResources\saveButtonDisabled.png" />
+    <Resource Include="VisualResources\textBox.png" />
+    <Resource Include="VisualResources\updateButton.png" />
+    <Resource Include="VisualResources\updateButtonActive.png" />
+    <Resource Include="VisualResources\updateButtonDisabled.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VisualResources\button.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\buttonActive.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\buttonDisabled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\editButton.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\editButtonActive.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\icon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="VisualResources\button.png" />
+    <Resource Include="VisualResources\buttonActive.png" />
+    <Resource Include="VisualResources\buttonDisabled.png" />
+    <Resource Include="VisualResources\editButton.png" />
+    <Resource Include="VisualResources\editButtonActive.png" />
+    <Resource Include="VisualResources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VisualResources\playButton.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="VisualResources\playButton.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VisualResources\playButtonAction.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="VisualResources\playButtonAction.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VisualResources\playButtonDisabled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="VisualResources\playButtonDisabled.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VisualResources\mainMenuButton.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\mainMenuButtonActive.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\mainMenuButtonDisabled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\pauseButton.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\pauseButtonActive.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\pauseButtonDisabled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="VisualResources\mainMenuButton.png" />
+    <Resource Include="VisualResources\mainMenuButtonActive.png" />
+    <Resource Include="VisualResources\mainMenuButtonDisabled.png" />
+    <Resource Include="VisualResources\pauseButton.png" />
+    <Resource Include="VisualResources\pauseButtonActive.png" />
+    <Resource Include="VisualResources\pauseButtonDisabled.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VisualResources\plusButton.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\plusButtonActive.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\stopButton.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VisualResources\stopButtonDisabled.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="VisualResources\plusButton.png" />
+    <Resource Include="VisualResources\plusButtonActive.png" />
+    <Resource Include="VisualResources\stopButton.png" />
+    <Resource Include="VisualResources\stopButtonDisabled.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="VisualResources\stopButtonActive.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="VisualResources\stopButtonActive.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

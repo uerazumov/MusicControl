@@ -22,8 +22,6 @@ namespace MusicControl
         {
             _vm = (ViewModel)Application.Current.Resources["ViewModel"];
             InitializeComponent();
-            Uri iconUri = new Uri("VisualResources\\icon.ico", UriKind.RelativeOrAbsolute);
-            this.Icon = BitmapFrame.Create(iconUri);
         }
 
         private void Close(object sender, System.ComponentModel.CancelEventArgs e)

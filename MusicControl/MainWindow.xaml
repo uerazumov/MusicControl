@@ -6,15 +6,19 @@
         xmlns:local="clr-namespace:MusicControl"
         mc:Ignorable="d"
         Height="600" Width="1000" ResizeMode="NoResize"
-        Title="Управление сеансами звукозаписи" WindowStartupLocation="CenterScreen" Loaded="OnWindowLoaded" Closing="Close">
+        Title="Управление сеансами звукозаписи" WindowStartupLocation="CenterScreen" Loaded="OnWindowLoaded" Closing="Close"
+        Icon="pack://application:,,,/MusicControl;component/VisualResources/icon.ico">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary  Source="ResourcesDictionary.xaml"></ResourceDictionary>
-                <!--<ResourceDictionary Source="pack://application:,,,/MusicControl;component/ResourcesDictionary.xaml"/>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="NumPad1" Modifiers="Ctrl" Command="{Binding Source={StaticResource ViewModel}, Path=DoStartSession}" />
+        <KeyBinding Key="NumPad2" Modifiers="Ctrl" Command="{Binding Source={StaticResource ViewModel}, Path=DoPauseSession}" />
+    </Window.InputBindings>
     <Grid>
         <Frame Background="{StaticResource BackgroundImage}" Name="Main" NavigationUIVisibility="Hidden" Source="/MusicControl;component/MainMenuPage.xaml" Grid.ColumnSpan="2"></Frame>
         <DockPanel LastChildFill="True">

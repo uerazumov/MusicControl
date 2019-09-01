@@ -13,6 +13,34 @@ namespace MusicControl
 {
     public class ViewModel : INotifyPropertyChanged
     {
+        private enum PageState
+        {
+            MainPage,
+            SessionPage,
+            ClientInfoPage,
+            CalendarPage,
+            HistoryPage
+        }
+
+        private Schedule _schedule;
+
+        public Schedule Schedule
+        {
+            get
+            {
+                var durations = new List<TimeSpan>();
+                durations.Add(new TimeSpan(0, 30, 0));
+                durations.Add(new TimeSpan(1, 0, 0));
+                durations.Add(new TimeSpan(1, 30, 0));
+                durations.Add(new TimeSpan(2, 0, 0));
+                durations.Add(new TimeSpan(2, 30, 0));
+                durations.Add(new TimeSpan(3, 0, 0));
+                return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), _clients[0], new TimeSpan(1,30,0), true);
+                //return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), null, null, false);
+            }
+        }
+
+        private DateTime _calendarDate;
         private TextBox _clientNameTextBox;
         private List<Client> _clients;
         private List<TextBox> _clientTimeTextBoxes;
@@ -24,6 +52,7 @@ namespace MusicControl
         private MainWindow _mainWindow;
         private NavigationService _navigationService;
         private string _newClientName;
+        private PageState _pageState;
         private TimeSpan _pauseDuration;
         private System.Timers.Timer _pauseTimer;
         private TimeSpan _sessionDuration;
@@ -55,6 +84,36 @@ namespace MusicControl
         public bool AddTimeIsEnabled
         {
             get { return _isSessionStarted && (_todaysSessions.Count != 0); }
+        }
+
+        public DateTime CalendarDate
+        {
+            get { return _calendarDate; }
+            set
+            {
+                _calendarDate = value;
+                DoPropertyChanged("CalendarDateDuttonContent");
+            }
+        }
+
+        public String CalendarDateDuttonContent
+        {
+            get { return _calendarDate.ToString("dd.MM.yyyy"); }
+        }
+
+        private Visibility _calendarVisibility;
+
+        public Visibility CalendarVisibility
+        {
+            get
+            {
+                return _calendarVisibility;
+            }
+            set
+            {
+                _calendarVisibility = value;
+                DoPropertyChanged("CalendarVisibility");
+            }
         }
 
         public int ClientID
@@ -98,7 +157,7 @@ namespace MusicControl
                 var clientSessions = new List<String>();
                 for (int i = 0; i < _clients[_selectedClient].Sessions.Count; i++)
                 {
-                    clientSessions.Add(_clients[_selectedClient].Sessions[i].StartSessionTime.ToString("yyyy/MM/dd/ HH:mm") + "-" + (_clients[_selectedClient].Sessions[i].StartSessionTime + _clients[_selectedClient].Sessions[i].SessionDuration).ToString("HH:mm"));
+                    clientSessions.Add(_clients[_selectedClient].Sessions[i].StartSessionTime.ToString("yyyy/MM/dd HH:mm") + "-" + (_clients[_selectedClient].Sessions[i].StartSessionTime + _clients[_selectedClient].Sessions[i].SessionDuration).ToString("HH:mm"));
                 }
                 return clientSessions;
             }
@@ -356,7 +415,10 @@ namespace MusicControl
 
         public ViewModel()
         {
+            DoPropertyChanged("Schedule");
+            _pageState = PageState.MainPage;
             _sessionPage = new Uri("SessionPage.xaml", UriKind.Relative);
+            CalendarDate = DateTime.Now;
             _isSessionExist = false;
             _isSessionStarted = false;
             _isSessionPaussed = false;
@@ -551,8 +613,17 @@ namespace MusicControl
             return (time.Hours == 0) && (time.Minutes == 0) && (time.Seconds == 0);
         }
 
+        private void OpenCalendar()
+        {
+            _pageState = PageState.CalendarPage;
+            if (_calendarVisibility == Visibility.Hidden)
+                CalendarVisibility = Visibility.Visible;
+            else CalendarVisibility = Visibility.Hidden;
+        }
+
         private void OpenClientInfoPage()
         {
+            _pageState = PageState.ClientInfoPage;
             _addBoxVisibility = false;
             DoPropertyChanged("AddBoxVisibility");
             DoPropertyChanged("AddButtonVisibility");
@@ -561,16 +632,19 @@ namespace MusicControl
 
         private void OpenHistoryPage()
         {
+            _pageState = PageState.HistoryPage;
             //TODO
         }
 
         private void OpenMainMenuPage()
         {
+            _pageState = PageState.MainPage;
             _navigationService?.Navigate(new Uri("MainMenuPage.xaml", UriKind.Relative));
         }
 
         private void OpenSessionPage()
         {
+            _pageState = PageState.SessionPage;
             if (!_isSessionExist)
             {
                 //TODO
@@ -589,12 +663,14 @@ namespace MusicControl
 
         private void OpenSchedulePage()
         {
-            //TODO
+            _pageState = PageState.CalendarPage;
+            CalendarVisibility = Visibility.Hidden;
+            _navigationService?.Navigate(new Uri("ScheduleMonthPage.xaml", UriKind.Relative));
         }
 
         private void PauseSession()
         {
-            if ((!_isSessionPaussed) && (!IsTimeOver(_pauseTime)))
+            if ((!_isSessionPaussed) && (!IsTimeOver(_pauseTime)) && (_pageState == PageState.SessionPage))
             {
                 _pauseDuration = _pauseTime;
                 _timerStartTime = DateTime.Now;
@@ -636,7 +712,7 @@ namespace MusicControl
 
         private void StartSession()
         {
-            if (_isSessionExist)
+            if ((_isSessionExist) && (_pageState == PageState.SessionPage))
             {
                 if (!_isSessionStarted)
                 {
@@ -840,6 +916,22 @@ namespace MusicControl
                         p => EditClient());
                 }
                 return _doEditClient;
+            }
+        }
+
+        private ICommand _doOpenCalendar;
+
+        public ICommand DoOpenCalendar
+        {
+            get
+            {
+                if (_doOpenCalendar == null)
+                {
+                    _doOpenCalendar = new Command(
+                        p => true,
+                        p => OpenCalendar());
+                }
+                return _doOpenCalendar;
             }
         }
 

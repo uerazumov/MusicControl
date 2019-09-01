@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="MusicControl.ScheduleLine"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MusicControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="40" d:DesignWidth="700">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ResourcesDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Height="40" Width="700">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Text="{Binding Time}" FontSize="22"/>
+        <Border Grid.Column="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*"/>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Border BorderThickness="1" BorderBrush="Black" Grid.Column="0"/>
+                <Border BorderThickness="1" BorderBrush="Black" Grid.Column="1"/>
+                <Border BorderThickness="1" BorderBrush="Black" Grid.Column="2"/>
+                <TextBlock Visibility="{Binding InfoVisibility}" Text="{Binding ClientName}" Margin="15,5,5,5" Foreground="Black"  Name="Client" Grid.Column="0" FontSize="20"></TextBlock>
+                <TextBlock Visibility="{Binding InfoVisibility}" Text="{Binding SessionDuration}" Margin="15,5,5,5" Foreground="Black"  Name="Duration" Grid.Column="1" FontSize="20"></TextBlock>
+                <ComboBox Visibility="{Binding EditVisibility}" ItemsSource="{Binding ClientList}" Margin="5" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="ClientsList" Grid.Column="0" FontSize="20"/>
+                <ComboBox Visibility="{Binding EditVisibility}" ItemsSource="{Binding Durations}" Margin="5" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="DurationList" Grid.Column="1" FontSize="20"/>
+                <CheckBox IsEnabled="{Binding IsCheckEnabled}" IsChecked="{Binding IsPrepayment, Mode=OneWay}" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <CheckBox.LayoutTransform>
+                        <ScaleTransform ScaleX="2" ScaleY="2" />
+                    </CheckBox.LayoutTransform>
+                </CheckBox>
+            </Grid>
+        </Border>
+        <local:ControlButton Visibility="{Binding InfoVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" ControlCommand="{Binding EditCommand, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="2" x:Name="EditSessionButton" EnableBackgroundImage="{StaticResource editClientButton}" DisableBackgroundImage="{StaticResource editClientButton}" EnableBackgroundImageActive="{StaticResource editClientButtonAction}">
+            <local:ControlButton.LayoutTransform>
+                <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
+            </local:ControlButton.LayoutTransform>
+        </local:ControlButton>
+        <local:ControlButton Visibility="{Binding EditVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="2" x:Name="SaveSessionButton" EnableBackgroundImage="{StaticResource saveButton}" DisableBackgroundImage="{StaticResource saveButton}" EnableBackgroundImageActive="{StaticResource saveButtonAction}">
+            <local:ControlButton.LayoutTransform>
+                <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
+            </local:ControlButton.LayoutTransform>
+        </local:ControlButton>
+    </Grid>
+</UserControl>
