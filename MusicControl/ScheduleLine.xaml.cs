@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Linq;
 
 namespace MusicControl
 {
@@ -16,6 +17,7 @@ namespace MusicControl
             IsLineEnabled = true;
 
             EditSessionButton.ControlCommand = DoEdit;
+            SaveSessionButton.ControlCommand = DoSave;
         }
 
         public static DependencyProperty ScheduleParametrsProperty =
@@ -139,6 +141,7 @@ namespace MusicControl
         {
             get
             {
+                if (_isEditMode) return true;
                 if (ScheduleParametrs.Client != null) return false;
                 return true;
             }
@@ -154,12 +157,48 @@ namespace MusicControl
                 _isEditMode = value;
                 DoPropertyChanged("InfoVisibility");
                 DoPropertyChanged("EditVisibility");
+                DoPropertyChanged("IsCheckEnabled");
+                DoPropertyChanged("IsPrepayment");
             }
         }
 
         private void Edit()
         {
             IsEditMode = true;
+            ClientComboBox.SelectedIndex = ScheduleParametrs.ClientList.FindIndex(x => x == ScheduleParametrs.Client);
+            DurationComboBox.SelectedIndex = ScheduleParametrs.SessionDurations.FindIndex(x => x == ScheduleParametrs.Duration);
+        }
+
+        public void Save()
+        {
+            if ((ClientComboBox.SelectedIndex != -1) && (DurationComboBox.SelectedIndex != -1))
+            {
+                ScheduleParametrs.Client = ScheduleParametrs.ClientList[ClientComboBox.SelectedIndex];
+                ScheduleParametrs.Duration = ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex];
+                ScheduleParametrs.Prepayment = (bool)PrepaymentCheckBox.IsChecked;
+                IsEditMode = false;
+                DoPropertyChanged("ClientList");
+                DoPropertyChanged("Durations");
+                DoPropertyChanged("Time");
+                DoPropertyChanged("ClientName");
+                DoPropertyChanged("SessionDuration");
+            }
+        }
+
+        private ICommand _doSave;
+
+        public ICommand DoSave
+        {
+            get
+            {
+                if (_doSave == null)
+                {
+                    _doSave = new Command(
+                        p => true,
+                        p => Save());
+                }
+                return _doSave;
+            }
         }
 
         private ICommand _doEdit;
