@@ -13,10 +13,11 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Height="40" Width="700">
+    <Grid Height="40" Width="750">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Text="{Binding Time}" FontSize="22"/>
@@ -41,12 +42,17 @@
                 </CheckBox>
             </Grid>
         </Border>
-        <local:ControlButton Visibility="{Binding InfoVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" ControlCommand="{Binding EditCommand, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="2" x:Name="EditSessionButton" EnableBackgroundImage="{StaticResource editClientButton}" DisableBackgroundImage="{StaticResource editClientButton}" EnableBackgroundImageActive="{StaticResource editClientButtonAction}">
+        <local:ControlButton Visibility="{Binding InfoVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" ControlCommand="{Binding EditCommand, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="2" x:Name="EditSessionButton" EnableBackgroundImage="{StaticResource editClientButton}" DisableBackgroundImage="{StaticResource editClientButtonDisabled}" EnableBackgroundImageActive="{StaticResource editClientButtonAction}">
             <local:ControlButton.LayoutTransform>
                 <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
             </local:ControlButton.LayoutTransform>
         </local:ControlButton>
-        <local:ControlButton Visibility="{Binding EditVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="2" x:Name="SaveSessionButton" EnableBackgroundImage="{StaticResource saveButton}" DisableBackgroundImage="{StaticResource saveButton}" EnableBackgroundImageActive="{StaticResource saveButtonAction}">
+        <local:ControlButton Visibility="{Binding EditVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="2" x:Name="SaveSessionButton" EnableBackgroundImage="{StaticResource saveButtonDisabled}" DisableBackgroundImage="{StaticResource saveButton}" EnableBackgroundImageActive="{StaticResource saveButtonAction}">
+            <local:ControlButton.LayoutTransform>
+                <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
+            </local:ControlButton.LayoutTransform>
+        </local:ControlButton>
+        <local:ControlButton Visibility="{Binding InfoVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="3" x:Name="RemoveSessionButton" EnableBackgroundImage="{StaticResource removeButtonDisabled}" DisableBackgroundImage="{StaticResource removeButton}" EnableBackgroundImageActive="{StaticResource removeButtonAction}">
             <local:ControlButton.LayoutTransform>
                 <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
             </local:ControlButton.LayoutTransform>

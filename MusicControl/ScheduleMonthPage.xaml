@@ -19,20 +19,56 @@
         <TextBlock Grid.RowSpan="2" Grid.Row="0" Style="{StaticResource HeadlineTextStyle}" HorizontalAlignment="Center" Text="График сеансов"></TextBlock>
         <Calendar SelectedDate="{Binding Source={StaticResource ViewModel}, Path=CalendarDate, Mode=OneWayToSource}" Visibility="{Binding Source={StaticResource ViewModel}, Path=CalendarVisibility}" x:Name="SessionCalendar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,0,40,210" Panel.ZIndex="10"></Calendar>
         <Button Content="{Binding Source={StaticResource ViewModel}, Path=CalendarDateDuttonContent}" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenCalendar}" Width="180" Height="25" Margin="0,0,0,405" Background="White"></Button>
-        <Grid Margin="30,115,30,0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"></local:ScheduleLine>
-        </Grid>
+        <ListBox BorderBrush="Transparent" Background="Transparent" Margin="30,115,30,0">
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <local:ScheduleLine ScheduleParametrs="{Binding Source={StaticResource ViewModel},Path=Schedule}"/>
+            <!--47-->
+        </ListBox>
     </Grid>
 </Page>

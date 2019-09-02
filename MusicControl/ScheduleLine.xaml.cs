@@ -18,6 +18,7 @@ namespace MusicControl
 
             EditSessionButton.ControlCommand = DoEdit;
             SaveSessionButton.ControlCommand = DoSave;
+            RemoveSessionButton.ControlCommand = DoRemove;
         }
 
         public static DependencyProperty ScheduleParametrsProperty =
@@ -169,6 +170,16 @@ namespace MusicControl
             DurationComboBox.SelectedIndex = ScheduleParametrs.SessionDurations.FindIndex(x => x == ScheduleParametrs.Duration);
         }
 
+        private void Remove()
+        {
+            IsEditMode = true;
+            ScheduleParametrs.Client = null;
+            ScheduleParametrs.Duration = null;
+            ClientComboBox.SelectedIndex = -1;
+            DurationComboBox.SelectedIndex = -1;
+            PrepaymentCheckBox.IsChecked = false;
+        }
+
         public void Save()
         {
             if ((ClientComboBox.SelectedIndex != -1) && (DurationComboBox.SelectedIndex != -1))
@@ -182,6 +193,22 @@ namespace MusicControl
                 DoPropertyChanged("Time");
                 DoPropertyChanged("ClientName");
                 DoPropertyChanged("SessionDuration");
+            }
+        }
+
+        private ICommand _doRemove;
+
+        public ICommand DoRemove
+        {
+            get
+            {
+                if (_doRemove == null)
+                {
+                    _doRemove = new Command(
+                        p => true,
+                        p => Remove());
+                }
+                return _doRemove;
             }
         }
 

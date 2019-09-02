@@ -35,8 +35,8 @@ namespace MusicControl
                 durations.Add(new TimeSpan(2, 0, 0));
                 durations.Add(new TimeSpan(2, 30, 0));
                 durations.Add(new TimeSpan(3, 0, 0));
-                //return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), _clients[0], new TimeSpan(1,30,0), true);
-                return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), null, null, false);
+                return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), _clients[0], new TimeSpan(1,30,0), true);
+                //return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), null, null, false);
             }
         }
 

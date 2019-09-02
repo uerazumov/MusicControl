@@ -200,5 +200,13 @@
   <ItemGroup>
     <Resource Include="VisualResources\stopButtonActive.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="VisualResources\removeButton.png" />
+    <Resource Include="VisualResources\removeButtonActive.png" />
+    <Resource Include="VisualResources\removeButtonDisabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="VisualResources\editButtonDisabled.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
