@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Linq;
+using System.Drawing;
+using System.Windows.Media;
 
 namespace MusicControl
 {
@@ -13,16 +15,30 @@ namespace MusicControl
         {
             InitializeComponent();
             DataContext = this;
-            IsEditMode = false;
-            IsLineEnabled = true;
 
             EditSessionButton.ControlCommand = DoEdit;
             SaveSessionButton.ControlCommand = DoSave;
             RemoveSessionButton.ControlCommand = DoRemove;
         }
 
+        public SolidColorBrush BackgroundBrush
+        {
+            get
+            {
+                if (IsLineEnabled) return new SolidColorBrush(Colors.Transparent);
+                return new SolidColorBrush(Colors.Gray);
+            }
+        }
+
         public static DependencyProperty ScheduleParametrsProperty =
-    DependencyProperty.Register("ScheduleParametrs", typeof(Schedule), typeof(ScheduleLine));
+    DependencyProperty.Register("ScheduleParametrs", typeof(Schedule), typeof(ScheduleLine), new UIPropertyMetadata(null, Refresh));
+
+        public static void Refresh(DependencyObject property, DependencyPropertyChangedEventArgs args)
+        {
+            ScheduleLine scheduleLine = (ScheduleLine)property;
+            scheduleLine.ScheduleParametrs = (Schedule)args.NewValue;
+            scheduleLine.IsLineEnabled = scheduleLine.ScheduleParametrs.IsEnabled;
+        }
 
         public Schedule ScheduleParametrs
         {
@@ -86,8 +102,9 @@ namespace MusicControl
         {
             get
             {
-                if (_isEditMode) return Visibility.Visible;
-                if (ScheduleParametrs.Client != null) return Visibility.Hidden;
+                if (!_isLineEnabled) return Visibility.Hidden;
+                else if (_isEditMode) return Visibility.Visible;
+                else if (ScheduleParametrs.Client != null) return Visibility.Hidden;
                 return Visibility.Visible;
             }
         }
@@ -96,8 +113,9 @@ namespace MusicControl
         {
             get
             {
-                if (_isEditMode) return Visibility.Hidden;
-                if (ScheduleParametrs.Client == null) return Visibility.Hidden;
+                if (!_isLineEnabled) return Visibility.Hidden;
+                else if (_isEditMode) return Visibility.Hidden;
+                else if (ScheduleParametrs.Client == null) return Visibility.Hidden;
                 return Visibility.Visible;
             }
         }
@@ -142,8 +160,9 @@ namespace MusicControl
         {
             get
             {
-                if (_isEditMode) return true;
-                if (ScheduleParametrs.Client != null) return false;
+                if (!_isLineEnabled) return false;
+                else if (_isEditMode) return true;
+                else if (ScheduleParametrs.Client != null) return false;
                 return true;
             }
         }
@@ -251,22 +270,10 @@ namespace MusicControl
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public static DependencyProperty IsLineEnabledProperty =
-    DependencyProperty.Register("IsLineEnabled", typeof(bool), typeof(ScheduleLine), new UIPropertyMetadata(false, Refresh));
+    //    public static DependencyProperty IsLineEnabledProperty =
+    //DependencyProperty.Register("IsLineEnabled", typeof(bool), typeof(ScheduleLine), new UIPropertyMetadata(false, Refresh));
 
-        public static void Refresh(DependencyObject property, DependencyPropertyChangedEventArgs args)
-        {
-            ScheduleLine scheduleLine = (ScheduleLine)property;
-            scheduleLine.IsLineEnabled = (bool)args.NewValue;
-            scheduleLine.DoPropertyChanged("IsLineEnabled");
-            scheduleLine.DoPropertyChanged("ClientList");
-            scheduleLine.DoPropertyChanged("Durations");
-            scheduleLine.DoPropertyChanged("Time");
-            scheduleLine.DoPropertyChanged("EditVisibility");
-            scheduleLine.DoPropertyChanged("ClientName"); 
-            scheduleLine.DoPropertyChanged("InfoVisibility");
-            scheduleLine.DoPropertyChanged("SessionDuration");
-        }
+
 
         private bool _isLineEnabled;
 
@@ -284,7 +291,8 @@ namespace MusicControl
                 DoPropertyChanged("EditVisibility");
                 DoPropertyChanged("InfoVisibility");
                 DoPropertyChanged("ClientName");
-                DoPropertyChanged("SessionDuration");
+                DoPropertyChanged("SessionDuration"); 
+                DoPropertyChanged("BackgroundBrush");
             }
         }
     }

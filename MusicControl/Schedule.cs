@@ -14,7 +14,14 @@ namespace MusicControl
         private bool _prepayment;
         private TimeSpan? _duration;
         private TimeSpan _startTime;
+        private bool _isEnabled;
 
+
+        public bool IsEnabled
+        {
+            get { return _isEnabled; }
+            set { _isEnabled = value; }
+        }
         public TimeSpan StartTime
         {
             get { return _startTime; }
@@ -46,7 +53,7 @@ namespace MusicControl
             set { _prepayment = value; }
         }
 
-        public Schedule(List<Client> clientList, List<TimeSpan> sessionDurations, TimeSpan startTime, Client client, TimeSpan? duration, bool prepayment)
+        public Schedule(List<Client> clientList, List<TimeSpan> sessionDurations, TimeSpan startTime, Client client, TimeSpan? duration, bool prepayment, bool isEnabled)
         {
             _client = client;
             _duration = duration;
@@ -54,6 +61,7 @@ namespace MusicControl
             _clientList = clientList;
             _sessionDurations = sessionDurations;
             _startTime = startTime;
+            _isEnabled = isEnabled;
         }
     }
 }

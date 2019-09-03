@@ -22,21 +22,27 @@ namespace MusicControl
             HistoryPage
         }
 
-        private Schedule _schedule;
+        private List<Schedule> _scheduleList;
 
-        public Schedule Schedule
+        public List<Schedule> ScheduleList
         {
             get
             {
-                var durations = new List<TimeSpan>();
-                durations.Add(new TimeSpan(0, 30, 0));
-                durations.Add(new TimeSpan(1, 0, 0));
-                durations.Add(new TimeSpan(1, 30, 0));
-                durations.Add(new TimeSpan(2, 0, 0));
-                durations.Add(new TimeSpan(2, 30, 0));
-                durations.Add(new TimeSpan(3, 0, 0));
-                return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), _clients[0], new TimeSpan(1,30,0), true);
-                //return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), null, null, false);
+                return _scheduleList;
+                //var durations = new List<TimeSpan>();
+                //durations.Add(new TimeSpan(0, 30, 0));
+                //durations.Add(new TimeSpan(1, 0, 0));
+                //durations.Add(new TimeSpan(1, 30, 0));
+                //durations.Add(new TimeSpan(2, 0, 0));
+                //durations.Add(new TimeSpan(2, 30, 0));
+                //durations.Add(new TimeSpan(3, 0, 0));
+                ////return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), _clients[0], new TimeSpan(1,30,0), true, true);
+                //return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), null, null, false, false);
+            }
+            set
+            {
+                _scheduleList = value;
+                DoPropertyChanged("Schedule");
             }
         }
 
@@ -92,11 +98,12 @@ namespace MusicControl
             set
             {
                 _calendarDate = value;
+                UpdateSchedule();
                 DoPropertyChanged("CalendarDateDuttonContent");
             }
         }
 
-        public String CalendarDateDuttonContent
+        public String CalendarDateButtonContent
         {
             get { return _calendarDate.ToString("dd.MM.yyyy"); }
         }
@@ -663,6 +670,7 @@ namespace MusicControl
 
         private void OpenSchedulePage()
         {
+            UpdateSchedule();
             _pageState = PageState.CalendarPage;
             CalendarVisibility = Visibility.Hidden;
             _navigationService?.Navigate(new Uri("ScheduleMonthPage.xaml", UriKind.Relative));
@@ -799,6 +807,24 @@ namespace MusicControl
             _unpaidTime = null;
             DoPropertyChanged("UnpaidTime");
             DoPropertyChanged("UnpaidTimeVisibility");
+        }
+
+        private void UpdateSchedule()
+        {
+            _scheduleList = new List<Schedule>();
+            var counter = 0;
+            //Вынести в отдельный метод
+            var thatdDayClients = _clients.FindAll(x => x.Sessions.FindAll(y => y.StartSessionTime.Date == _calendarDate).Count != 0);
+            var thatDaySessions = new List<Session>();
+            for (int i = 0; i < thatdDayClients.Count; i++)
+            {
+                var tempSessions = thatdDayClients[i].Sessions.FindAll(x => x.StartSessionTime.Date == DateTime.Now.Date);
+                for (int j = 0; j < tempSessions.Count; j++)
+                {
+                    thatDaySessions.Add(tempSessions[j]);
+                }
+            }
+            //
         }
 
         private void UpdateStopSessionParametrs()
