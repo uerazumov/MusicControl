@@ -452,21 +452,21 @@ namespace MusicControl
             sessions = new List<Session>();
             sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 23, 11, 30, 0), 1, 1, new TimeSpan(1, 30, 0), true));
             sessions.Add(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 7, 21, 14, 00, 0), 2, 1, new TimeSpan(3, 0, 0), true));
-            sessions.Add(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 9, 4, 11, 00, 0), 3, 1, new TimeSpan(2, 30, 0), true));
+            sessions.Add(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 9, 5, 11, 00, 0), 3, 1, new TimeSpan(2, 30, 0), true));
             sessions.Add(new Session(new TimeSpan(4, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 9, 30, 0), 4, 1, new TimeSpan(0), true));
             _clients.Add(new Client(1, "Иванов Иван Иванович", new TimeSpan(2, 0, 0), new TimeSpan(0), sessions));
 
             sessions = new List<Session>();
             sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 6, 22, 11, 30, 0), 5, 2, new TimeSpan(1, 0, 0), true));
             sessions.Add(new Session(new TimeSpan(3, 30, 0), new DateTime(2019, 7, 19, 14, 00, 0), 6, 2, new TimeSpan(3, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 4, 9, 00, 0), 7, 2, new TimeSpan(2, 0, 0), true));
+            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 9, 00, 0), 7, 2, new TimeSpan(2, 0, 0), true));
             sessions.Add(new Session(new TimeSpan(3, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 30, 0), 8, 2, new TimeSpan(0), false));
             _clients.Add(new Client(2, "Петров Петр Иванович", new TimeSpan(3, 0, 0), new TimeSpan(0), sessions));
 
             sessions = new List<Session>();
             sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 3, 11, 30, 0), 9, 3, new TimeSpan(2, 30, 0), true));
             sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(2019, 7, 1, 14, 00, 0), 10, 3, new TimeSpan(1, 30, 0), false));
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 9, 4, 15, 00, 0), 11, 3, new TimeSpan(0, 30, 0), true));
+            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 9, 5, 15, 00, 0), 11, 3, new TimeSpan(0, 30, 0), true));
             sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 01, 30, 0), 12, 3, new TimeSpan(0), true));
             sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 19, 00, 0), 13, 3, new TimeSpan(0), true));
             _clients.Add(new Client(3, "Семёнов Иван Григорьевич", new TimeSpan(0), new TimeSpan(0), sessions));
@@ -478,14 +478,14 @@ namespace MusicControl
             sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2019, 6, 4, 11, 30, 0), 14, 4, new TimeSpan(2, 30, 0), true));
             sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 2, 14, 00, 0), 15, 4, new TimeSpan(1, 30, 0), true));
             sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 8, 23, 16, 30, 0), 16, 4, new TimeSpan(1, 0, 0), true));
-            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 4, 23, 30, 0), 17, 3, new TimeSpan(1, 30, 0), true));
+            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 23, 30, 0), 17, 3, new TimeSpan(1, 30, 0), true));
             sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 30, 0), 18, 4, new TimeSpan(0), true));
             _clients.Add(new Client(4, "Караванов Генадий Иванович", new TimeSpan(5, 30, 0), new TimeSpan(0), sessions));
 
             sessions = new List<Session>();
             sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2018, 6, 5, 11, 30, 0), 19, 5, new TimeSpan(1, 30, 0), true));
             sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 6, 14, 00, 0), 20, 5, new TimeSpan(1, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 4, 21, 30, 0), 21, 3, new TimeSpan(1, 30, 0), true));
+            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 21, 30, 0), 21, 3, new TimeSpan(1, 30, 0), true));
             _clients.Add(new Client(5, "Сидоров Сергей Сергеевич", new TimeSpan(1, 0, 0), new TimeSpan(2, 0, 0), sessions));
 
             sessions = new List<Session>();
@@ -840,8 +840,10 @@ namespace MusicControl
             var counter = 0;
             var thatDaySessions = GetSessionAtDay(_calendarDate);
             var beforeDaySessions = GetSessionAtDay(_calendarDate.AddDays(-1));
+            var nextDaySessions = GetSessionAtDay(_calendarDate.AddDays(+1));
             beforeDaySessions.Sort((x, y) => DateTime.Compare(x.StartSessionTime, y.StartSessionTime));
             thatDaySessions.Sort((x, y) => DateTime.Compare(x.StartSessionTime, y.StartSessionTime));
+            nextDaySessions.Sort((x, y) => DateTime.Compare(x.StartSessionTime, y.StartSessionTime));
             var duration = new TimeSpan(0);
             if (beforeDaySessions.Count > 0)
                 if (beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + beforeDaySessions[beforeDaySessions.Count - 1].SessionDuration > new DateTime(_calendarDate.Year, _calendarDate.Month, _calendarDate.Day, 0, 0, 0))
@@ -849,7 +851,7 @@ namespace MusicControl
                     var sessionDuration = beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + beforeDaySessions[beforeDaySessions.Count - 1].SessionDuration;
                     duration = new TimeSpan(sessionDuration.Hour, sessionDuration.Minute, sessionDuration.Second);
                 }
-            for (int i = 0; i < thatDaySessions.Count - 1; i++)
+            for (int i = 0; i < thatDaySessions.Count; i++)
             {
                 while (duration.Ticks > 0)
                 {
@@ -857,16 +859,27 @@ namespace MusicControl
                     counter++;
                     duration -= new TimeSpan(0, 30, 0);
                 }
-                duration = thatDaySessions[i].GetStartSessionTimeSpan() - new TimeSpan(18000000000 * (counter - 1));
+                duration = thatDaySessions[i].GetStartSessionTimeSpan() - new TimeSpan(18000000000 * (counter));
                 while (duration.Ticks > 0)
                 {
                     _scheduleList.Add(new Schedule(GetDurations(thatDaySessions[i].GetStartSessionTimeSpan(), counter), new TimeSpan(18000000000 * counter), null, null, false, true));
                     counter++;
                     duration -= new TimeSpan(0, 30, 0);
                 }
-                _scheduleList.Add(new Schedule(GetDurations(thatDaySessions[i + 1].GetStartSessionTimeSpan(), counter), new TimeSpan(18000000000 * counter), _clients.First(x => x.ClientID == thatDaySessions[i].ClientID), thatDaySessions[i].SessionDuration, thatDaySessions[i].Prepayment, true));
-                counter++;
-                duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
+                if (i != thatDaySessions.Count - 1)
+                {
+                    _scheduleList.Add(new Schedule(GetDurations(thatDaySessions[i + 1].GetStartSessionTimeSpan(), counter), new TimeSpan(18000000000 * counter), _clients.First(x => x.ClientID == thatDaySessions[i].ClientID), thatDaySessions[i].SessionDuration, thatDaySessions[i].Prepayment, true));
+                    counter++;
+                    duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
+                }
+                else
+                {
+                    var startTime = new TimeSpan(23, 59, 0);
+                    if (nextDaySessions[0] != null) startTime = nextDaySessions[0].GetStartSessionTimeSpan() + new TimeSpan(1, 0, 0, 0, 0);
+                    _scheduleList.Add(new Schedule(GetDurations(startTime, counter), new TimeSpan(18000000000 * counter), _clients.First(x => x.ClientID == thatDaySessions[i].ClientID), thatDaySessions[i].SessionDuration, thatDaySessions[i].Prepayment, true));
+                    counter++;
+                    duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
+                }
             }
             while (duration.Ticks > 0)
             {
@@ -877,7 +890,9 @@ namespace MusicControl
             duration = new TimeSpan(23, 59, 0) - new TimeSpan(18000000000 * (counter - 1));
             while (duration.Ticks > 0)
             {
-                _scheduleList.Add(new Schedule(GetDurations(thatDaySessions[thatDaySessions.Count - 1].GetStartSessionTimeSpan(), counter), new TimeSpan(18000000000 * counter), null, null, false, true));
+                var startTime = new TimeSpan(23, 59, 0);
+                if (nextDaySessions[0] != null) startTime = nextDaySessions[0].GetStartSessionTimeSpan() + new TimeSpan(1, 0, 0, 0, 0);
+                _scheduleList.Add(new Schedule(GetDurations(startTime, counter), new TimeSpan(18000000000 * counter), null, null, false, true));
                 counter++;
                 duration -= new TimeSpan(0, 30, 0);
             }
@@ -886,6 +901,7 @@ namespace MusicControl
                 if (_scheduleList[i] == null)
                     Console.WriteLine(i);
             }
+            //Исправить ошибку с последним элементом
         }
 
         private List<TimeSpan> GetDurations(TimeSpan time, int counter)
