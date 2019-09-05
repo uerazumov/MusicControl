@@ -8,7 +8,7 @@ namespace MusicControl
 {
     public class Schedule
     {
-        private List<Client> _clientList;
+        //private List<Client> _clientList;
         private List<TimeSpan> _sessionDurations;
         private Client _client;
         private bool _prepayment;
@@ -32,11 +32,11 @@ namespace MusicControl
             get { return _sessionDurations; }
             set { _sessionDurations = value; }
         }
-        public List<Client> ClientList
-        {
-            get { return _clientList; }
-            set { _clientList = value; }
-        }
+        //public List<Client> ClientList
+        //{
+        //    get { return _clientList; }
+        //    set { _clientList = value; }
+        //}
         public Client Client
         {
             get { return _client; }
@@ -53,12 +53,11 @@ namespace MusicControl
             set { _prepayment = value; }
         }
 
-        public Schedule(List<Client> clientList, List<TimeSpan> sessionDurations, TimeSpan startTime, Client client, TimeSpan? duration, bool prepayment, bool isEnabled)
+        public Schedule(List<TimeSpan> sessionDurations, TimeSpan startTime, Client client, TimeSpan? duration, bool prepayment, bool isEnabled)
         {
             _client = client;
             _duration = duration;
             _prepayment = prepayment;
-            _clientList = clientList;
             _sessionDurations = sessionDurations;
             _startTime = startTime;
             _isEnabled = isEnabled;

@@ -40,6 +40,9 @@ namespace MusicControl
             scheduleLine.IsLineEnabled = scheduleLine.ScheduleParametrs.IsEnabled;
         }
 
+        public static DependencyProperty ClientsProperty =
+DependencyProperty.Register("Clients", typeof(List<Client>), typeof(ScheduleLine));
+
         public Schedule ScheduleParametrs
         {
             get
@@ -53,6 +56,19 @@ namespace MusicControl
                 DoPropertyChanged("ScheduleParametrs");
                 DoPropertyChanged("Time");
                 DoPropertyChanged("Durations");
+            }
+        }
+
+        public List<Client> Clients
+        {
+            get
+            {
+                return (List<Client>)GetValue(ClientsProperty);
+            }
+
+            set
+            {
+                SetValue(ClientsProperty, value);
                 DoPropertyChanged("ClientList");
             }
         }
@@ -62,9 +78,9 @@ namespace MusicControl
             get
             {
                 var clients = new List<String>();
-                for (int i = 0; i < ScheduleParametrs.ClientList.Count; i++)
+                for (int i = 0; i < ((List<Client>)GetValue(ClientsProperty)).Count; i++)
                 {
-                    clients.Add(ScheduleParametrs.ClientList[i].ClientName);
+                    clients.Add(((List<Client>)GetValue(ClientsProperty))[i].ClientName);
                 }
                 return clients;
             }
@@ -185,7 +201,7 @@ namespace MusicControl
         private void Edit()
         {
             IsEditMode = true;
-            ClientComboBox.SelectedIndex = ScheduleParametrs.ClientList.FindIndex(x => x == ScheduleParametrs.Client);
+            ClientComboBox.SelectedIndex = ((List<Client>)GetValue(ClientsProperty)).FindIndex(x => x == ScheduleParametrs.Client);
             DurationComboBox.SelectedIndex = ScheduleParametrs.SessionDurations.FindIndex(x => x == ScheduleParametrs.Duration);
         }
 
@@ -203,7 +219,7 @@ namespace MusicControl
         {
             if ((ClientComboBox.SelectedIndex != -1) && (DurationComboBox.SelectedIndex != -1))
             {
-                ScheduleParametrs.Client = ScheduleParametrs.ClientList[ClientComboBox.SelectedIndex];
+                ScheduleParametrs.Client = ((List<Client>)GetValue(ClientsProperty))[ClientComboBox.SelectedIndex];
                 ScheduleParametrs.Duration = ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex];
                 ScheduleParametrs.Prepayment = (bool)PrepaymentCheckBox.IsChecked;
                 IsEditMode = false;

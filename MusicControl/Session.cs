@@ -14,7 +14,13 @@ namespace MusicControl
         private int _sessionID;
         private int _clientID;
         private TimeSpan _currentDuration;
+        private bool _prepayment;
 
+        public bool Prepayment
+        {
+            get { return _prepayment; }
+            set { _prepayment = value; }
+        }
         public TimeSpan CurrentDuration
         {
             get { return _currentDuration; }
@@ -47,7 +53,12 @@ namespace MusicControl
             set { _endSessionTime = value; }
         }
 
-        public Session(TimeSpan sessionDuration, DateTime startSessionTime, int sessionID, int clientID, TimeSpan currentDuration)
+        public TimeSpan GetStartSessionTimeSpan()
+        {
+            return new TimeSpan(_startSessionTime.Hour, _startSessionTime.Minute, _startSessionTime.Second);
+        }
+
+        public Session(TimeSpan sessionDuration, DateTime startSessionTime, int sessionID, int clientID, TimeSpan currentDuration, bool prepayment)
         {
             _sessionDuration = sessionDuration;
             _startSessionTime = startSessionTime;
@@ -55,6 +66,7 @@ namespace MusicControl
             _clientID = clientID;
             _endSessionTime = startSessionTime + sessionDuration;
             _currentDuration = currentDuration;
+            _prepayment = prepayment;
         }
     }
 }
