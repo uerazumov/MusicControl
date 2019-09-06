@@ -22,36 +22,13 @@ namespace MusicControl
             HistoryPage
         }
 
-        private List<Schedule> _scheduleList;
-
-        public List<Schedule> ScheduleList
-        {
-            get
-            {
-                return _scheduleList;
-                //var durations = new List<TimeSpan>();
-                //durations.Add(new TimeSpan(0, 30, 0));
-                //durations.Add(new TimeSpan(1, 0, 0));
-                //durations.Add(new TimeSpan(1, 30, 0));
-                //durations.Add(new TimeSpan(2, 0, 0));
-                //durations.Add(new TimeSpan(2, 30, 0));
-                //durations.Add(new TimeSpan(3, 0, 0));
-                ////return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), _clients[0], new TimeSpan(1,30,0), true, true);
-                //return new Schedule(_clients, durations, new TimeSpan(11, 0, 0), null, null, false, false);
-            }
-            set
-            {
-                _scheduleList = value;
-                DoPropertyChanged("Schedule");
-            }
-        }
-
         private DateTime _calendarDate;
         private TextBox _clientNameTextBox;
         private List<Client> _clients;
         private List<TextBox> _clientTimeTextBoxes;
         private System.Timers.Timer _clockTimer;
         private bool _isEditMode;
+        private int _selectedScheduleLine;
         private bool _isSessionExist;
         private bool _isSessionPaussed;
         private bool _isSessionStarted;
@@ -61,6 +38,7 @@ namespace MusicControl
         private PageState _pageState;
         private TimeSpan _pauseDuration;
         private System.Timers.Timer _pauseTimer;
+        private bool _scheduleDataChanged;
         private TimeSpan _sessionDuration;
         private Uri _sessionPage;
         private System.Timers.Timer _sessionTimer;
@@ -99,7 +77,8 @@ namespace MusicControl
             {
                 _calendarDate = value;
                 UpdateSchedule();
-                DoPropertyChanged("CalendarDateDuttonContent");
+                DoPropertyChanged("CalendarDateButtonContent");
+                DoPropertyChanged("CalendarDate");
             }
         }
 
@@ -255,6 +234,28 @@ namespace MusicControl
             get { return new DateTime(_pauseTime.Ticks).ToString("HH:mm:ss"); ; }
         }
 
+        public List<Schedule> ScheduleList
+        {
+            get { return _scheduleList; }
+            set
+            {
+                _scheduleList = value;
+                DoPropertyChanged("ScheduleList");
+            }
+        }
+
+        private List<Schedule> _scheduleList;
+
+        public bool ScheduleDataChanged
+        {
+            get { return _scheduleDataChanged; }
+            set
+            {
+                _scheduleDataChanged = value;
+                DoPropertyChanged("ScheduleDataChanged");
+            }
+        }
+
         private int _selectedClient;
         public int SelectedClient
         {
@@ -285,6 +286,22 @@ namespace MusicControl
                 DoPropertyChanged("CurrentClientSessionTime");
             }
         }
+
+        public int SelectedScheduleLine
+        {
+            get { return _selectedScheduleLine; }
+            set
+            {
+                _selectedScheduleLine = value;
+                if ((_scheduleList.Count > 0) && (value != -1))
+                {
+                    //Ошибка с обновлением после выбора строчки
+                    _scheduleList[_selectedScheduleLine].IsSelected = true;
+                    DoPropertyChanged("ScheduleList");
+                }
+            }
+        }
+
 
         private int _selectedSession;
         public int SelectedSession
@@ -695,6 +712,7 @@ namespace MusicControl
 
         private void OpenSchedulePage()
         {
+            _selectedScheduleLine = -1;
             UpdateSchedule();
             _pageState = PageState.CalendarPage;
             CalendarVisibility = Visibility.Hidden;
@@ -855,59 +873,56 @@ namespace MusicControl
             {
                 while (duration.Ticks > 0)
                 {
-                    _scheduleList.Add(new Schedule(new List<TimeSpan>(), new TimeSpan(18000000000 * counter), null, null, false, false));
+                    _scheduleList.Add(new Schedule(new List<TimeSpan>(), new TimeSpan(18000000000 * counter), null, null, false, false, false));
                     counter++;
                     duration -= new TimeSpan(0, 30, 0);
                 }
                 duration = thatDaySessions[i].GetStartSessionTimeSpan() - new TimeSpan(18000000000 * (counter));
                 while (duration.Ticks > 0)
                 {
-                    _scheduleList.Add(new Schedule(GetDurations(thatDaySessions[i].GetStartSessionTimeSpan(), counter), new TimeSpan(18000000000 * counter), null, null, false, true));
+                    _scheduleList.Add(new Schedule(GetDurations(thatDaySessions[i].GetStartSessionTimeSpan(), counter), new TimeSpan(18000000000 * counter), null, null, false, true, false));
                     counter++;
                     duration -= new TimeSpan(0, 30, 0);
                 }
                 if (i != thatDaySessions.Count - 1)
                 {
-                    _scheduleList.Add(new Schedule(GetDurations(thatDaySessions[i + 1].GetStartSessionTimeSpan(), counter), new TimeSpan(18000000000 * counter), _clients.First(x => x.ClientID == thatDaySessions[i].ClientID), thatDaySessions[i].SessionDuration, thatDaySessions[i].Prepayment, true));
+                    _scheduleList.Add(new Schedule(GetDurations(thatDaySessions[i + 1].GetStartSessionTimeSpan(), counter), new TimeSpan(18000000000 * counter), _clients.First(x => x.ClientID == thatDaySessions[i].ClientID), thatDaySessions[i], thatDaySessions[i].Prepayment, true, false));
                     counter++;
                     duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
                 }
                 else
                 {
-                    var startTime = new TimeSpan(23, 59, 0);
-                    if (nextDaySessions[0] != null) startTime = nextDaySessions[0].GetStartSessionTimeSpan() + new TimeSpan(1, 0, 0, 0, 0);
-                    _scheduleList.Add(new Schedule(GetDurations(startTime, counter), new TimeSpan(18000000000 * counter), _clients.First(x => x.ClientID == thatDaySessions[i].ClientID), thatDaySessions[i].SessionDuration, thatDaySessions[i].Prepayment, true));
+                    var startTime = new TimeSpan(24, 0, 0);
+                    if (nextDaySessions.Count != 0) startTime = nextDaySessions[0].GetStartSessionTimeSpan() + new TimeSpan(1, 0, 0, 0, 0);
+                    _scheduleList.Add(new Schedule(GetDurations(startTime, counter), new TimeSpan(18000000000 * counter), _clients.First(x => x.ClientID == thatDaySessions[i].ClientID), thatDaySessions[i], thatDaySessions[i].Prepayment, true, false));
                     counter++;
                     duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
                 }
             }
+            if (duration > new TimeSpan(24, 0, 0) - new TimeSpan(18000000000 * counter)) duration = new TimeSpan(24, 0, 0) - new TimeSpan(18000000000 * counter);
             while (duration.Ticks > 0)
             {
-                _scheduleList.Add(new Schedule(new List<TimeSpan>(), new TimeSpan(18000000000 * counter), null, null, false, false));
+                _scheduleList.Add(new Schedule(new List<TimeSpan>(), new TimeSpan(18000000000 * counter), null, null, false, false, false));
                 counter++;
                 duration -= new TimeSpan(0, 30, 0);
             }
-            duration = new TimeSpan(23, 59, 0) - new TimeSpan(18000000000 * (counter - 1));
+            duration = new TimeSpan(24, 0, 0) - new TimeSpan(18000000000 * (counter));
             while (duration.Ticks > 0)
             {
-                var startTime = new TimeSpan(23, 59, 0);
-                if (nextDaySessions[0] != null) startTime = nextDaySessions[0].GetStartSessionTimeSpan() + new TimeSpan(1, 0, 0, 0, 0);
-                _scheduleList.Add(new Schedule(GetDurations(startTime, counter), new TimeSpan(18000000000 * counter), null, null, false, true));
+                var startTime = new TimeSpan(24, 0, 0);
+                if (nextDaySessions.Count != 0) startTime = nextDaySessions[0].GetStartSessionTimeSpan() + new TimeSpan(1, 0, 0, 0, 0);
+                _scheduleList.Add(new Schedule(GetDurations(startTime, counter), new TimeSpan(18000000000 * counter), null, null, false, true, false));
                 counter++;
                 duration -= new TimeSpan(0, 30, 0);
             }
-            for (int i = 0; i < _scheduleList.Count; i++)
-            {
-                if (_scheduleList[i] == null)
-                    Console.WriteLine(i);
-            }
-            //Исправить ошибку с последним элементом
+            ScheduleDataChanged = false;
+            DoPropertyChanged("ScheduleList");
         }
 
         private List<TimeSpan> GetDurations(TimeSpan time, int counter)
         {
             var durations = new List<TimeSpan>();
-            var tempDuration = time - new TimeSpan(18000000000 * (counter - 1));
+            var tempDuration = time - new TimeSpan(18000000000 * (counter));
             while (tempDuration.Ticks > 0)
             {
                 durations.Add(tempDuration);

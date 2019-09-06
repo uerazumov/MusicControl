@@ -8,15 +8,19 @@ namespace MusicControl
 {
     public class Schedule
     {
-        //private List<Client> _clientList;
         private List<TimeSpan> _sessionDurations;
         private Client _client;
         private bool _prepayment;
-        private TimeSpan? _duration;
+        private Session _session;
         private TimeSpan _startTime;
         private bool _isEnabled;
+        private bool _isSelected;
 
-
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set { _isSelected = value; }
+        }
         public bool IsEnabled
         {
             get { return _isEnabled; }
@@ -32,20 +36,15 @@ namespace MusicControl
             get { return _sessionDurations; }
             set { _sessionDurations = value; }
         }
-        //public List<Client> ClientList
-        //{
-        //    get { return _clientList; }
-        //    set { _clientList = value; }
-        //}
         public Client Client
         {
             get { return _client; }
             set { _client = value; }
         }
-        public TimeSpan? Duration
+        public Session Session
         {
-            get { return _duration; }
-            set { _duration = value; }
+            get { return _session; }
+            set { _session = value; }
         }
         public bool Prepayment
         {
@@ -53,14 +52,15 @@ namespace MusicControl
             set { _prepayment = value; }
         }
 
-        public Schedule(List<TimeSpan> sessionDurations, TimeSpan startTime, Client client, TimeSpan? duration, bool prepayment, bool isEnabled)
+        public Schedule(List<TimeSpan> sessionDurations, TimeSpan startTime, Client client, Session session, bool prepayment, bool isEnabled, bool isSelected)
         {
             _client = client;
-            _duration = duration;
+            _session = session;
             _prepayment = prepayment;
             _sessionDurations = sessionDurations;
             _startTime = startTime;
             _isEnabled = isEnabled;
+            _isSelected = isSelected;
         }
     }
 }

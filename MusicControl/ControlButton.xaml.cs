@@ -46,14 +46,12 @@ namespace MusicControl
         public static DependencyProperty IsButtonEnabledProperty =
             DependencyProperty.Register("IsButtonEnabled", typeof(bool), typeof(ControlButton), new UIPropertyMetadata(false, Refresh));
 
-        private bool _isButtonEnabled;
-
         public bool IsButtonEnabled
         {
-            get { return _isButtonEnabled; }
+            get { return (bool)GetValue(IsButtonEnabledProperty); }
             set
             {
-                _isButtonEnabled = value;
+                SetValue(IsButtonEnabledProperty, value);
                 IsEnabled = value;
                 DoPropertyChanged("DisableButton");
                 DoPropertyChanged("BackgroundImageActive");

@@ -53,9 +53,53 @@ DependencyProperty.Register("Clients", typeof(List<Client>), typeof(ScheduleLine
             set
             {
                 SetValue(ScheduleParametrsProperty, value);
-                DoPropertyChanged("ScheduleParametrs");
-                DoPropertyChanged("Time");
-                DoPropertyChanged("Durations");
+                if (ScheduleParametrs.IsEnabled) IsLineEnabled = true;
+                else IsLineEnabled = false;
+                if (ScheduleParametrs.Client != null) IsEditMode = false;
+                else IsEditMode = true;
+                DoPropertyChanged("IsSelected");
+            }
+        }
+
+//        public static DependencyProperty IsSelectedProperty =
+//DependencyProperty.Register("IsSelected", typeof(bool), typeof(ScheduleLine));
+
+//        public bool IsSelected
+//        {
+//            get { return (bool)GetValue(IsSelectedProperty); }
+//            set
+//            {
+//                SetValue(IsSelectedProperty, value);
+//                DoPropertyChanged("IsSelected");
+//                DoPropertyChanged("IsCheckEnabled");
+//            }
+//        }
+
+        public bool IsSelected
+        {
+            get { return ScheduleParametrs.IsSelected; }
+            set
+            {
+                ScheduleParametrs.IsSelected = value;
+                DoPropertyChanged("IsSelected");
+                DoPropertyChanged("IsCheckEnabled");
+            }
+        }
+
+        public static DependencyProperty DataChangedProperty =
+DependencyProperty.Register("DataChanged", typeof(bool), typeof(ScheduleLine));
+
+        public bool DataChanged
+        {
+            get
+            {
+                return (bool)GetValue(DataChangedProperty);
+            }
+
+            set
+            {
+                SetValue(DataChangedProperty, value);
+                DoPropertyChanged("DataChanged");
             }
         }
 
@@ -149,9 +193,9 @@ DependencyProperty.Register("Clients", typeof(List<Client>), typeof(ScheduleLine
         {
             get
             {
-                if (ScheduleParametrs.Duration != null)
+                if (ScheduleParametrs.Session != null)
                 {
-                    var duration = (TimeSpan)ScheduleParametrs.Duration;
+                    var duration = (TimeSpan)ScheduleParametrs.Session.SessionDuration;
                     var time = String.Empty;
                     if (duration.Hours < 10) time += "0" + duration.Hours.ToString();
                     else time += ScheduleParametrs.StartTime.Hours.ToString();
@@ -176,6 +220,7 @@ DependencyProperty.Register("Clients", typeof(List<Client>), typeof(ScheduleLine
         {
             get
             {
+                if (!IsSelected) return false;
                 if (!_isLineEnabled) return false;
                 else if (_isEditMode) return true;
                 else if (ScheduleParametrs.Client != null) return false;
@@ -202,14 +247,14 @@ DependencyProperty.Register("Clients", typeof(List<Client>), typeof(ScheduleLine
         {
             IsEditMode = true;
             ClientComboBox.SelectedIndex = ((List<Client>)GetValue(ClientsProperty)).FindIndex(x => x == ScheduleParametrs.Client);
-            DurationComboBox.SelectedIndex = ScheduleParametrs.SessionDurations.FindIndex(x => x == ScheduleParametrs.Duration);
+            DurationComboBox.SelectedIndex = ScheduleParametrs.SessionDurations.FindIndex(x => x == ScheduleParametrs.Session.SessionDuration);
         }
 
         private void Remove()
         {
             IsEditMode = true;
             ScheduleParametrs.Client = null;
-            ScheduleParametrs.Duration = null;
+            ScheduleParametrs.Session = null;
             ClientComboBox.SelectedIndex = -1;
             DurationComboBox.SelectedIndex = -1;
             PrepaymentCheckBox.IsChecked = false;
@@ -220,7 +265,7 @@ DependencyProperty.Register("Clients", typeof(List<Client>), typeof(ScheduleLine
             if ((ClientComboBox.SelectedIndex != -1) && (DurationComboBox.SelectedIndex != -1))
             {
                 ScheduleParametrs.Client = ((List<Client>)GetValue(ClientsProperty))[ClientComboBox.SelectedIndex];
-                ScheduleParametrs.Duration = ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex];
+                ScheduleParametrs.Session.SessionDuration = ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex];
                 ScheduleParametrs.Prepayment = (bool)PrepaymentCheckBox.IsChecked;
                 IsEditMode = false;
                 DoPropertyChanged("ClientList");
