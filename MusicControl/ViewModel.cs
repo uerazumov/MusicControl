@@ -22,6 +22,13 @@ namespace MusicControl
             HistoryPage
         }
 
+        public enum SessionState
+        {
+            Removed,
+            Changed,
+            New
+        }
+
         private DateTime _calendarDate;
         private TextBox _clientNameTextBox;
         private List<Client> _clients;
@@ -38,7 +45,6 @@ namespace MusicControl
         private PageState _pageState;
         private TimeSpan _pauseDuration;
         private System.Timers.Timer _pauseTimer;
-        private bool _scheduleDataChanged;
         private TimeSpan _sessionDuration;
         private Uri _sessionPage;
         private System.Timers.Timer _sessionTimer;
@@ -68,6 +74,32 @@ namespace MusicControl
         public bool AddTimeIsEnabled
         {
             get { return _isSessionStarted && (_todaysSessions.Count != 0); }
+        }
+
+
+        //Привязать к календарю!
+        public List<DateTime> BookedCalendarDates
+        {
+            get
+            {
+                var sessions = new List<Session>();
+                for (int i = 0; i < _clients.Count; i++)
+                {
+                    for (int j = 0; j < _clients[i].Sessions.Count; j++)
+                        sessions.Add(_clients[i].Sessions[j]);
+                }
+                var dates = new List<DateTime>();
+                if (sessions.Count != 0)
+                {
+                    dates.Add(sessions[0].StartSessionTime.Date);
+                    for (int i = 1; i < sessions.Count; i++)
+                    {
+                        dates.Add(sessions[i].StartSessionTime.Date);
+                    }
+                    return dates.Distinct().ToList();
+                }
+                return dates;
+            }
         }
 
         public DateTime CalendarDate
@@ -132,6 +164,7 @@ namespace MusicControl
         {
             get
             {
+                _clients.Sort((x, y) => String.Compare(x.ClientName, y.ClientName));
                 var clients = new List<String>();
                 for (int i = 0; i < _clients.Count; i++)
                 {
@@ -160,7 +193,7 @@ namespace MusicControl
             {
                 var texts = new List<string>();
                 if (_clientTimeTextBoxes != null) for (int i = 0; i < _clientTimeTextBoxes.Count; i++)
-                    texts.Add(_clientTimeTextBoxes[i].Text);
+                        texts.Add(_clientTimeTextBoxes[i].Text);
                 return texts;
             }
         }
@@ -246,16 +279,6 @@ namespace MusicControl
 
         private List<Schedule> _scheduleList;
 
-        public bool ScheduleDataChanged
-        {
-            get { return _scheduleDataChanged; }
-            set
-            {
-                _scheduleDataChanged = value;
-                DoPropertyChanged("ScheduleDataChanged");
-            }
-        }
-
         private int _selectedClient;
         public int SelectedClient
         {
@@ -292,13 +315,22 @@ namespace MusicControl
             get { return _selectedScheduleLine; }
             set
             {
-                _selectedScheduleLine = value;
                 if ((_scheduleList.Count > 0) && (value != -1))
                 {
                     //Ошибка с обновлением после выбора строчки
-                    _scheduleList[_selectedScheduleLine].IsSelected = true;
+                    if (_selectedScheduleLine != -1) _scheduleList[_selectedScheduleLine].IsSelected = false;
+                    _scheduleList[value].IsSelected = true;
+                    //Костыль для обновления кнопок
+                    var tempSchedule = _scheduleList;
+                    _scheduleList = new List<Schedule>();
+                    for (int i = 0; i < 48; i++)
+                        _scheduleList.Add(new Schedule(new List<TimeSpan>(), new TimeSpan(0), null, null, false, true, false));
+                    DoPropertyChanged("ScheduleList");
+                    _scheduleList = tempSchedule;
+                    ////////////////////////////////
                     DoPropertyChanged("ScheduleList");
                 }
+                _selectedScheduleLine = value;
             }
         }
 
@@ -405,8 +437,8 @@ namespace MusicControl
                 var time = new TimeSpan(0);
                 for (int i = 0; i < _clients[_selectedClient].Sessions.Count; i++)
                 {
-                    if (_clients[_selectedClient].Sessions[i].StartSessionTime > DateTime.Now - new TimeSpan(365,0,0,0))
-                    time += _clients[_selectedClient].Sessions[i].CurrentDuration;
+                    if (_clients[_selectedClient].Sessions[i].StartSessionTime > DateTime.Now - new TimeSpan(365, 0, 0, 0))
+                        time += _clients[_selectedClient].Sessions[i].CurrentDuration;
                 }
                 if (time.Minutes != 0) return time.Hours.ToString() + "ч. " + time.Minutes.ToString() + "мин.";
                 return time.Hours.ToString() + "ч. ";
@@ -418,7 +450,7 @@ namespace MusicControl
             get { return !_isSessionStarted; }
         }
 
-        public Nullable<TimeSpan> _unpaidTime;
+        private Nullable<TimeSpan> _unpaidTime;
 
         public String UnpaidTime
         {
@@ -489,28 +521,28 @@ namespace MusicControl
             _clients.Add(new Client(3, "Семёнов Иван Григорьевич", new TimeSpan(0), new TimeSpan(0), sessions));
 
             sessions = new List<Session>();
-            _clients.Add(new Client(3, "Семёнов Иван Викторович", new TimeSpan(0), new TimeSpan(0), sessions));
+            _clients.Add(new Client(4, "Семёнов Иван Викторович", new TimeSpan(0), new TimeSpan(0), sessions));
 
             sessions = new List<Session>();
-            sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2019, 6, 4, 11, 30, 0), 14, 4, new TimeSpan(2, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 2, 14, 00, 0), 15, 4, new TimeSpan(1, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 8, 23, 16, 30, 0), 16, 4, new TimeSpan(1, 0, 0), true));
-            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 23, 30, 0), 17, 3, new TimeSpan(1, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 30, 0), 18, 4, new TimeSpan(0), true));
-            _clients.Add(new Client(4, "Караванов Генадий Иванович", new TimeSpan(5, 30, 0), new TimeSpan(0), sessions));
+            sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2019, 6, 4, 11, 30, 0), 14, 5, new TimeSpan(2, 30, 0), true));
+            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 2, 14, 00, 0), 15, 5, new TimeSpan(1, 30, 0), true));
+            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 8, 23, 16, 30, 0), 16, 5, new TimeSpan(1, 0, 0), true));
+            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 23, 30, 0), 17, 5, new TimeSpan(1, 30, 0), true));
+            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 30, 0), 18, 5, new TimeSpan(0), true));
+            _clients.Add(new Client(5, "Караванов Генадий Иванович", new TimeSpan(5, 30, 0), new TimeSpan(0), sessions));
 
             sessions = new List<Session>();
-            sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2018, 6, 5, 11, 30, 0), 19, 5, new TimeSpan(1, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 6, 14, 00, 0), 20, 5, new TimeSpan(1, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 21, 30, 0), 21, 3, new TimeSpan(1, 30, 0), true));
-            _clients.Add(new Client(5, "Сидоров Сергей Сергеевич", new TimeSpan(1, 0, 0), new TimeSpan(2, 0, 0), sessions));
+            sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2018, 6, 5, 11, 30, 0), 19, 6, new TimeSpan(1, 30, 0), true));
+            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 6, 14, 00, 0), 20, 6, new TimeSpan(1, 30, 0), true));
+            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 21, 30, 0), 21, 6, new TimeSpan(1, 30, 0), true));
+            _clients.Add(new Client(6, "Сидоров Сергей Сергеевич", new TimeSpan(1, 0, 0), new TimeSpan(2, 0, 0), sessions));
 
             sessions = new List<Session>();
-            sessions.Add(new Session(new TimeSpan(5, 30, 0), new DateTime(2018, 1, 5, 16, 30, 0), 16, 6, new TimeSpan(5, 30, 0), true));
-            _clients.Add(new Client(6, "Куликов Петр Петрович", new TimeSpan(0), new TimeSpan(0), sessions));
+            sessions.Add(new Session(new TimeSpan(5, 30, 0), new DateTime(2018, 1, 5, 16, 30, 0), 16, 7, new TimeSpan(5, 30, 0), true));
+            _clients.Add(new Client(7, "Куликов Петр Петрович", new TimeSpan(0), new TimeSpan(0), sessions));
 
             sessions = new List<Session>();
-            _clients.Add(new Client(7, "Григорьев Иван Анатольевич", new TimeSpan(1, 30, 0), new TimeSpan(0), sessions));
+            _clients.Add(new Client(8, "Григорьев Иван Анатольевич", new TimeSpan(1, 30, 0), new TimeSpan(0), sessions));
             CalendarDate = DateTime.Now;
         }
 
@@ -568,7 +600,7 @@ namespace MusicControl
                 if (!_isEditMode)
                 {
                     _addBoxVisibility = false;
-                    _clients.Add(new Client(_clients.Count, _clientNameTextBox.Text, new TimeSpan(int.Parse(_clientTimeTextBoxes[0].Text), int.Parse(_clientTimeTextBoxes[1].Text), 0), new TimeSpan(int.Parse(_clientTimeTextBoxes[2].Text), int.Parse(_clientTimeTextBoxes[3].Text), 0), new List<Session>()));
+                    _clients.Add(new Client(GetNewClientID(), _clientNameTextBox.Text, new TimeSpan(int.Parse(_clientTimeTextBoxes[0].Text), int.Parse(_clientTimeTextBoxes[1].Text), 0), new TimeSpan(int.Parse(_clientTimeTextBoxes[2].Text), int.Parse(_clientTimeTextBoxes[3].Text), 0), new List<Session>()));
                     SelectedClient = _clients.Count - 1;
                     DoPropertyChanged("ClientSessions");
                     SelectedClientSession = 0;
@@ -614,6 +646,38 @@ namespace MusicControl
             NewClientName = "Введите ФИО";
         }
 
+        public void ChangeSession(int clientID, int sessionID, SessionState sessionState)
+        {
+            if (sessionState == SessionState.Removed)
+            {
+                _clients.First(x => x.ClientID == clientID).Sessions.Remove(_clients.First(x => x.ClientID == clientID).Sessions.First(x => x.SessionID == sessionID));
+            }
+            UpdateSchedule();
+        }
+
+        public void ChangeSession(int clientID, SessionState sessionState, bool? isPrepayment, TimeSpan duration)
+        {
+            if (sessionState == SessionState.New)
+            {
+                _clients.First(x => x.ClientID == clientID).Sessions.Add(new Session(duration, _calendarDate.Date + _scheduleList[_selectedScheduleLine].StartTime, GetNewSessionID(), clientID, new TimeSpan(0), (bool)isPrepayment));
+            }
+            UpdateSchedule();
+        }
+
+        public void ChangeSession(int newClientID, int oldClientID,  int sessionID, SessionState sessionState, bool? isPrepayment, TimeSpan duration)
+        {
+            if (sessionState == SessionState.Changed)
+            {
+                var session = _clients.First(x => x.ClientID == oldClientID).Sessions.First(x => x.SessionID == (int)sessionID);
+                _clients.First(x => x.ClientID == oldClientID).Sessions.Remove(session);
+                session.ClientID = newClientID;
+                session.Prepayment = (bool)isPrepayment;
+                session.SessionDuration = duration;
+                _clients.First(x => x.ClientID == newClientID).Sessions.Add(session);
+            }
+            UpdateSchedule();
+        }
+
         private void ClockTick(object sender, EventArgs e)
         {
             _clock = DateTime.Now.ToString("HH:mm");
@@ -640,6 +704,25 @@ namespace MusicControl
             DoPropertyChanged("AddBoxVisibility");
             DoPropertyChanged("AddButtonVisibility");
             _clientNameTextBox.Focus();
+        }
+
+        private int GetNewSessionID()
+        {
+            var sessions = new List<Session>();
+            for (int i = 0; i < _clients.Count; i++)
+            {
+                for (int j = 0; j < _clients[i].Sessions.Count; j++)
+                    sessions.Add(_clients[i].Sessions[j]);
+            }
+            sessions.Sort((x, y) => Math.Sign(x.SessionID.CompareTo(y.SessionID)));
+            return sessions[sessions.Count - 1].ClientID + 1;
+        }
+
+        private int GetNewClientID()
+        {
+            var clients = _clients;
+            clients.Sort((x, y) => Math.Sign(x.ClientID.CompareTo(y.ClientID)));
+            return clients[clients.Count - 1].ClientID + 1;
         }
 
         private List<Session> GetSessionAtDay(DateTime date)
@@ -915,7 +998,6 @@ namespace MusicControl
                 counter++;
                 duration -= new TimeSpan(0, 30, 0);
             }
-            ScheduleDataChanged = false;
             DoPropertyChanged("ScheduleList");
         }
 
@@ -961,6 +1043,7 @@ namespace MusicControl
         {
             _todaysSessions = new List<Session>();
             _todaysSessions = GetSessionAtDay(DateTime.Now);
+            _todaysSessions.Sort((x, y) => DateTime.Compare(x.StartSessionTime, y.StartSessionTime));
         }
 
         private ICommand _doAddNewClient;

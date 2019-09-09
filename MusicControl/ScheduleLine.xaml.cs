@@ -11,6 +11,7 @@ namespace MusicControl
 {
     public partial class ScheduleLine : INotifyPropertyChanged
     {
+        MainWindow _window;
         public ScheduleLine()
         {
             InitializeComponent();
@@ -19,6 +20,8 @@ namespace MusicControl
             EditSessionButton.ControlCommand = DoEdit;
             SaveSessionButton.ControlCommand = DoSave;
             RemoveSessionButton.ControlCommand = DoRemove;
+
+            _window = Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(w => w.IsActive);
         }
 
         public SolidColorBrush BackgroundBrush
@@ -40,9 +43,6 @@ namespace MusicControl
             scheduleLine.IsLineEnabled = scheduleLine.ScheduleParametrs.IsEnabled;
         }
 
-        public static DependencyProperty ClientsProperty =
-DependencyProperty.Register("Clients", typeof(List<Client>), typeof(ScheduleLine));
-
         public Schedule ScheduleParametrs
         {
             get
@@ -53,27 +53,35 @@ DependencyProperty.Register("Clients", typeof(List<Client>), typeof(ScheduleLine
             set
             {
                 SetValue(ScheduleParametrsProperty, value);
+                if (ScheduleParametrs.Client == null) _state = ViewModel.SessionState.New;
                 if (ScheduleParametrs.IsEnabled) IsLineEnabled = true;
                 else IsLineEnabled = false;
                 if (ScheduleParametrs.Client != null) IsEditMode = false;
                 else IsEditMode = true;
+                if (IsEditMode)
+                {
+                    ClientComboBox.SelectedIndex = -1;
+                    DurationComboBox.SelectedIndex = -1;
+                }
                 DoPropertyChanged("IsSelected");
+                DoPropertyChanged("IsDateEnabled");
             }
         }
 
-//        public static DependencyProperty IsSelectedProperty =
-//DependencyProperty.Register("IsSelected", typeof(bool), typeof(ScheduleLine));
-
-//        public bool IsSelected
-//        {
-//            get { return (bool)GetValue(IsSelectedProperty); }
-//            set
-//            {
-//                SetValue(IsSelectedProperty, value);
-//                DoPropertyChanged("IsSelected");
-//                DoPropertyChanged("IsCheckEnabled");
-//            }
-//        }
+        public bool IsDateEnabled
+        {
+            get
+            {
+                if (_window.GetVM().CalendarDate.Date + ScheduleParametrs.StartTime < DateTime.Now)
+                    return false;
+                return IsSelected;
+            }
+            set
+            {
+                DoPropertyChanged("IsDateEnabled");
+                DoPropertyChanged("IsCheckEnabled");
+            }
+        }
 
         public bool IsSelected
         {
@@ -86,48 +94,10 @@ DependencyProperty.Register("Clients", typeof(List<Client>), typeof(ScheduleLine
             }
         }
 
-        public static DependencyProperty DataChangedProperty =
-DependencyProperty.Register("DataChanged", typeof(bool), typeof(ScheduleLine));
-
-        public bool DataChanged
-        {
-            get
-            {
-                return (bool)GetValue(DataChangedProperty);
-            }
-
-            set
-            {
-                SetValue(DataChangedProperty, value);
-                DoPropertyChanged("DataChanged");
-            }
-        }
-
-        public List<Client> Clients
-        {
-            get
-            {
-                return (List<Client>)GetValue(ClientsProperty);
-            }
-
-            set
-            {
-                SetValue(ClientsProperty, value);
-                DoPropertyChanged("ClientList");
-            }
-        }
-
         public List<String> ClientList
         {
             get
-            {
-                var clients = new List<String>();
-                for (int i = 0; i < ((List<Client>)GetValue(ClientsProperty)).Count; i++)
-                {
-                    clients.Add(((List<Client>)GetValue(ClientsProperty))[i].ClientName);
-                }
-                return clients;
-            }
+            { return _window.GetVM().Clients; }
         }
 
         public List<String> Durations
@@ -220,6 +190,7 @@ DependencyProperty.Register("DataChanged", typeof(bool), typeof(ScheduleLine));
         {
             get
             {
+                if (_window.GetVM().CalendarDate.Date + ScheduleParametrs.StartTime < DateTime.Now) return false;
                 if (!IsSelected) return false;
                 if (!_isLineEnabled) return false;
                 else if (_isEditMode) return true;
@@ -243,15 +214,22 @@ DependencyProperty.Register("DataChanged", typeof(bool), typeof(ScheduleLine));
             }
         }
 
+        private ViewModel.SessionState _state;
+        private int _oldClientID;
+
         private void Edit()
         {
+            _state = ViewModel.SessionState.Changed;
+            _oldClientID = ScheduleParametrs.Client.ClientID;
             IsEditMode = true;
-            ClientComboBox.SelectedIndex = ((List<Client>)GetValue(ClientsProperty)).FindIndex(x => x == ScheduleParametrs.Client);
+            ClientComboBox.SelectedIndex = _window.GetVM().ClientList.FindIndex(x => x == ScheduleParametrs.Client);
             DurationComboBox.SelectedIndex = ScheduleParametrs.SessionDurations.FindIndex(x => x == ScheduleParametrs.Session.SessionDuration);
         }
 
         private void Remove()
         {
+            _state = ViewModel.SessionState.Removed;
+            _window.GetVM().ChangeSession(ScheduleParametrs.Client.ClientID, ScheduleParametrs.Session.SessionID, ViewModel.SessionState.Removed);
             IsEditMode = true;
             ScheduleParametrs.Client = null;
             ScheduleParametrs.Session = null;
@@ -264,9 +242,14 @@ DependencyProperty.Register("DataChanged", typeof(bool), typeof(ScheduleLine));
         {
             if ((ClientComboBox.SelectedIndex != -1) && (DurationComboBox.SelectedIndex != -1))
             {
-                ScheduleParametrs.Client = ((List<Client>)GetValue(ClientsProperty))[ClientComboBox.SelectedIndex];
-                ScheduleParametrs.Session.SessionDuration = ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex];
-                ScheduleParametrs.Prepayment = (bool)PrepaymentCheckBox.IsChecked;
+                if (_state == ViewModel.SessionState.New)
+                {
+                    _window.GetVM().ChangeSession(_window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID, ViewModel.SessionState.New, PrepaymentCheckBox.IsChecked, ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex]);
+                }
+                else if (_state == ViewModel.SessionState.Changed)
+                {
+                    _window.GetVM().ChangeSession(_window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID, _oldClientID, ScheduleParametrs.Session.SessionID, ViewModel.SessionState.Changed, PrepaymentCheckBox.IsChecked, ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex]);
+                }
                 IsEditMode = false;
                 DoPropertyChanged("ClientList");
                 DoPropertyChanged("Durations");
@@ -330,11 +313,6 @@ DependencyProperty.Register("DataChanged", typeof(bool), typeof(ScheduleLine));
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
-    //    public static DependencyProperty IsLineEnabledProperty =
-    //DependencyProperty.Register("IsLineEnabled", typeof(bool), typeof(ScheduleLine), new UIPropertyMetadata(false, Refresh));
-
-
 
         private bool _isLineEnabled;
 

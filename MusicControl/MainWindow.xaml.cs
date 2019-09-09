@@ -24,6 +24,11 @@ namespace MusicControl
             InitializeComponent();
         }
 
+        public ViewModel GetVM()
+        { 
+            return _vm;
+        }
+
         private void Close(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Environment.Exit(0);

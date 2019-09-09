@@ -33,8 +33,8 @@
                 <Border Opacity="0.5" Background="{Binding BackgroundBrush}" BorderThickness="1" BorderBrush="Black" Grid.Column="2"/>
                 <TextBlock Visibility="{Binding InfoVisibility}" Text="{Binding ClientName}" Margin="15,5,5,5" Foreground="Black"  Name="Client" Grid.Column="0" FontSize="20"></TextBlock>
                 <TextBlock Visibility="{Binding InfoVisibility}" Text="{Binding SessionDuration}" Margin="15,5,5,5" Foreground="Black"  Name="Duration" Grid.Column="1" FontSize="20"></TextBlock>
-                <ComboBox IsEnabled="{Binding IsSelected}" Visibility="{Binding EditVisibility}" ItemsSource="{Binding ClientList}" Margin="5" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="ClientComboBox" Grid.Column="0" FontSize="20"/>
-                <ComboBox IsEnabled="{Binding IsSelected}" Visibility="{Binding EditVisibility}" ItemsSource="{Binding Durations}" Margin="5" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="DurationComboBox" Grid.Column="1" FontSize="20"/>
+                <ComboBox IsEnabled="{Binding IsDateEnabled}" Visibility="{Binding EditVisibility}" ItemsSource="{Binding ClientList}" Margin="5" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="ClientComboBox" Grid.Column="0" FontSize="20"/>
+                <ComboBox IsEnabled="{Binding IsDateEnabled}" Visibility="{Binding EditVisibility}" ItemsSource="{Binding Durations}" Margin="5" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="DurationComboBox" Grid.Column="1" FontSize="20"/>
                 <CheckBox x:Name="PrepaymentCheckBox" IsEnabled="{Binding IsCheckEnabled}" IsChecked="{Binding IsPrepayment, Mode=OneWay}" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <CheckBox.LayoutTransform>
                         <ScaleTransform ScaleX="2" ScaleY="2" />
@@ -42,12 +42,12 @@
                 </CheckBox>
             </Grid>
         </Border>
-        <local:ControlButton IsButtonEnabled="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}, Mode=TwoWay}" Visibility="{Binding InfoVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" ControlCommand="{Binding EditCommand, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="2" x:Name="EditSessionButton" EnableBackgroundImage="{StaticResource editClientButton}" DisableBackgroundImage="{StaticResource editClientButtonDisabled}" EnableBackgroundImageActive="{StaticResource editClientButtonAction}">
+        <local:ControlButton IsButtonEnabled="{Binding IsDateEnabled, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}, Mode=TwoWay}" Visibility="{Binding InfoVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" ControlCommand="{Binding EditCommand, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="2" x:Name="EditSessionButton" EnableBackgroundImage="{StaticResource editClientButton}" DisableBackgroundImage="{StaticResource editClientButtonDisabled}" EnableBackgroundImageActive="{StaticResource editClientButtonAction}">
             <local:ControlButton.LayoutTransform>
                 <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
             </local:ControlButton.LayoutTransform>
         </local:ControlButton>
-        <local:ControlButton IsButtonEnabled="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}, Mode=TwoWay}" Visibility="{Binding EditVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="2" x:Name="SaveSessionButton" EnableBackgroundImage="{StaticResource saveButton}" DisableBackgroundImage="{StaticResource saveButtonDisabled}" EnableBackgroundImageActive="{StaticResource saveButtonAction}">
+        <local:ControlButton IsButtonEnabled="{Binding IsDateEnabled, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}, Mode=TwoWay}" Visibility="{Binding EditVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="2" x:Name="SaveSessionButton" EnableBackgroundImage="{StaticResource saveButton}" DisableBackgroundImage="{StaticResource saveButtonDisabled}" EnableBackgroundImageActive="{StaticResource saveButtonAction}">
             <local:ControlButton.LayoutTransform>
                 <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
             </local:ControlButton.LayoutTransform>
