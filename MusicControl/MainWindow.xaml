@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MusicControl"
         mc:Ignorable="d"
         Height="600" Width="1000" ResizeMode="NoResize"
-        Title="Управление сеансами звукозаписи" WindowStartupLocation="CenterScreen" Loaded="OnWindowLoaded" Closing="Close"
+        Title="Time Wise Manager" WindowStartupLocation="CenterScreen" Loaded="OnWindowLoaded" Closing="Close"
         Icon="pack://application:,,,/MusicControl;component/VisualResources/icon.ico">
     <Window.Resources>
         <ResourceDictionary>

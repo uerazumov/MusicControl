@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/editbuttondisabled.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("visualresources/awaitpicture.png")]
 
 

@@ -208,5 +208,8 @@
   <ItemGroup>
     <Resource Include="VisualResources\editButtonDisabled.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="VisualResources\awaitPicture.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
