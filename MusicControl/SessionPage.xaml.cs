@@ -25,9 +25,9 @@ namespace MusicControl
             InitializeComponent();
             SessionsList.SelectedIndex = 0;
             MainWindow window = Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(w => w.IsActive);
-            StopButton.IsButtonEnabled = window.GetStopButtonStatus();
-            PauseButton.IsButtonEnabled = window.GetPauseButtonStatus();
-            StartButton.IsButtonEnabled = window.GetStartButtonStatus();
+            //StopButton.IsButtonEnabled = window.GetStopButtonStatus();
+            //PauseButton.IsButtonEnabled = window.GetPauseButtonStatus();
+            //StartButton.IsButtonEnabled = window.GetStartButtonStatus();
             SessionsList.ItemsSource = window.GetSessions();
         }
     }

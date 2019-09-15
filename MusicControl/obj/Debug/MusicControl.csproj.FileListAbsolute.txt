@@ -53,8 +53,8 @@ C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.cspr
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.csproj.CoreCompileInputs.cache
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.exe
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.pdb
-C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.csprojAssemblyReference.cache
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ScheduleLine.g.cs
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ScheduleMonthPage.g.cs
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ScheduleLine.baml
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ScheduleMonthPage.baml
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.csprojAssemblyReference.cache

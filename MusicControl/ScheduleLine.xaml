@@ -20,7 +20,7 @@
             <ColumnDefinition Width="0.8*"/>
             <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Text="{Binding Time}" FontSize="22"/>
+        <TextBlock Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0" Text="{Binding Time}" FontSize="22"/>
         <Border Grid.Column="1">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -31,8 +31,8 @@
                 <Border Opacity="0.5" Background="{Binding BackgroundBrush}" BorderThickness="1" BorderBrush="Black" Grid.Column="0"/>
                 <Border Opacity="0.5" Background="{Binding BackgroundBrush}" BorderThickness="1" BorderBrush="Black" Grid.Column="1"/>
                 <Border Opacity="0.5" Background="{Binding BackgroundBrush}" BorderThickness="1" BorderBrush="Black" Grid.Column="2"/>
-                <TextBlock Visibility="{Binding InfoVisibility}" Text="{Binding ClientName}" Margin="15,5,5,5" Foreground="Black"  Name="Client" Grid.Column="0" FontSize="20"></TextBlock>
-                <TextBlock Visibility="{Binding InfoVisibility}" Text="{Binding SessionDuration}" Margin="15,5,5,5" Foreground="Black"  Name="Duration" Grid.Column="1" FontSize="20"></TextBlock>
+                <TextBlock Visibility="{Binding InfoVisibility}" Text="{Binding ClientName}" Margin="15,5,5,5" Foreground="White"  Name="Client" Grid.Column="0" FontSize="20"></TextBlock>
+                <TextBlock Visibility="{Binding InfoVisibility}" Text="{Binding SessionDuration}" Margin="15,5,5,5" Foreground="White"  Name="Duration" Grid.Column="1" FontSize="20"></TextBlock>
                 <ComboBox IsEnabled="{Binding IsDateEnabled}" Visibility="{Binding EditVisibility}" ItemsSource="{Binding ClientList}" Margin="5" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="ClientComboBox" Grid.Column="0" FontSize="20"/>
                 <ComboBox IsEnabled="{Binding IsDateEnabled}" Visibility="{Binding EditVisibility}" ItemsSource="{Binding Durations}" Margin="5" Foreground="Black" Style="{StaticResource ComboBoxStyle}" Name="DurationComboBox" Grid.Column="1" FontSize="20"/>
                 <CheckBox x:Name="PrepaymentCheckBox" IsEnabled="{Binding IsCheckEnabled}" IsChecked="{Binding IsPrepayment, Mode=OneWay}" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">

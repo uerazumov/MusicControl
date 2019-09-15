@@ -46,32 +46,45 @@ namespace MusicControl
         public static DependencyProperty IsButtonEnabledProperty =
             DependencyProperty.Register("IsButtonEnabled", typeof(bool), typeof(ControlButton), new UIPropertyMetadata(false, Refresh));
 
+        //public bool IsButtonEnabled
+        //{
+        //    get { return (bool)GetValue(IsButtonEnabledProperty); }
+        //    set
+        //    {
+        //        SetValue(IsButtonEnabledProperty, value);
+        //        IsEnabled = value;
+        //        DoPropertyChanged("DisableButton");
+        //        DoPropertyChanged("BackgroundImageActive");
+        //        DoPropertyChanged("BackgroundImage");
+        //    }
+        //}
+
+        private bool _isButtonEnabled;
+
         public bool IsButtonEnabled
         {
-            get { return (bool)GetValue(IsButtonEnabledProperty); }
+            get { return _isButtonEnabled; }
             set
             {
                 SetValue(IsButtonEnabledProperty, value);
+                _isButtonEnabled = value;
                 IsEnabled = value;
-                DoPropertyChanged("DisableButton");
-                DoPropertyChanged("BackgroundImageActive");
-                DoPropertyChanged("BackgroundImage");
             }
         }
 
         public static void Refresh(DependencyObject property, DependencyPropertyChangedEventArgs args)
         {
             ControlButton circularButton = (ControlButton)property;
-            circularButton.IsButtonEnabled = (bool)args.NewValue;
+            //circularButton.IsButtonEnabled = (bool)args.NewValue;
             circularButton.DoPropertyChanged("IsButtonEnabled");
             circularButton.DoPropertyChanged("BackgroundImageActive");
             circularButton.DoPropertyChanged("BackgroundImage");
             circularButton.DoPropertyChanged("IsEnabled");
         }
 
-        public ImageBrush BackgroundImageActive => !IsButtonEnabled ? DisableBackgroundImageActive : EnableBackgroundImageActive;
+        public ImageBrush BackgroundImageActive => !(bool)GetValue(IsButtonEnabledProperty) ? DisableBackgroundImageActive : EnableBackgroundImageActive;
 
-        public ImageBrush BackgroundImage => !IsButtonEnabled ? DisableBackgroundImage : EnableBackgroundImage;
+        public ImageBrush BackgroundImage => !(bool)GetValue(IsButtonEnabledProperty) ? DisableBackgroundImage : EnableBackgroundImage;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

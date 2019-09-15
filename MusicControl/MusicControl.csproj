@@ -66,6 +66,7 @@
     <Compile Include="ControlButton.xaml.cs">
       <DependentUpon>ControlButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomLetterDayConverter.cs" />
     <Compile Include="MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
     </Compile>

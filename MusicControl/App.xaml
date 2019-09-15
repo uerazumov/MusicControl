@@ -5,5 +5,6 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:ViewModel x:Key="ViewModel"/>
-        </Application.Resources>
+        <local:CustomLetterDayConverter x:Key="CustomLetterDayConverter"/>
+    </Application.Resources>
 </Application>

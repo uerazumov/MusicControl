@@ -97,7 +97,11 @@ namespace MusicControl
         public List<String> ClientList
         {
             get
-            { return _window.GetVM().Clients; }
+            {
+                if (_window.GetVM().Clients.Count != 0)
+                    return _window.GetVM().Clients;
+                return new List<string>();
+            }
         }
 
         public List<String> Durations
