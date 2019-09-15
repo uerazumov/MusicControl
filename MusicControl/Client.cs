@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,13 +13,9 @@ namespace MusicControl
         private string _clientName;
         private TimeSpan _timeBalance;
         private TimeSpan _unpaidTime;
-        private List<Session> _sessions;
 
-        public List<Session> Sessions
-        {
-            get { return _sessions; }
-            set { _sessions = value; }
-        }
+        [Ignore]
+        public List<Session> Sessions => DataAccessManager.GetInstance().GetSessionsByClient(this).ToList();
 
         public TimeSpan UnpaidTime
         {
@@ -32,6 +29,7 @@ namespace MusicControl
             set { _timeBalance = value; }
         }
 
+        [PrimaryKey, AutoIncrement]
         public int ClientID
         {
             get { return _clientID; }
@@ -44,13 +42,13 @@ namespace MusicControl
             set { _clientName = value; }
         }
 
-        public Client(int clientID, string clientName, TimeSpan timeBalance, TimeSpan unpaidTime, List<Session> sessions)
+        public Client(string clientName, TimeSpan timeBalance, TimeSpan unpaidTime)
         {
-            _clientID = clientID;
             _clientName = clientName;
             _timeBalance = timeBalance;
             _unpaidTime = unpaidTime;
-            _sessions = sessions;
         }
+
+        public Client() { }
     }
 }

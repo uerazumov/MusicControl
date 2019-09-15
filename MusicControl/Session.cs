@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,11 +27,14 @@ namespace MusicControl
             get { return _currentDuration; }
             set { _currentDuration = value; }
         }
+
         public int ClientID
         {
             get { return _clientID; }
             set { _clientID = value; }
         }
+
+        [PrimaryKey, AutoIncrement]
         public int SessionID
         {
             get { return _sessionID; }
@@ -58,15 +62,16 @@ namespace MusicControl
             return new TimeSpan(_startSessionTime.Hour, _startSessionTime.Minute, _startSessionTime.Second);
         }
 
-        public Session(TimeSpan sessionDuration, DateTime startSessionTime, int sessionID, int clientID, TimeSpan currentDuration, bool prepayment)
+        public Session(TimeSpan sessionDuration, DateTime startSessionTime, int clientID, TimeSpan currentDuration, bool prepayment)
         {
             _sessionDuration = sessionDuration;
             _startSessionTime = startSessionTime;
-            _sessionID = sessionID;
             _clientID = clientID;
             _endSessionTime = startSessionTime + sessionDuration;
             _currentDuration = currentDuration;
             _prepayment = prepayment;
         }
+
+        public Session() { }
     }
 }

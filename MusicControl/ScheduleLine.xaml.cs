@@ -233,7 +233,7 @@ namespace MusicControl
         private void Remove()
         {
             _state = ViewModel.SessionState.Removed;
-            _window.GetVM().ChangeSession(ScheduleParametrs.Client.ClientID, ScheduleParametrs.Session.SessionID, ViewModel.SessionState.Removed);
+            _window.GetVM().ChangeSession(ScheduleParametrs.Session, ViewModel.SessionState.Removed);
             IsEditMode = true;
             ScheduleParametrs.Client = null;
             ScheduleParametrs.Session = null;
@@ -248,11 +248,18 @@ namespace MusicControl
             {
                 if (_state == ViewModel.SessionState.New)
                 {
-                    _window.GetVM().ChangeSession(_window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID, ViewModel.SessionState.New, PrepaymentCheckBox.IsChecked, ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex]);
+                    var session = new Session(ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex], _window.GetVM().GetNewSessionStartTime(), _window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID, new TimeSpan(0), (bool)PrepaymentCheckBox.IsChecked);
+                    _window.GetVM().ChangeSession(session, ViewModel.SessionState.New);
+                    //_window.GetVM().ChangeSession(_window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID, ViewModel.SessionState.New, PrepaymentCheckBox.IsChecked, ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex]);
                 }
                 else if (_state == ViewModel.SessionState.Changed)
                 {
-                    _window.GetVM().ChangeSession(_window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID, _oldClientID, ScheduleParametrs.Session.SessionID, ViewModel.SessionState.Changed, PrepaymentCheckBox.IsChecked, ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex]);
+                    var session = DataAccessManager.GetInstance().GetSessionByID(ScheduleParametrs.Session.SessionID);
+                    session.ClientID = _window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID;
+                    session.Prepayment = (bool)PrepaymentCheckBox.IsChecked;
+                    session.SessionDuration = ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex];
+                    _window.GetVM().ChangeSession(session, ViewModel.SessionState.Changed);
+                    //_window.GetVM().ChangeSession(_window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID, _oldClientID, ScheduleParametrs.Session.SessionID, ViewModel.SessionState.Changed, PrepaymentCheckBox.IsChecked, ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex]);
                 }
                 IsEditMode = false;
                 DoPropertyChanged("ClientList");

@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Linq;
 using System.Windows.Controls;
+using SQLite;
 
 namespace MusicControl
 {
@@ -513,6 +514,8 @@ namespace MusicControl
 
         public ViewModel()
         {
+
+
             DoPropertyChanged("Schedule");
             _pageState = PageState.MainPage;
             _sessionPage = new Uri("SessionPage.xaml", UriKind.Relative);
@@ -532,54 +535,54 @@ namespace MusicControl
             ClockTick(new object(), new EventArgs());
             _todaysSessions = new List<Session>();
 
-            _clients = new List<Client>();
+            _clients = DataAccessManager.GetInstance().GetClients().ToList();
 
-            List<Session> sessions = new List<Session>();
-            sessions = new List<Session>();
-            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 23, 11, 30, 0), 1, 1, new TimeSpan(1, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 7, 21, 14, 00, 0), 2, 1, new TimeSpan(3, 0, 0), true));
-            sessions.Add(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 9, 5, 11, 00, 0), 3, 1, new TimeSpan(2, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(4, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 9, 30, 0), 4, 1, new TimeSpan(0), true));
-            _clients.Add(new Client(1, "Иванов Иван Иванович", new TimeSpan(2, 0, 0), new TimeSpan(0), sessions));
+            //List<Session> sessions = new List<Session>();
+            //sessions = new List<Session>();
+            //sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 23, 11, 30, 0), 1, 1, new TimeSpan(1, 30, 0), true));
+            //sessions.Add(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 7, 21, 14, 00, 0), 2, 1, new TimeSpan(3, 0, 0), true));
+            //sessions.Add(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 9, 5, 11, 00, 0), 3, 1, new TimeSpan(2, 30, 0), true));
+            //sessions.Add(new Session(new TimeSpan(4, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 9, 30, 0), 4, 1, new TimeSpan(0), true));
+            //_clients.Add(new Client(1, "Иванов Иван Иванович", new TimeSpan(2, 0, 0), new TimeSpan(0), sessions));
 
-            sessions = new List<Session>();
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 6, 22, 11, 30, 0), 5, 2, new TimeSpan(1, 0, 0), true));
-            sessions.Add(new Session(new TimeSpan(3, 30, 0), new DateTime(2019, 7, 19, 14, 00, 0), 6, 2, new TimeSpan(3, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 9, 00, 0), 7, 2, new TimeSpan(2, 0, 0), true));
-            sessions.Add(new Session(new TimeSpan(3, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 30, 0), 8, 2, new TimeSpan(0), false));
-            _clients.Add(new Client(2, "Петров Петр Иванович", new TimeSpan(3, 0, 0), new TimeSpan(0), sessions));
+            //sessions = new List<Session>();
+            //sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 6, 22, 11, 30, 0), 5, 2, new TimeSpan(1, 0, 0), true));
+            //sessions.Add(new Session(new TimeSpan(3, 30, 0), new DateTime(2019, 7, 19, 14, 00, 0), 6, 2, new TimeSpan(3, 30, 0), true));
+            //sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 9, 00, 0), 7, 2, new TimeSpan(2, 0, 0), true));
+            //sessions.Add(new Session(new TimeSpan(3, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 30, 0), 8, 2, new TimeSpan(0), false));
+            //_clients.Add(new Client(2, "Петров Петр Иванович", new TimeSpan(3, 0, 0), new TimeSpan(0), sessions));
 
-            sessions = new List<Session>();
-            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 3, 11, 30, 0), 9, 3, new TimeSpan(2, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(2019, 7, 1, 14, 00, 0), 10, 3, new TimeSpan(1, 30, 0), false));
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 9, 5, 15, 00, 0), 11, 3, new TimeSpan(0, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 01, 30, 0), 12, 3, new TimeSpan(0), true));
-            sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 19, 00, 0), 13, 3, new TimeSpan(0), true));
-            _clients.Add(new Client(3, "Семёнов Иван Григорьевич", new TimeSpan(0), new TimeSpan(0), sessions));
+            //sessions = new List<Session>();
+            //sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 3, 11, 30, 0), 9, 3, new TimeSpan(2, 30, 0), true));
+            //sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(2019, 7, 1, 14, 00, 0), 10, 3, new TimeSpan(1, 30, 0), false));
+            //sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 9, 5, 15, 00, 0), 11, 3, new TimeSpan(0, 30, 0), true));
+            //sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 01, 30, 0), 12, 3, new TimeSpan(0), true));
+            //sessions.Add(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 19, 00, 0), 13, 3, new TimeSpan(0), true));
+            //_clients.Add(new Client(3, "Семёнов Иван Григорьевич", new TimeSpan(0), new TimeSpan(0), sessions));
 
-            sessions = new List<Session>();
-            _clients.Add(new Client(4, "Семёнов Иван Викторович", new TimeSpan(0), new TimeSpan(0), sessions));
+            //sessions = new List<Session>();
+            //_clients.Add(new Client(4, "Семёнов Иван Викторович", new TimeSpan(0), new TimeSpan(0), sessions));
 
-            sessions = new List<Session>();
-            sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2019, 6, 4, 11, 30, 0), 14, 5, new TimeSpan(2, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 2, 14, 00, 0), 15, 5, new TimeSpan(1, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 8, 23, 16, 30, 0), 16, 5, new TimeSpan(1, 0, 0), true));
-            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 23, 30, 0), 17, 5, new TimeSpan(1, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 30, 0), 18, 5, new TimeSpan(0), true));
-            _clients.Add(new Client(5, "Караванов Генадий Иванович", new TimeSpan(5, 30, 0), new TimeSpan(0), sessions));
+            //sessions = new List<Session>();
+            //sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2019, 6, 4, 11, 30, 0), 14, 5, new TimeSpan(2, 30, 0), true));
+            //sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 2, 14, 00, 0), 15, 5, new TimeSpan(1, 30, 0), true));
+            //sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 8, 23, 16, 30, 0), 16, 5, new TimeSpan(1, 0, 0), true));
+            //sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 23, 30, 0), 17, 5, new TimeSpan(1, 30, 0), true));
+            //sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 30, 0), 18, 5, new TimeSpan(0), true));
+            //_clients.Add(new Client(5, "Караванов Генадий Иванович", new TimeSpan(5, 30, 0), new TimeSpan(0), sessions));
 
-            sessions = new List<Session>();
-            sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2018, 6, 5, 11, 30, 0), 19, 6, new TimeSpan(1, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 6, 14, 00, 0), 20, 6, new TimeSpan(1, 30, 0), true));
-            sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 21, 30, 0), 21, 6, new TimeSpan(1, 30, 0), true));
-            _clients.Add(new Client(6, "Сидоров Сергей Сергеевич", new TimeSpan(1, 0, 0), new TimeSpan(2, 0, 0), sessions));
+            //sessions = new List<Session>();
+            //sessions.Add(new Session(new TimeSpan(2, 30, 0), new DateTime(2018, 6, 5, 11, 30, 0), 19, 6, new TimeSpan(1, 30, 0), true));
+            //sessions.Add(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 6, 14, 00, 0), 20, 6, new TimeSpan(1, 30, 0), true));
+            //sessions.Add(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 21, 30, 0), 21, 6, new TimeSpan(1, 30, 0), true));
+            //_clients.Add(new Client(6, "Сидоров Сергей Сергеевич", new TimeSpan(1, 0, 0), new TimeSpan(2, 0, 0), sessions));
 
-            sessions = new List<Session>();
-            sessions.Add(new Session(new TimeSpan(5, 30, 0), new DateTime(2018, 1, 5, 16, 30, 0), 16, 7, new TimeSpan(5, 30, 0), true));
-            _clients.Add(new Client(7, "Куликов Петр Петрович", new TimeSpan(0), new TimeSpan(0), sessions));
+            //sessions = new List<Session>();
+            //sessions.Add(new Session(new TimeSpan(5, 30, 0), new DateTime(2018, 1, 5, 16, 30, 0), 16, 7, new TimeSpan(5, 30, 0), true));
+            //_clients.Add(new Client(7, "Куликов Петр Петрович", new TimeSpan(0), new TimeSpan(0), sessions));
 
-            sessions = new List<Session>();
-            _clients.Add(new Client(8, "Григорьев Иван Анатольевич", new TimeSpan(1, 30, 0), new TimeSpan(0), sessions));
+            //sessions = new List<Session>();
+            //_clients.Add(new Client(8, "Григорьев Иван Анатольевич", new TimeSpan(1, 30, 0), new TimeSpan(0), sessions));
             CalendarDate = DateTime.Now;
             CustomLetterDayConverter.dict = BookedCalendarDates;
         }
@@ -638,21 +641,26 @@ namespace MusicControl
                 if (!_isEditMode)
                 {
                     _addBoxVisibility = false;
-                    _clients.Add(new Client(GetNewClientID(), _clientNameTextBox.Text, new TimeSpan(int.Parse(_clientTimeTextBoxes[0].Text), int.Parse(_clientTimeTextBoxes[1].Text), 0), new TimeSpan(int.Parse(_clientTimeTextBoxes[2].Text), int.Parse(_clientTimeTextBoxes[3].Text), 0), new List<Session>()));
+                    var client = new Client(_clientNameTextBox.Text, new TimeSpan(int.Parse(_clientTimeTextBoxes[0].Text), int.Parse(_clientTimeTextBoxes[1].Text), 0), new TimeSpan(int.Parse(_clientTimeTextBoxes[2].Text), int.Parse(_clientTimeTextBoxes[3].Text), 0));
+                    DataAccessManager.GetInstance().Connection.Insert(client);
+                    _clients = DataAccessManager.GetInstance().GetClients().ToList();
+                    //_clients.Add(new Client(GetNewClientID(), _clientNameTextBox.Text, new TimeSpan(int.Parse(_clientTimeTextBoxes[0].Text), int.Parse(_clientTimeTextBoxes[1].Text), 0), new TimeSpan(int.Parse(_clientTimeTextBoxes[2].Text), int.Parse(_clientTimeTextBoxes[3].Text), 0), new List<Session>()));
                     var temp = _clients[_clients.Count - 1].ClientName;
                     DoPropertyChanged("Clients");
-                    SelectedClient = 0;
                     DoPropertyChanged("ClientSessions");
                     SelectedClient = Clients.IndexOf(temp);
                 }
                 else
                 {
-                    _clients[_selectedClient].ClientName = _clientNameTextBox.Text;
-                    _clients[_selectedClient].TimeBalance = new TimeSpan(int.Parse(_clientTimeTextBoxes[0].Text), int.Parse(_clientTimeTextBoxes[1].Text), 0);
-                    _clients[_selectedClient].UnpaidTime = new TimeSpan(int.Parse(_clientTimeTextBoxes[2].Text), int.Parse(_clientTimeTextBoxes[3].Text), 0);
-                    var temp = _selectedClient;
+                    var client = _clients[_selectedClient];
+                    client.ClientName = _clientNameTextBox.Text;
+                    client.TimeBalance = new TimeSpan(int.Parse(_clientTimeTextBoxes[0].Text), int.Parse(_clientTimeTextBoxes[1].Text), 0);
+                    client.UnpaidTime = new TimeSpan(int.Parse(_clientTimeTextBoxes[2].Text), int.Parse(_clientTimeTextBoxes[3].Text), 0);
+                    var temp = client.ClientName;
+                    DataAccessManager.GetInstance().Connection.Update(client);
+                    _clients = DataAccessManager.GetInstance().GetClients().ToList();
                     DoPropertyChanged("Clients");
-                    SelectedClient = temp;
+                    SelectedClient = Clients.IndexOf(temp);
                 }
                 _addBoxVisibility = false;
                 DoPropertyChanged("ClientInfoIsEnabled");
@@ -675,36 +683,26 @@ namespace MusicControl
             NewClientName = "Введите ФИО";
         }
 
-        public void ChangeSession(int clientID, int sessionID, SessionState sessionState)
+        public void ChangeSession(Session session, SessionState sessionState)
         {
             if (sessionState == SessionState.Removed)
             {
-                _clients.First(x => x.ClientID == clientID).Sessions.Remove(_clients.First(x => x.ClientID == clientID).Sessions.First(x => x.SessionID == sessionID));
+                DataAccessManager.GetInstance().Connection.Delete(session);
+            }
+            else if (sessionState == SessionState.Changed)
+            {
+                DataAccessManager.GetInstance().Connection.Update(session);
+            }
+            else if (sessionState == SessionState.New)
+            {
+                DataAccessManager.GetInstance().Connection.Insert(session);
             }
             UpdateSchedule();
         }
 
-        public void ChangeSession(int clientID, SessionState sessionState, bool? isPrepayment, TimeSpan duration)
+        public DateTime GetNewSessionStartTime()
         {
-            if (sessionState == SessionState.New)
-            {
-                _clients.First(x => x.ClientID == clientID).Sessions.Add(new Session(duration, _calendarDate.Date + _scheduleList[_selectedScheduleLine].StartTime, GetNewSessionID(), clientID, new TimeSpan(0), (bool)isPrepayment));
-            }
-            UpdateSchedule();
-        }
-
-        public void ChangeSession(int newClientID, int oldClientID,  int sessionID, SessionState sessionState, bool? isPrepayment, TimeSpan duration)
-        {
-            if (sessionState == SessionState.Changed)
-            {
-                var session = _clients.First(x => x.ClientID == oldClientID).Sessions.First(x => x.SessionID == (int)sessionID);
-                _clients.First(x => x.ClientID == oldClientID).Sessions.Remove(session);
-                session.ClientID = newClientID;
-                session.Prepayment = (bool)isPrepayment;
-                session.SessionDuration = duration;
-                _clients.First(x => x.ClientID == newClientID).Sessions.Add(session);
-            }
-            UpdateSchedule();
+            return _calendarDate.Date + _scheduleList[_selectedScheduleLine].StartTime;
         }
 
         private void ClockTick(object sender, EventArgs e)
@@ -738,42 +736,43 @@ namespace MusicControl
             }
         }
 
-        private int GetNewSessionID()
-        {
-            var sessions = new List<Session>();
-            for (int i = 0; i < _clients.Count; i++)
-            {
-                for (int j = 0; j < _clients[i].Sessions.Count; j++)
-                    sessions.Add(_clients[i].Sessions[j]);
-            }
-            sessions.Sort((x, y) => Math.Sign(x.SessionID.CompareTo(y.SessionID)));
-            if (sessions.Count != 0)
-                return sessions[sessions.Count - 1].ClientID + 1;
-            return 1;
-        }
+        //private int GetNewSessionID()
+        //{
+        //    var sessions = new List<Session>();
+        //    for (int i = 0; i < _clients.Count; i++)
+        //    {
+        //        for (int j = 0; j < _clients[i].Sessions.Count; j++)
+        //            sessions.Add(_clients[i].Sessions[j]);
+        //    }
+        //    sessions.Sort((x, y) => Math.Sign(x.SessionID.CompareTo(y.SessionID)));
+        //    if (sessions.Count != 0)
+        //        return sessions[sessions.Count - 1].ClientID + 1;
+        //    return 1;
+        //}
 
-        private int GetNewClientID()
-        {
-            var clients = _clients;
-            clients.Sort((x, y) => Math.Sign(x.ClientID.CompareTo(y.ClientID)));
-            if (_clients.Count != 0)
-                return clients[clients.Count - 1].ClientID + 1;
-            return 1;
-        }
+        //private int GetNewClientID()
+        //{
+        //    var clients = _clients;
+        //    clients.Sort((x, y) => Math.Sign(x.ClientID.CompareTo(y.ClientID)));
+        //    if (_clients.Count != 0)
+        //        return clients[clients.Count - 1].ClientID + 1;
+        //    return 1;
+        //}
 
         private List<Session> GetSessionAtDay(DateTime date)
         {
-            var thatdDayClients = _clients.FindAll(x => x.Sessions.FindAll(y => y.StartSessionTime.Date == date.Date).Count != 0);
-            var thatDaySessions = new List<Session>();
-            for (int i = 0; i < thatdDayClients.Count; i++)
-            {
-                var tempSessions = thatdDayClients[i].Sessions.FindAll(x => x.StartSessionTime.Date == date.Date);
-                for (int j = 0; j < tempSessions.Count; j++)
-                {
-                    thatDaySessions.Add(tempSessions[j]);
-                }
-            }
-            return thatDaySessions;
+            //var thatdDayClients = _clients.FindAll(x => x.Sessions.FindAll(y => y.StartSessionTime.Date == date.Date).Count != 0);
+            //var thatDaySessions = new List<Session>();
+            //for (int i = 0; i < thatdDayClients.Count; i++)
+            //{
+            //    var tempSessions = thatdDayClients[i].Sessions.FindAll(x => x.StartSessionTime.Date == date.Date);
+            //    for (int j = 0; j < tempSessions.Count; j++)
+            //    {
+            //        thatDaySessions.Add(tempSessions[j]);
+            //    }
+            //}
+            //return thatDaySessions;
+            return DataAccessManager.GetInstance().GetSessionsByDate(date).ToList();
         }
 
         private bool IsTimeOver(TimeSpan time)
@@ -862,9 +861,10 @@ namespace MusicControl
         {
             if (_clients.Count != 0)
             {
-                _clients.Remove(_clients.First(x => x.ClientName == Clients[_selectedClient]));
+                DataAccessManager.GetInstance().Connection.Delete(_clients.First(x => x.ClientName == Clients[_selectedClient]));
+                _clients = DataAccessManager.GetInstance().GetClients().ToList();
                 DoPropertyChanged("Clients");
-                SelectedClient = Clients.Count - 1;
+                SelectedClient = 0;
             }
         }
 
