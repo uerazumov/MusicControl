@@ -248,7 +248,7 @@ namespace MusicControl
             {
                 if (_state == ViewModel.SessionState.New)
                 {
-                    var session = new Session(ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex], _window.GetVM().GetNewSessionStartTime(), _window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID, new TimeSpan(0), (bool)PrepaymentCheckBox.IsChecked);
+                    var session = new Session(ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex], _window.GetVM().GetNewSessionStartTime(), _window.GetVM().ClientList[ClientComboBox.SelectedIndex], new TimeSpan(0), (bool)PrepaymentCheckBox.IsChecked);
                     _window.GetVM().ChangeSession(session, ViewModel.SessionState.New);
                     //_window.GetVM().ChangeSession(_window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID, ViewModel.SessionState.New, PrepaymentCheckBox.IsChecked, ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex]);
                 }

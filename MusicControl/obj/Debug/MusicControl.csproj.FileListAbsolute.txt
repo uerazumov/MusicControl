@@ -68,3 +68,13 @@ C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\SQLitePCLRaw.prov
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\SQLite-net.xml
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl_Content.g.cs
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.csproj.CopyComplete
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\x86\e_sqlite3.dll
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\x64\e_sqlite3.dll
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\SQLite-net.dll
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\SQLitePCLRaw.batteries_green.dll
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\SQLitePCLRaw.batteries_v2.dll
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\SQLitePCLRaw.core.dll
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\SQLitePCLRaw.provider.e_sqlite3.dll
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\SQLite-net.xml
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl_Content.g.cs
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.csproj.CopyComplete

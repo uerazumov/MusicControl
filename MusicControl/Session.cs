@@ -62,11 +62,11 @@ namespace MusicControl
             return new TimeSpan(_startSessionTime.Hour, _startSessionTime.Minute, _startSessionTime.Second);
         }
 
-        public Session(TimeSpan sessionDuration, DateTime startSessionTime, int clientID, TimeSpan currentDuration, bool prepayment)
+        public Session(TimeSpan sessionDuration, DateTime startSessionTime, Client client, TimeSpan currentDuration, bool prepayment)
         {
             _sessionDuration = sessionDuration;
             _startSessionTime = startSessionTime;
-            _clientID = clientID;
+            _clientID = client.ClientID;
             _endSessionTime = startSessionTime + sessionDuration;
             _currentDuration = currentDuration;
             _prepayment = prepayment;

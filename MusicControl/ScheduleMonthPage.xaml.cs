@@ -24,5 +24,10 @@ namespace MusicControl
         {
             InitializeComponent();
         }
+
+        public void CloseCalendar(object sender, RoutedEventArgs e)
+        {
+            SessionCalendar.Visibility = Visibility.Hidden;
+        }
     }
 }

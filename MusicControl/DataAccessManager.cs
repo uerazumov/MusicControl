@@ -40,6 +40,16 @@ namespace MusicControl
             return Connection.Table<Client>();
         }
 
+        public void RemoveClientSessions(Client client)
+        {
+            foreach (var session in Connection.Table<Session>())
+            {
+                if (session.ClientID == client.ClientID)
+                    Connection.Delete(session);
+            }
+
+        }
+
         public static DataAccessManager GetInstance()
         {
             if (instance == null)
