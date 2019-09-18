@@ -22,7 +22,7 @@
     <Grid>
         <Frame Background="{StaticResource BackgroundImage}" Name="Main" NavigationUIVisibility="Hidden" Source="/MusicControl;component/MainMenuPage.xaml" Grid.ColumnSpan="2"></Frame>
         <DockPanel LastChildFill="True">
-            <TextBlock Foreground="White" Text="{Binding Source={StaticResource ViewModel}, Path=Clock}" FontSize="25" Margin="5,10,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <TextBlock Style="{StaticResource TextBlockStyle}" Foreground="White" Text="{Binding Source={StaticResource ViewModel}, Path=Clock}" FontSize="25" Margin="5,10,10,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>
         </DockPanel>
     </Grid>
 </Window>

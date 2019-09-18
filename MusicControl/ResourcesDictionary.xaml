@@ -44,6 +44,7 @@
     <Style x:Key="HeadlineTextStyle" TargetType="TextBlock">
         <Setter Property="FontSize" Value="48"></Setter>
         <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="TextElement.FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"></Setter>
         <Setter Property="Foreground" Value="White"/>
     </Style>
     <Style x:Key="SessionButtonStyle" TargetType="Button">
@@ -58,6 +59,7 @@
         <Setter Property="Margin" Value="5,5,5,5"></Setter>
         <Setter Property="FontSize" Value="50"></Setter>
         <Setter Property="BorderThickness" Value="0"></Setter>
+        <Setter Property="TextElement.FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -97,6 +99,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="TextElement.FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"></Setter>
         <Setter Property="Foreground" Value="White"/>
     </Style>
 
@@ -158,11 +161,12 @@
         <Setter Property="MinWidth" Value="120"/>
         <Setter Property="MinHeight" Value="20"/>
         <Setter Property="Foreground" Value="White"/>
+        <Setter Property="TextElement.FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
                     <Grid>
-                        <ToggleButton 
+                        <ToggleButton
                             Name="ToggleButton" 
                             Template="{StaticResource ComboBoxToggleButton}" 
                             Grid.Column="2" 
@@ -170,7 +174,7 @@
                             IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
                             ClickMode="Press">
                         </ToggleButton>
-                        <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}"
+                        <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding SelectionBoxItem}"
                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
                             Margin="23,0,23,0"
@@ -194,7 +198,7 @@
                                 Background="#FCE0A2">
                                 </Border>
                                 <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
-                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
                                 </ScrollViewer>
                             </Grid>
                         </Popup>

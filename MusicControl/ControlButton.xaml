@@ -32,6 +32,7 @@
         </Style>
     </UserControl.Resources>
     <Grid IsEnabled="{Binding IsButtonEnabled}">
-        <Button Style="{StaticResource ControlButtonStyle}" x:Name="BButton" Command="{Binding ControlCommand}"  Width="100" Height="100"></Button>
+        <Image x:Name="image" Source="{Binding BackgroundImage}"/>
+        <Button Style="{StaticResource ControlButtonStyle}" x:Name="BButton" Command="{Binding ControlCommand}" Width="100" Height="100"/>
     </Grid>
 </UserControl>
