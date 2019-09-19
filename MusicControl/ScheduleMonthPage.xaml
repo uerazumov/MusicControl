@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </Page.Resources>
     <Grid>
-        <local:ControlButton Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" x:Name="MainMenuButton" EnableBackgroundImage="{StaticResource mainMenuButton}" DisableBackgroundImage="{StaticResource mainMenuButtonDisabled}" EnableBackgroundImageActive="{StaticResource mainMenuButtonAction}"></local:ControlButton>
+        <local:ControlButton Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" x:Name="MainMenuButton" EnableBackgroundImage="{StaticResource mainMenuButton}"/>
         <TextBlock Grid.RowSpan="2" Grid.Row="0" Style="{StaticResource HeadlineTextStyle}" HorizontalAlignment="Center" Text="График сеансов"></TextBlock>
         <Calendar SelectionMode="SingleDate" xmlns:sys="clr-namespace:System;assembly=mscorlib" SelectedDate="{Binding Source={StaticResource ViewModel}, Path=CalendarDate, Mode=TwoWay}" Visibility="{Binding Source={StaticResource ViewModel}, Path=CalendarVisibility}" x:Name="SessionCalendar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,0,40,200" Panel.ZIndex="10" CalendarDayButtonStyle="{StaticResource CalendarDayButtonStyle}"/>
         <Button Content="{Binding Source={StaticResource ViewModel}, Path=CalendarDateButtonContent}" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenCalendar}" Width="180" Height="25" Margin="0,0,0,395" Background="White"></Button>

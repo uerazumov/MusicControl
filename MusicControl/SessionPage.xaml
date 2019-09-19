@@ -24,12 +24,12 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <local:ControlButton Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" x:Name="MainMenuButton" EnableBackgroundImage="{StaticResource mainMenuButton}" DisableBackgroundImage="{StaticResource mainMenuButtonDisabled}" EnableBackgroundImageActive="{StaticResource mainMenuButtonAction}"></local:ControlButton>
+        <local:ControlButton Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" x:Name="MainMenuButton" EnableBackgroundImage="{StaticResource mainMenuButton}"/>
         <Grid Grid.Row="0">
             <TextBlock Style="{StaticResource HeadlineTextStyle}" HorizontalAlignment="Center" Text="Сеанс"></TextBlock>
         </Grid>
         <ComboBox ItemsSource="{Binding Source={StaticResource ViewModel}, Path=Sessions}" Foreground="Black" Style="{StaticResource ComboBoxStyle}" IsEnabled="{Binding Source={StaticResource ViewModel}, Path=ComboboxIsEnabled}" Name="SessionsList"  Grid.Row="1" Margin="120,10,120,10" FontSize="30" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedSession, Mode=TwoWay}"/>
-        <local:ControlButton Margin="0,0,0,30" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" IsButtonEnabled="{Binding Source={StaticResource ViewModel}, Path=UpdateIsEnabled}" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoUpdateNewSessionParametrs}" x:Name="UpdateButton" Grid.Row="0" EnableBackgroundImage="{StaticResource updateButton}" DisableBackgroundImage="{StaticResource updateButtonDisabled}" EnableBackgroundImageActive="{StaticResource updateButtonAction}"></local:ControlButton>
+        <local:ControlButton Margin="0,0,0,30" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Right" IsButtonEnabled="{Binding Source={StaticResource ViewModel}, Path=UpdateIsEnabled}" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoUpdateNewSessionParametrs}" x:Name="UpdateButton" Grid.Row="0" EnableBackgroundImage="{StaticResource updateButton}"/>
 
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
@@ -67,9 +67,9 @@
                 <ColumnDefinition Width="120"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <local:ControlButton HorizontalAlignment="Right" IsButtonEnabled="{Binding Source={StaticResource ViewModel}, Path=StartIsEnabled}" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoStartSession}" x:Name="StartButton" Grid.Column="0" EnableBackgroundImage="{StaticResource playButton}" DisableBackgroundImage="{StaticResource playButtonDisabled}" EnableBackgroundImageActive="{StaticResource playButtonAction}"></local:ControlButton>
-            <local:ControlButton HorizontalAlignment="Center" IsButtonEnabled="{Binding Source={StaticResource ViewModel}, Path=PauseIsEnabled}" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoPauseSession}" x:Name="PauseButton" Grid.Column="1" EnableBackgroundImage="{StaticResource pauseButton}" DisableBackgroundImage="{StaticResource pauseButtonDisabled}" EnableBackgroundImageActive="{StaticResource pauseButtonAction}"></local:ControlButton>
-            <local:ControlButton HorizontalAlignment="Left" IsButtonEnabled="{Binding Source={StaticResource ViewModel}, Path=StopIsEnabled}" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoStopSession}" x:Name="StopButton" Grid.Column="2" EnableBackgroundImage="{StaticResource stopButton}" DisableBackgroundImage="{StaticResource stopButtonDisabled}" EnableBackgroundImageActive="{StaticResource stopButtonAction}"></local:ControlButton>
+            <local:ControlButton HorizontalAlignment="Right" IsButtonEnabled="{Binding Source={StaticResource ViewModel}, Path=StartIsEnabled}" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoStartSession}" x:Name="StartButton" Grid.Column="0" EnableBackgroundImage="{StaticResource playButton}"/>
+            <local:ControlButton HorizontalAlignment="Center" IsButtonEnabled="{Binding Source={StaticResource ViewModel}, Path=PauseIsEnabled}" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoPauseSession}" x:Name="PauseButton" Grid.Column="1" EnableBackgroundImage="{StaticResource pauseButton}"/>
+            <local:ControlButton HorizontalAlignment="Left" IsButtonEnabled="{Binding Source={StaticResource ViewModel}, Path=StopIsEnabled}" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoStopSession}" x:Name="StopButton" Grid.Column="2" EnableBackgroundImage="{StaticResource stopButton}"/>
         </Grid>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>

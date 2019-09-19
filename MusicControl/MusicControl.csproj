@@ -173,64 +173,40 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="VisualResources\applyButton.png" />
-    <Resource Include="VisualResources\applyButtonActive.png" />
-    <Resource Include="VisualResources\applyButtonDisabled.png" />
     <Resource Include="VisualResources\BackgroundImage.png" />
     <Resource Include="VisualResources\cancelButton.png" />
-    <Resource Include="VisualResources\cancelButtonActive.png" />
-    <Resource Include="VisualResources\cancelButtonDisabled.png" />
     <Resource Include="VisualResources\saveButton.png" />
-    <Resource Include="VisualResources\saveButtonActive.png" />
-    <Resource Include="VisualResources\saveButtonDisabled.png" />
     <Resource Include="VisualResources\textBox.png" />
     <Resource Include="VisualResources\updateButton.png" />
-    <Resource Include="VisualResources\updateButtonActive.png" />
-    <Resource Include="VisualResources\updateButtonDisabled.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="VisualResources\button.png" />
     <Resource Include="VisualResources\buttonActive.png" />
     <Resource Include="VisualResources\buttonDisabled.png" />
     <Resource Include="VisualResources\editButton.png" />
-    <Resource Include="VisualResources\editButtonActive.png" />
     <Resource Include="VisualResources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="VisualResources\playButton.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="VisualResources\playButtonAction.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="VisualResources\playButtonDisabled.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="VisualResources\mainMenuButton.png" />
-    <Resource Include="VisualResources\mainMenuButtonActive.png" />
-    <Resource Include="VisualResources\mainMenuButtonDisabled.png" />
     <Resource Include="VisualResources\pauseButton.png" />
-    <Resource Include="VisualResources\pauseButtonActive.png" />
-    <Resource Include="VisualResources\pauseButtonDisabled.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="VisualResources\plusButton.png" />
-    <Resource Include="VisualResources\plusButtonActive.png" />
     <Resource Include="VisualResources\stopButton.png" />
-    <Resource Include="VisualResources\stopButtonDisabled.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="VisualResources\stopButtonActive.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="VisualResources\removeButton.png" />
-    <Resource Include="VisualResources\removeButtonActive.png" />
-    <Resource Include="VisualResources\removeButtonDisabled.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="VisualResources\editButtonDisabled.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="VisualResources\awaitPicture.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="VisualResources\editButtonSecondVariant.png" />
+    <Resource Include="VisualResources\logo.png" />
+    <Resource Include="VisualResources\logo_background.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.11\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.11\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" />

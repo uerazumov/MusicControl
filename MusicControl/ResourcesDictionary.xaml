@@ -3,38 +3,17 @@
                     xmlns:local="clr-namespace:MusicControl">
     <ImageBrush x:Key="BackgroundImage" ImageSource="/MusicControl;component/VisualResources/BackgroundImage.png"></ImageBrush>
     <ImageBrush x:Key="playButton" ImageSource="/MusicControl;component/VisualResources/playButton.png"></ImageBrush>
-    <ImageBrush x:Key="playButtonAction" ImageSource="/MusicControl;component/VisualResources/playButtonAction.png"></ImageBrush>
-    <ImageBrush x:Key="playButtonDisabled" ImageSource="/MusicControl;component/VisualResources/playButtonDisabled.png"></ImageBrush>
     <ImageBrush x:Key="stopButton" ImageSource="/MusicControl;component/VisualResources/stopButton.png"></ImageBrush>
-    <ImageBrush x:Key="stopButtonAction" ImageSource="/MusicControl;component/VisualResources/stopButtonActive.png"></ImageBrush>
-    <ImageBrush x:Key="stopButtonDisabled" ImageSource="/MusicControl;component/VisualResources/stopButtonDisabled.png"></ImageBrush>
     <ImageBrush x:Key="pauseButton" ImageSource="/MusicControl;component/VisualResources/pauseButton.png"></ImageBrush>
-    <ImageBrush x:Key="pauseButtonAction" ImageSource="/MusicControl;component/VisualResources/pauseButtonActive.png"></ImageBrush>
-    <ImageBrush x:Key="pauseButtonDisabled" ImageSource="/MusicControl;component/VisualResources/pauseButtonDisabled.png"></ImageBrush>
     <ImageBrush x:Key="mainMenuButton" ImageSource="/MusicControl;component/VisualResources/mainMenuButton.png"></ImageBrush>
-    <ImageBrush x:Key="mainMenuButtonAction" ImageSource="/MusicControl;component/VisualResources/mainMenuButtonActive.png"></ImageBrush>
-    <ImageBrush x:Key="mainMenuButtonDisabled" ImageSource="/MusicControl;component/VisualResources/mainMenuButtonDisabled.png"></ImageBrush>
     <ImageBrush x:Key="addNewClientButton" ImageSource="/MusicControl;component/VisualResources/plusButton.png"></ImageBrush>
-    <ImageBrush x:Key="addNewClientButtonAction" ImageSource="/MusicControl;component/VisualResources/plusButtonActive.png"></ImageBrush>
     <ImageBrush x:Key="editClientButton" ImageSource="/MusicControl;component/VisualResources/editButton.png"></ImageBrush>
-    <ImageBrush x:Key="editClientButtonAction" ImageSource="/MusicControl;component/VisualResources/editButtonActive.png"></ImageBrush>
-    <ImageBrush x:Key="editClientButtonDisabled" ImageSource="/MusicControl;component/VisualResources/editButtonDisabled.png"></ImageBrush>
     <ImageBrush x:Key="updateButton" ImageSource="/MusicControl;component/VisualResources/updateButton.png"></ImageBrush>
-    <ImageBrush x:Key="updateButtonAction" ImageSource="/MusicControl;component/VisualResources/updateButtonActive.png"></ImageBrush>
-    <ImageBrush x:Key="updateButtonDisabled" ImageSource="/MusicControl;component/VisualResources/updateButtonDisabled.png"></ImageBrush>
     <ImageBrush x:Key="textBoxImage" ImageSource="/MusicControl;component/VisualResources/textBox.png"></ImageBrush>
     <ImageBrush x:Key="applyButton" ImageSource="/MusicControl;component/VisualResources/applyButton.png"></ImageBrush>
-    <ImageBrush x:Key="applyButtonAction" ImageSource="/MusicControl;component/VisualResources/applyButtonActive.png"></ImageBrush>
-    <ImageBrush x:Key="applyButtonDisabled" ImageSource="/MusicControl;component/VisualResources/applyButtonDisabled.png"></ImageBrush>
     <ImageBrush x:Key="cancelButton" ImageSource="/MusicControl;component/VisualResources/cancelButton.png"></ImageBrush>
-    <ImageBrush x:Key="cancelButtonAction" ImageSource="/MusicControl;component/VisualResources/cancelButtonActive.png"></ImageBrush>
-    <ImageBrush x:Key="cancelButtonDisabled" ImageSource="/MusicControl;component/VisualResources/cancelButtonDisabled.png"></ImageBrush>
     <ImageBrush x:Key="saveButton" ImageSource="/MusicControl;component/VisualResources/saveButton.png"></ImageBrush>
-    <ImageBrush x:Key="saveButtonAction" ImageSource="/MusicControl;component/VisualResources/saveButtonActive.png"></ImageBrush>
-    <ImageBrush x:Key="saveButtonDisabled" ImageSource="/MusicControl;component/VisualResources/saveButtonDisabled.png"></ImageBrush>
     <ImageBrush x:Key="removeButton" ImageSource="/MusicControl;component/VisualResources/removeButton.png"></ImageBrush>
-    <ImageBrush x:Key="removeButtonAction" ImageSource="/MusicControl;component/VisualResources/removeButtonActive.png"></ImageBrush>
-    <ImageBrush x:Key="removeButtonDisabled" ImageSource="/MusicControl;component/VisualResources/removeButtonDisabled.png"></ImageBrush>
     <Style x:Key="MainMenuButtonStyle" TargetType="Button">
         <Setter Property="Margin" Value="10,10,10,10"></Setter>
         <Setter Property="BorderThickness" Value="0"></Setter>
