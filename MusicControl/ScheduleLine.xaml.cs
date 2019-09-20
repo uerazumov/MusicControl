@@ -240,6 +240,9 @@ namespace MusicControl
             ClientComboBox.SelectedIndex = -1;
             DurationComboBox.SelectedIndex = -1;
             PrepaymentCheckBox.IsChecked = false;
+            var temp = _window.GetVM().SelectedScheduleLine;
+            _window.GetVM().SelectedScheduleLine = 0;
+            _window.GetVM().SelectedScheduleLine = temp;
         }
 
         public void Save()
@@ -267,6 +270,9 @@ namespace MusicControl
                 DoPropertyChanged("Time");
                 DoPropertyChanged("ClientName");
                 DoPropertyChanged("SessionDuration");
+                var temp = _window.GetVM().SelectedScheduleLine;
+                _window.GetVM().SelectedScheduleLine = 0;
+                _window.GetVM().SelectedScheduleLine = temp;
             }
         }
 

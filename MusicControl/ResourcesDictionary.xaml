@@ -37,6 +37,7 @@
         <Setter Property="MaxHeight" Value="300"></Setter>
         <Setter Property="Margin" Value="5,5,5,5"></Setter>
         <Setter Property="FontSize" Value="50"></Setter>
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderThickness" Value="0"></Setter>
         <Setter Property="TextElement.FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"></Setter>
         <Setter Property="Template">
@@ -85,45 +86,76 @@
 
 
     <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="50" />
-            </Grid.ColumnDefinitions>
-            <Border
-                  x:Name="Border" 
-                  Grid.ColumnSpan="2"
-                  BorderThickness="1"
-                  CornerRadius="20,20,20,20"
-                  Background="#FCE0A2">
-            </Border>
-            <Border 
-                  Grid.Column="0"
-                  CornerRadius="20" 
-                  Margin="1" 
-                  BorderThickness="0,0,1,0"
-                  Background="#FCE0A2">
-            </Border>
-            <Path
-                  x:Name="Arrow"
-                  Grid.Column="1"     
-                  Fill="#EE3E54"
-                  HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  Margin="0,0,10,0"
-                  Grid.ColumnSpan="2"
-                  Data="M0,0 L0,4 L8,12 L16,4 L16,0 L8,8 z"
-                />
-        </Grid>
+        <Border CornerRadius="20" BorderThickness="3" BorderBrush="#A1A1A1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="50" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    x:Name="Border" 
+                    Grid.ColumnSpan="2"
+                    CornerRadius="18">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#EE1919" Offset="0"></GradientStop>
+                            <GradientStop Color="#090101" Offset="0.9"></GradientStop>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <Border 
+                    Grid.Column="0"
+                    CornerRadius="19" 
+                    BorderThickness="0,0,1,0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#EE1919" Offset="0"></GradientStop>
+                            <GradientStop Color="#090101" Offset="0.9"></GradientStop>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+                <Path
+                    x:Name="Arrow"
+                    Grid.Column="1"     
+                    Fill="#EACCCC"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0"
+                    Grid.ColumnSpan="2"
+                    Data="M0,0 L0,4 L8,12 L16,4 L16,0 L8,8 z"
+                    />
+            </Grid>
+        </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="ToggleButton.IsMouseOver" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="#F1BC19" />
+                <Setter TargetName="Border" Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FF6060" Offset="0"></GradientStop>
+                            <GradientStop Color="#000000" Offset="0.9"></GradientStop>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
             </Trigger>
             <Trigger Property="ToggleButton.IsChecked" Value="true">
-                <Setter TargetName="Border" Property="Background" Value="#A1D3A2" />
+                <Setter TargetName="Border" Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FF5235" Offset="0"></GradientStop>
+                            <GradientStop Color="#000000" Offset="0.9"></GradientStop>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="Border" Property="Background" Value="#E1E1E1" />
+                <Setter TargetName="Border" Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#5B5B5B" Offset="0"></GradientStop>
+                            <GradientStop Color="#000000" Offset="0.9"></GradientStop>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
                 <Setter TargetName="Border" Property="BorderBrush" Value="#AAAAAA" />
                 <Setter Property="Foreground" Value="#888888"/>
                 <Setter TargetName="Arrow" Property="Fill" Value="#888888" />
@@ -138,17 +170,16 @@
         <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
         <Setter Property="MinWidth" Value="120"/>
-        <Setter Property="MinHeight" Value="20"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="TextElement.FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"></Setter>
+        <Setter Property="TextElement.FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
                     <Grid>
                         <ToggleButton
-                            Name="ToggleButton" 
-                            Template="{StaticResource ComboBoxToggleButton}" 
-                            Grid.Column="2" 
+                            Name="ToggleButton"
+                            Template="{StaticResource ComboBoxToggleButton}"
+                            Grid.Column="2"
                             Focusable="false"
                             IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
                             ClickMode="Press">
@@ -172,9 +203,14 @@
                               MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                 <Border 
                                 x:Name="DropDownBorder"
-                                BorderThickness="1"
-                                BorderBrush="#888888"
-                                Background="#FCE0A2">
+                                BorderThickness="2"
+                                BorderBrush="#A1A1A1">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Color="#EE1919" Offset="0"></GradientStop>
+                                            <GradientStop Color="#000000" Offset="0.9"></GradientStop>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
                                 </Border>
                                 <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
