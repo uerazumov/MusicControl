@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -34,8 +35,8 @@ namespace MusicControl
             set
             {
                 _enableBackgroundImage = value;
-                _disableBackgroundImage = GetGrayScaleImage(EnableBackgroundImage);
-                _enableBackgroundImageActive = GetbrighterImage(EnableBackgroundImage, 1.3f);
+                GetGrayScaleImage();
+                GetbrighterImage(1.3f);
                 DoPropertyChanged("BackgroundImageActive");
                 DoPropertyChanged("BackgroundImage");
             }
@@ -80,9 +81,9 @@ namespace MusicControl
             controlButton.DoPropertyChanged("IsEnabled");
         }
 
-        private ImageBrush GetGrayScaleImage(ImageBrush image)
+        private void GetGrayScaleImage()
         {
-            BitmapSource src = (BitmapSource)image.ImageSource;
+            BitmapSource src = (BitmapSource)_enableBackgroundImage.ImageSource;
             Bitmap bmp = new Bitmap(
             src.PixelWidth,
             src.PixelHeight,
@@ -119,12 +120,12 @@ namespace MusicControl
                               Int32Rect.Empty,
                               BitmapSizeOptions.FromEmptyOptions());
             var grayImage = new ImageBrush(bitmapSource);
-            return grayImage;
+            _disableBackgroundImage = grayImage;
         }
 
-        private ImageBrush GetbrighterImage(ImageBrush image, float brightness)
+        private void GetbrighterImage(float brightness)
         {
-            BitmapSource src = (BitmapSource)image.ImageSource;
+            BitmapSource src = (BitmapSource)_enableBackgroundImage.ImageSource;
             Bitmap bmp = new Bitmap(
             src.PixelWidth,
             src.PixelHeight,
@@ -168,7 +169,7 @@ namespace MusicControl
                                   IntPtr.Zero,
                                   Int32Rect.Empty,
                                   BitmapSizeOptions.FromEmptyOptions());
-            return new ImageBrush(bitmapSource); ;
+            _enableBackgroundImageActive = new ImageBrush(bitmapSource); ;
         }
 
         public ImageBrush BackgroundImageActive => !(bool)GetValue(IsButtonEnabledProperty) ? _disableBackgroundImage : _enableBackgroundImageActive;

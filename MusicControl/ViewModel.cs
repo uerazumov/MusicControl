@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading;
+using System.Linq;
 using System.Timers;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using System.Linq;
-using System.Windows.Controls;
-using SQLite;
 
 namespace MusicControl
 {
@@ -77,8 +75,6 @@ namespace MusicControl
             get { return _isSessionStarted && (_todaysSessions.Count != 0); }
         }
 
-
-        //Привязать к календарю!
         public HashSet<DateTime> BookedCalendarDates
         {
             get
@@ -104,6 +100,8 @@ namespace MusicControl
                         hashDates.Add(dates[i]);
                     }
                 }
+                CalendarDate = _calendarDate - new TimeSpan(31, 0, 0, 0);
+                CalendarDate = _calendarDate + new TimeSpan(31, 0, 0, 0);
                 return hashDates;
             }
         }
@@ -707,6 +705,7 @@ namespace MusicControl
             }
             _todaysSessions = DataAccessManager.GetInstance().GetSessionsByDate(DateTime.Now).ToList();
             DoPropertyChanged("Sessions");
+            DoPropertyChanged("BookedCalendarDates");
             UpdateSchedule();
         }
 
