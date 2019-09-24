@@ -82,6 +82,19 @@
         <Setter Property="TextElement.FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"></Setter>
         <Setter Property="Foreground" Value="White"/>
     </Style>
+    <Style x:Key="TextBlockBorderStyle" TargetType="Border">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#EE1919" Offset="0"></GradientStop>
+                    <GradientStop Color="#090101" Offset="0.9"></GradientStop>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CornerRadius" Value="20"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="#A1A1A1"/>
+    </Style>
 
 
 

@@ -100,6 +100,7 @@ namespace MusicControl
                         hashDates.Add(dates[i]);
                     }
                 }
+                //Костыль для обновления выделения дат
                 CalendarDate = _calendarDate - new TimeSpan(31, 0, 0, 0);
                 CalendarDate = _calendarDate + new TimeSpan(31, 0, 0, 0);
                 return hashDates;
@@ -653,18 +654,19 @@ namespace MusicControl
                     _clients.Sort((x, y) => String.Compare(x.ClientName, y.ClientName));
                     DoPropertyChanged("Clients");
                     SelectedClient = _clients.IndexOf(temp);
-                    //if (_clients.IndexOf(temp) != 0)
-                    //    SelectedClient = _clients.IndexOf(temp);
-                    //else
-                    //{
-                    //    SelectedClient = 0;
-                    //    var clients = _clients;
-                    //    _clients.Clear();
-                    //    DoPropertyChanged("Clients");
-                    //    _clients = clients;
-                    //    DoPropertyChanged("Clients");
-                    //    SelectedClient = 0;
-                    //}
+                    if (_clients.IndexOf(temp) != 0)
+                        SelectedClient = _clients.IndexOf(temp);
+                    else
+                    {
+                        SelectedClient = 1;
+                        //var clients = _clients;
+                        //_clients.Clear();
+                        //DoPropertyChanged("Clients");
+                        //_clients = clients;
+                        SelectedClient = 0;
+                        //DoPropertyChanged("Clients");
+                        //SelectedClient = 0;
+                    }
                 }
                 _addBoxVisibility = false;
                 DoPropertyChanged("ClientInfoIsEnabled");
@@ -801,8 +803,8 @@ namespace MusicControl
 
         private void OpenSchedulePage()
         {
+            CalendarDate = DateTime.Now;
             _selectedScheduleLine = -1;
-            UpdateSchedule();
             _pageState = PageState.CalendarPage;
             CalendarVisibility = Visibility.Hidden;
             _navigationService?.Navigate(new Uri("ScheduleMonthPage.xaml", UriKind.Relative));
