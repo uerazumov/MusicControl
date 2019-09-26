@@ -9,7 +9,6 @@
     <ImageBrush x:Key="addNewClientButton" ImageSource="/MusicControl;component/VisualResources/plusButton.png"></ImageBrush>
     <ImageBrush x:Key="editClientButton" ImageSource="/MusicControl;component/VisualResources/editButton.png"></ImageBrush>
     <ImageBrush x:Key="updateButton" ImageSource="/MusicControl;component/VisualResources/updateButton.png"></ImageBrush>
-    <ImageBrush x:Key="textBoxImage" ImageSource="/MusicControl;component/VisualResources/textBox.png"></ImageBrush>
     <ImageBrush x:Key="applyButton" ImageSource="/MusicControl;component/VisualResources/applyButton.png"></ImageBrush>
     <ImageBrush x:Key="cancelButton" ImageSource="/MusicControl;component/VisualResources/cancelButton.png"></ImageBrush>
     <ImageBrush x:Key="saveButton" ImageSource="/MusicControl;component/VisualResources/saveButton.png"></ImageBrush>
@@ -79,7 +78,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="TextAlignment" Value="Center"/>
-        <Setter Property="TextElement.FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"></Setter>
+        <Setter Property="TextElement.FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"/>
         <Setter Property="Foreground" Value="White"/>
     </Style>
     <Style x:Key="TextBlockBorderStyle" TargetType="Border">
@@ -94,6 +93,53 @@
         <Setter Property="CornerRadius" Value="20"/>
         <Setter Property="BorderThickness" Value="2"/>
         <Setter Property="BorderBrush" Value="#A1A1A1"/>
+    </Style>
+
+    <Style x:Key="TexBoxStyle" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"/>
+        <Setter Property="Validation.ErrorTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <DockPanel>
+                        <AdornedElementPlaceholder x:Name="controlWithError"/>
+                    </DockPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ClientTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid>
+                        <Border Style="{StaticResource TextBlockBorderStyle}"/>
+                        <TextBox Style="{StaticResource TexBoxStyle}" Margin="0">
+                            <TextBox.Text>
+                                <Binding Path="Text" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Text">
+            <Setter.Value>
+                <Binding Path="Text" Mode="TwoWay" RelativeSource="{RelativeSource TemplatedParent}">
+                    <Binding.ValidationRules>
+                        <local:ClientNameValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </Setter.Value>
+        </Setter>
+
     </Style>
 
 

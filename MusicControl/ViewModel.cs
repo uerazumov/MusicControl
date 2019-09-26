@@ -182,7 +182,8 @@ namespace MusicControl
                 {
                     clients.Add(_clients[i].ClientName);
                 }
-                DoPropertyChanged("IsEditRemoveEnabled");
+                DoPropertyChanged("IsRemoveEnabled");
+                DoPropertyChanged("IsEditEnabled");
                 return clients;
             }
         }
@@ -275,11 +276,21 @@ namespace MusicControl
             }
         }
 
-        public bool IsEditRemoveEnabled
+        public bool IsRemoveEnabled
         {
             get
             {
                 if (_clients.Count != 0) return true;
+                return false;
+            }
+        }
+
+        public bool IsEditEnabled
+        {
+            get
+            {
+                if (_clientsComboBox == null) return false;
+                if (_clientsComboBox.SelectedItem != null) return true;
                 return false;
             }
         }
@@ -637,6 +648,7 @@ namespace MusicControl
 
         private void ApplyNewClient()
         {
+            //Не работает валидация
             var valid = !Validation.GetHasError(_clientNameTextBox);
             for (int i = 0; i < _clientTimeTextBoxes.Count; i++)
                 valid &= !Validation.GetHasError(_clientTimeTextBoxes[i]);
@@ -739,6 +751,7 @@ namespace MusicControl
         {
             if (_clients.Count != 0)
             {
+                _clientsComboBox.SelectedValue = _clients[_selectedClient].ClientName;
                 _isEditMode = true;
                 NewClientName = _clients[_selectedClient].ClientName;
                 _clientTimeTextBoxes[0].Text = _clients[_selectedClient].TimeBalance.Hours.ToString();

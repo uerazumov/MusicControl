@@ -176,7 +176,6 @@
     <Resource Include="VisualResources\BackgroundImage.png" />
     <Resource Include="VisualResources\cancelButton.png" />
     <Resource Include="VisualResources\saveButton.png" />
-    <Resource Include="VisualResources\textBox.png" />
     <Resource Include="VisualResources\updateButton.png" />
   </ItemGroup>
   <ItemGroup>
