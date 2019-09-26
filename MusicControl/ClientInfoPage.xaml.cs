@@ -34,7 +34,36 @@ namespace MusicControl
             textBoxes.Add(AddNewClientTimeBalanceMinutesTextBox);
             textBoxes.Add(AddNewClientUnpaidTimeHoursTextBox);
             textBoxes.Add(AddNewClientUnpaidTimeMinutesTextBox);
-            _window.SetClientTextBoxesToViewModel(AddNewClientTextBox, textBoxes);
+            _window.GetVM().SetClientTextBoxes(AddNewClientTextBox, textBoxes);
+            _window.GetVM().ClientsComboBox = ClientsList;
+        }
+
+        private void ClientListGotFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = (TextBox)e.OriginalSource;
+            tb.SelectionBrush = Brushes.AliceBlue;
+            tb.CaretBrush = Brushes.Black;
+        }
+
+        void OnComboboxTextChanged(object sender, RoutedEventArgs e)
+        {
+            ClientsList.IsDropDownOpen = true;
+            var tb = (TextBox)e.OriginalSource;
+            if (ClientsList.Text == "") ClientsList.SelectedIndex = -1;
+            tb.Select(tb.SelectionStart + tb.SelectionLength, 0);
+            CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(ClientsList.ItemsSource);
+            cv.Filter = s =>
+                ((string)s).IndexOf(ClientsList.Text, StringComparison.CurrentCultureIgnoreCase) >= 0;
+            if (ClientsList.SelectedValue != null)
+                if (_window.GetVM().Clients.First(x => x == ClientsList.SelectedValue.ToString()) != null)
+                {
+                    //Придумать, как решить проблему при пользователях с одинаковым именем
+                    _window.GetVM().SelectedClient = _window.GetVM().Clients.IndexOf(_window.GetVM().Clients.First(x => x == ClientsList.SelectedValue.ToString()));
+                    ClientsList.SelectedIndex = -1;
+                    tb.SelectionBrush = Brushes.Transparent;
+                    tb.CaretBrush = Brushes.Transparent;
+                    SessionsList.Focus();
+                }
         }
     }
 }

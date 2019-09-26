@@ -31,6 +31,7 @@ namespace MusicControl
         private DateTime _calendarDate;
         private TextBox _clientNameTextBox;
         private List<Client> _clients;
+        private ComboBox _clientsComboBox;
         private List<TextBox> _clientTimeTextBoxes;
         private System.Timers.Timer _clockTimer;
         private bool _isEditMode;
@@ -186,6 +187,18 @@ namespace MusicControl
             }
         }
 
+        public ComboBox ClientsComboBox
+        {
+            get
+            {
+                return _clientsComboBox;
+            }
+            set
+            {
+                _clientsComboBox = value;
+            }
+        }
+
         public List<String> ClientSessions
         {
             get
@@ -312,7 +325,7 @@ namespace MusicControl
             {
                 if (value == -1) _selectedClient = 0;
                 else _selectedClient = value;
-                DoPropertyChanged("SelectedClient");
+               DoPropertyChanged("SelectedClient");
                 DoPropertyChanged("ClientID");
                 DoPropertyChanged("TotalHours");
                 DoPropertyChanged("TotalHoursPerYear");
@@ -636,11 +649,13 @@ namespace MusicControl
                     DataAccessManager.GetInstance().Connection.Insert(client);
                     _clients = DataAccessManager.GetInstance().GetClients().ToList();
                     //_clients.Add(new Client(GetNewClientID(), _clientNameTextBox.Text, new TimeSpan(int.Parse(_clientTimeTextBoxes[0].Text), int.Parse(_clientTimeTextBoxes[1].Text), 0), new TimeSpan(int.Parse(_clientTimeTextBoxes[2].Text), int.Parse(_clientTimeTextBoxes[3].Text), 0), new List<Session>()));
-                    var temp = _clients[_clients.Count - 1].ClientName;
+                    var temp = _clients[_clients.Count - 1];
                     _clients.Sort((x, y) => String.Compare(x.ClientName, y.ClientName));
                     DoPropertyChanged("Clients");
                     DoPropertyChanged("ClientSessions");
-                    SelectedClient = Clients.IndexOf(temp);
+                    ClientsComboBox.SelectedIndex = _clients.IndexOf(temp);
+                    ClientsComboBox.SelectedValue = temp.ClientName;
+                    //SelectedClient = _clients.IndexOf(temp);
                 }
                 else
                 {
@@ -653,20 +668,11 @@ namespace MusicControl
                     _clients = DataAccessManager.GetInstance().GetClients().ToList();
                     _clients.Sort((x, y) => String.Compare(x.ClientName, y.ClientName));
                     DoPropertyChanged("Clients");
-                    SelectedClient = _clients.IndexOf(temp);
-                    if (_clients.IndexOf(temp) != 0)
-                        SelectedClient = _clients.IndexOf(temp);
-                    else
-                    {
-                        SelectedClient = 1;
-                        //var clients = _clients;
-                        //_clients.Clear();
-                        //DoPropertyChanged("Clients");
-                        //_clients = clients;
-                        SelectedClient = 0;
-                        //DoPropertyChanged("Clients");
-                        //SelectedClient = 0;
-                    }
+                    ClientsComboBox.SelectedIndex = _clients.IndexOf(temp);
+                    ClientsComboBox.SelectedValue = temp.ClientName;
+                    //SelectedClient = _clients.IndexOf(temp);
+                    //Костыль для обновления первого пользователя
+                    if (SelectedClient == 0) ClientsComboBox.SelectedValue = temp.ClientName;
                 }
                 _addBoxVisibility = false;
                 DoPropertyChanged("ClientInfoIsEnabled");
@@ -842,7 +848,9 @@ namespace MusicControl
                 _todaysSessions = DataAccessManager.GetInstance().GetSessionsByDate(DateTime.Now).ToList();
                 DoPropertyChanged("Sessions");
                 DoPropertyChanged("Clients");
-                SelectedClient = 0;
+                ClientsComboBox.SelectedIndex = 0;
+                ClientsComboBox.SelectedValue = _clients[0].ClientName;
+                //SelectedClient = 0;
             }
         }
 
@@ -1018,6 +1026,7 @@ namespace MusicControl
             {
                 var startTime = new TimeSpan(24, 0, 0);
                 if (nextDaySessions.Count != 0) startTime = nextDaySessions[0].GetStartSessionTimeSpan() + new TimeSpan(1, 0, 0, 0, 0);
+                else startTime = new TimeSpan(1, 23, 0, 0, 0);
                 _scheduleList.Add(new Schedule(GetDurations(startTime, counter), new TimeSpan(18000000000 * counter), null, null, false, true, false));
                 counter++;
                 duration -= new TimeSpan(0, 30, 0);
