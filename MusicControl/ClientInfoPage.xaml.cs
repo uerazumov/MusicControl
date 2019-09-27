@@ -25,6 +25,7 @@ namespace MusicControl
         {
             InitializeComponent();
             _window = Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(w => w.IsActive);
+            SessionsList.SelectedValue = "";
         }
 
         private void SetClientNameTextBox(object sender, RoutedEventArgs e)
@@ -36,6 +37,7 @@ namespace MusicControl
             textBoxes.Add(AddNewClientUnpaidTimeMinutesTextBox);
             _window.GetVM().SetClientTextBoxes(AddNewClientTextBox, textBoxes);
             _window.GetVM().ClientsComboBox = ClientsList;
+            _window.GetVM().ClientSessionsComboBox = SessionsList;
         }
 
         private void ClientListGotFocus(object sender, RoutedEventArgs e)
@@ -47,23 +49,38 @@ namespace MusicControl
 
         void OnComboboxTextChanged(object sender, RoutedEventArgs e)
         {
+            
             ClientsList.IsDropDownOpen = true;
             var tb = (TextBox)e.OriginalSource;
             if (ClientsList.Text == "") ClientsList.SelectedIndex = -1;
             tb.Select(tb.SelectionStart + tb.SelectionLength, 0);
+            //if (tb.Text == String.Empty) SetEmptyClient();
             CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(ClientsList.ItemsSource);
             cv.Filter = s =>
                 ((string)s).IndexOf(ClientsList.Text, StringComparison.CurrentCultureIgnoreCase) >= 0;
-            if (ClientsList.SelectedValue != null)
+            if ((ClientsList.SelectedValue != null) && (_window.GetVM().Clients.Count != 0))
                 if (_window.GetVM().Clients.First(x => x == ClientsList.SelectedValue.ToString()) != null)
                 {
-                    //Придумать, как решить проблему при пользователях с одинаковым именем
-                    _window.GetVM().SelectedClient = _window.GetVM().Clients.IndexOf(_window.GetVM().Clients.First(x => x == ClientsList.SelectedValue.ToString()));
+                    cv.Filter = s => ((string)s).Length >= 0;
+                    Console.WriteLine(cv.IndexOf(ClientsList.SelectedValue));
+                    Console.WriteLine(cv.IndexOf(ClientsList.SelectedIndex));
+                    _window.GetVM().SelectedClient = cv.IndexOf(ClientsList.SelectedValue);
                     ClientsList.SelectedIndex = -1;
                     tb.SelectionBrush = Brushes.Transparent;
                     tb.CaretBrush = Brushes.Transparent;
                     SessionsList.Focus();
                 }
         }
+
+        //void SetEmptyClient()
+        //{
+        //    ClientIDTextBox.Text = "-";
+        //    FullHoursCountTextBox.Text = "--:--";
+        //    HooursCountAtYearTextBox.Text = "--:--";
+        //    SessionsList.SelectedIndex = -1;
+        //    FactTimeTextBox.Text = "--:--";
+        //    TimeBalanceTextBox.Text = "--:--";
+        //    UnpaidTimeTextBox.Text = "--:--";
+        //}
     }
 }

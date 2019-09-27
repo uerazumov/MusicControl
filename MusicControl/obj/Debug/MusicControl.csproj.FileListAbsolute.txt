@@ -1,4 +1,3 @@
-C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.csprojAssemblyReference.cache
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ControlButton.g.cs
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MainMenuPage.g.cs
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MainWindow.g.cs
@@ -78,3 +77,4 @@ C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\SQLitePCL
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\SQLite-net.xml
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl_Content.g.cs
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.csproj.CopyComplete
+C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.csprojAssemblyReference.cache
