@@ -168,6 +168,7 @@ namespace MusicControl
                 DoPropertyChanged("CurrentClientSessionTime");
                 DoPropertyChanged("IsRemoveEnabled");
                 DoPropertyChanged("IsEditEnabled");
+                DoPropertyChanged("ClientSessions");
                 if (value && (_clientSessionsComboBox != null))
                 {
                     _clientSessionsComboBox.SelectedIndex = -1;
@@ -270,12 +271,14 @@ namespace MusicControl
         {
             get
             {
+                
                 var clientSessions = new List<String>();
-                if (_clients.Count != 0)
-                    for (int i = 0; i < _clients[_selectedClient].Sessions.Count; i++)
-                    {
-                        clientSessions.Add(_clients[_selectedClient].Sessions[i].StartSessionTime.ToString("yyyy/MM/dd HH:mm") + "-" + (_clients[_selectedClient].Sessions[i].StartSessionTime + _clients[_selectedClient].Sessions[i].SessionDuration).ToString("HH:mm"));
-                    }
+                if (!IsAddingClient)
+                    if (_clients.Count != 0)
+                        for (int i = 0; i < _clients[_selectedClient].Sessions.Count; i++)
+                        {
+                            clientSessions.Add(_clients[_selectedClient].Sessions[i].StartSessionTime.ToString("yyyy/MM/dd HH:mm") + "-" + (_clients[_selectedClient].Sessions[i].StartSessionTime + _clients[_selectedClient].Sessions[i].SessionDuration).ToString("HH:mm"));
+                        }
                 return clientSessions;
             }
         }
@@ -695,8 +698,11 @@ namespace MusicControl
             DoPropertyChanged("ClientInfoIsEnabled");
             DoPropertyChanged("AddBoxVisibility");
             DoPropertyChanged("AddButtonVisibility");
-            _clientNameTextBox.Focus();
-            _clientNameTextBox.SelectAll();
+
+            var template = _clientNameTextBox.Template;
+            var tb = (TextBox)template.FindName("InteriorTextBox", _clientNameTextBox);
+            tb.Focus();
+            //_clientNameTextBox.SelectAll();
         }
 
         private void AddTime()

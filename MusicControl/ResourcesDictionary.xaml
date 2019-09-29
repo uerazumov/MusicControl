@@ -121,7 +121,7 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Grid>
                         <Border Style="{StaticResource TextBlockBorderStyle}"/>
-                        <TextBox Style="{StaticResource TexBoxStyle}" Margin="0">
+                        <TextBox x:Name="InteriorTextBox" Style="{StaticResource TexBoxStyle}" Margin="0">
                             <TextBox.Text>
                                 <Binding Path="Text" RelativeSource="{RelativeSource TemplatedParent}"/>
                             </TextBox.Text>

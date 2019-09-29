@@ -63,7 +63,7 @@
                 </TextBox.Text>
             </TextBox>
         </Border>-->
-        <TextBox Grid.Row="2" Margin="350,5,50,5" Text="{Binding Source={StaticResource ViewModel}, Path=NewClientName}" Style="{StaticResource ClientTextBoxStyle}" DataContext="{StaticResource ViewModel}" x:Name="AddNewClientTextBox" Loaded="SetClientNameTextBox" Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}"/>
+        <TextBox GotFocus="TextBoxGotFocus" Grid.Row="2" Margin="350,5,50,5" Text="{Binding Source={StaticResource ViewModel}, Path=NewClientName}" Style="{StaticResource ClientTextBoxStyle}" DataContext="{StaticResource ViewModel}" x:Name="AddNewClientTextBox" Loaded="SetClientNameTextBox" Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}"/>
         <TextBlock Margin="20,0,0,0" Text="Общее число часов на студии:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock x:Name="FullHoursCountTextBox" Margin="455,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=TotalHours}" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="20,0,0,0" Text="Число часов на студии (за год):" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
@@ -71,7 +71,7 @@
         <TextBlock Margin="20,0,0,0" Text="Остаток времени:" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock x:Name="TimeBalanceTextBox" Visibility="{Binding Source={StaticResource ViewModel}, Path=AddButtonVisibility}" Margin="280,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=ClientTimeBalance}" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <Border Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}" Grid.Row="5" Margin="280,5,600,5" Style="{StaticResource TextBlockBorderStyle}">
-            <TextBox Foreground="White" DataContext="{StaticResource ViewModel}" Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}" Background="Transparent" BorderThickness="0" x:Name="AddNewClientTimeBalanceHoursTextBox" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25">
+            <TextBox GotFocus="TextBoxGotFocus" Foreground="White" DataContext="{StaticResource ViewModel}" Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}" Background="Transparent" BorderThickness="0" x:Name="AddNewClientTimeBalanceHoursTextBox" TextAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontSize="25">
                 <Validation.ErrorTemplate>
                     <ControlTemplate>
                         <DockPanel>

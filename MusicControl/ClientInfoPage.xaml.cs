@@ -26,6 +26,10 @@ namespace MusicControl
             InitializeComponent();
             _window = Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(w => w.IsActive);
             SessionsList.SelectedValue = "";
+            //AddNewClientTextBox.GotFocus += delegate
+            //{
+            //    AddNewClientTextBox.SelectAll();
+            //};
         }
 
         private void SetClientNameTextBox(object sender, RoutedEventArgs e)
@@ -45,6 +49,14 @@ namespace MusicControl
             var tb = (TextBox)e.OriginalSource;
             tb.SelectionBrush = Brushes.AliceBlue;
             tb.CaretBrush = Brushes.Black;
+        }
+
+        private void TextBoxGotFocus(object sender, RoutedEventArgs e)
+        {
+            var template = AddNewClientTextBox.Template;
+            var tb = (TextBox)template.FindName("InteriorTextBox", AddNewClientTextBox);
+            //tb.Focus();
+            tb.SelectAll();
         }
 
         void OnComboboxTextChanged(object sender, RoutedEventArgs e)
