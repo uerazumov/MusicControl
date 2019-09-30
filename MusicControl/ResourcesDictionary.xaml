@@ -139,7 +139,32 @@
                 </Binding>
             </Setter.Value>
         </Setter>
+    </Style>
 
+    <Style x:Key="TimeTextBoxStyle" TargetType="TextBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid>
+                        <Border Style="{StaticResource TextBlockBorderStyle}"/>
+                        <TextBox x:Name="InteriorTextBox" Style="{StaticResource TexBoxStyle}" Margin="0">
+                            <TextBox.Text>
+                                <Binding Path="Text" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            </TextBox.Text>
+                        </TextBox>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Text">
+            <Setter.Value>
+                <Binding Path="Text" Mode="TwoWay" RelativeSource="{RelativeSource TemplatedParent}" >
+                    <Binding.ValidationRules>
+                        <local:TimeValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 

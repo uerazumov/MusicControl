@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,10 +27,6 @@ namespace MusicControl
             InitializeComponent();
             _window = Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(w => w.IsActive);
             SessionsList.SelectedValue = "";
-            //AddNewClientTextBox.GotFocus += delegate
-            //{
-            //    AddNewClientTextBox.SelectAll();
-            //};
         }
 
         private void SetClientNameTextBox(object sender, RoutedEventArgs e)
@@ -53,10 +50,20 @@ namespace MusicControl
 
         private void TextBoxGotFocus(object sender, RoutedEventArgs e)
         {
-            var template = AddNewClientTextBox.Template;
-            var tb = (TextBox)template.FindName("InteriorTextBox", AddNewClientTextBox);
-            //tb.Focus();
-            tb.SelectAll();
+            var tb = (TextBox)e.OriginalSource;
+            (new Thread(() => {
+                Thread.Sleep(TimeSpan.FromSeconds(0.01));
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    tb.SelectAll();
+                }));
+            })).Start();
+        }
+
+        private void TextBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = (TextBox)e.OriginalSource;
+            tb.SelectionLength = 0;
         }
 
         void OnComboboxTextChanged(object sender, RoutedEventArgs e)
