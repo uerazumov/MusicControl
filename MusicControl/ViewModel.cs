@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,6 +29,7 @@ namespace MusicControl
             New
         }
 
+        private bool _newClientInfoErrorVisibility;
         private DateTime _calendarDate;
         private TextBox _clientNameTextBox;
         private List<Client> _clients;
@@ -61,6 +63,22 @@ namespace MusicControl
             {
                 if (_addBoxVisibility) return Visibility.Visible;
                 return Visibility.Hidden;
+            }
+        }
+
+        public Visibility NewClientInfoErrorVisibility
+        {
+            get
+            {
+                if (_newClientInfoErrorVisibility) return Visibility.Visible;
+                return Visibility.Hidden;
+            }
+            set
+            {
+                if (value == Visibility.Visible)
+                    _newClientInfoErrorVisibility = true;
+                else _newClientInfoErrorVisibility = false;
+                DoPropertyChanged("NewClientInfoErrorVisibility");
             }
         }
 
@@ -737,10 +755,13 @@ namespace MusicControl
 
         private void ApplyNewClient()
         {
-            //Не работает валидация
-            var valid = !Validation.GetHasError(_clientNameTextBox);
+            //Не работает валидация через текстбоксы
+            bool valid = Regex.IsMatch(_clientNameTextBox.Text, @"^[\p{L} \.'\-]+$");
             for (int i = 0; i < _clientTimeTextBoxes.Count; i++)
-                valid &= !Validation.GetHasError(_clientTimeTextBoxes[i]);
+                valid &= Regex.IsMatch(_clientTimeTextBoxes[i].Text, @"^\d+$");
+            //var valid = !Validation.GetHasError(_clientNameTextBox);
+            //for (int i = 0; i < _clientTimeTextBoxes.Count; i++)
+            //    valid &= !Validation.GetHasError(_clientTimeTextBoxes[i]);
             if (valid)
             {
                 if (!_isEditMode)
@@ -779,8 +800,10 @@ namespace MusicControl
                 DoPropertyChanged("ClientInfoIsEnabled");
                 DoPropertyChanged("AddBoxVisibility");
                 DoPropertyChanged("AddButtonVisibility");
+                NewClientInfoErrorVisibility = Visibility.Hidden;
                 _clientsComboBox.IsDropDownOpen = false;
             }
+            else NewClientInfoErrorVisibility = Visibility.Visible;
         }
 
         public void AssignMainWindow(MainWindow mw)
@@ -790,6 +813,7 @@ namespace MusicControl
 
         private void Cancel()
         {
+            NewClientInfoErrorVisibility = Visibility.Hidden;
             _addBoxVisibility = false;
             if (_isEditMode) IsAddingClient = false;
             else IsAddingClient = true;
@@ -874,6 +898,7 @@ namespace MusicControl
 
         private void OpenClientInfoPage()
         {
+            NewClientInfoErrorVisibility = Visibility.Hidden;
             IsAddingClient = true;
             _pageState = PageState.ClientInfoPage;
             _addBoxVisibility = false;

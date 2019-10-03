@@ -104,7 +104,7 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="25"/>
         <Setter Property="FontFamily" Value="/MusicControl;component/VisualResources/#FRABK"/>
-        <Setter Property="Validation.ErrorTemplate">
+        <!--<Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
                     <DockPanel>
@@ -112,7 +112,7 @@
                     </DockPanel>
                 </ControlTemplate>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
     </Style>
 
     <Style x:Key="ClientTextBoxStyle" TargetType="TextBox">
@@ -130,7 +130,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Text">
+        <!--<Setter Property="Text">
             <Setter.Value>
                 <Binding Path="Text" Mode="TwoWay" RelativeSource="{RelativeSource TemplatedParent}">
                     <Binding.ValidationRules>
@@ -138,7 +138,7 @@
                     </Binding.ValidationRules>
                 </Binding>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
     </Style>
 
     <Style x:Key="TimeTextBoxStyle" TargetType="TextBox">
@@ -156,7 +156,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Text">
+        <!--<Setter Property="Text">
             <Setter.Value>
                 <Binding Path="Text" Mode="TwoWay" RelativeSource="{RelativeSource TemplatedParent}" >
                     <Binding.ValidationRules>
@@ -164,7 +164,7 @@
                     </Binding.ValidationRules>
                 </Binding>
             </Setter.Value>
-        </Setter>
+        </Setter>-->
     </Style>
 
 

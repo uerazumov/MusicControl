@@ -64,6 +64,7 @@
             </TextBox>
         </Border>-->
         <TextBox LostFocus="TextBoxLostFocus" GotFocus="TextBoxGotFocus" Grid.Row="2" Margin="350,5,50,5" Text="{Binding Source={StaticResource ViewModel}, Path=NewClientName}" Style="{StaticResource ClientTextBoxStyle}" DataContext="{StaticResource ViewModel}" x:Name="AddNewClientTextBox" Loaded="SetClientNameTextBox" Visibility="{Binding Source={StaticResource ViewModel}, Path=AddBoxVisibility}"/>
+        <TextBlock Visibility="{Binding Source={StaticResource ViewModel}, Path=NewClientInfoErrorVisibility}" Grid.Row="3" Margin="550,5,50,5" Style="{StaticResource TextBlockStyle}" Text="Проверьте правильность ввода данных" FontSize="20" Foreground="Red"/>
         <TextBlock Margin="20,0,0,0" Text="Общее число часов на студии:" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock x:Name="FullHoursCountTextBox" Margin="455,0,0,0" Text="{Binding Source={StaticResource ViewModel}, Path=TotalHours}" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>
         <TextBlock Margin="20,0,0,0" Text="Число часов на студии (за год):" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TextBlockStyle}" FontSize="30"/>

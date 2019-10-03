@@ -6,6 +6,9 @@ using System.Windows.Input;
 using System.Linq;
 using System.Drawing;
 using System.Windows.Media;
+using System.Windows.Controls;
+using System.Windows.Data;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace MusicControl
 {
@@ -20,7 +23,6 @@ namespace MusicControl
             EditSessionButton.ControlCommand = DoEdit;
             SaveSessionButton.ControlCommand = DoSave;
             RemoveSessionButton.ControlCommand = DoRemove;
-
             _window = Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(w => w.IsActive);
         }
 
@@ -52,6 +54,7 @@ namespace MusicControl
 
             set
             {
+                _selectedClient = -1;
                 SetValue(ScheduleParametrsProperty, value);
                 if (ScheduleParametrs.Client == null) _state = ViewModel.SessionState.New;
                 if (ScheduleParametrs.IsEnabled) IsLineEnabled = true;
@@ -63,6 +66,10 @@ namespace MusicControl
                     ClientComboBox.SelectedIndex = -1;
                     DurationComboBox.SelectedIndex = -1;
                 }
+                var template = ClientComboBox.Template;
+                var tb = (TextBox)template.FindName("PART_EditableTextBox", ClientComboBox);
+                if (tb != null)
+                    tb.Text = String.Empty;
                 DoPropertyChanged("IsSelected");
                 DoPropertyChanged("IsDateEnabled");
             }
@@ -85,7 +92,10 @@ namespace MusicControl
 
         public bool IsSelected
         {
-            get { return ScheduleParametrs.IsSelected; }
+            get
+            {
+                return ScheduleParametrs.IsSelected;
+            }
             set
             {
                 ScheduleParametrs.IsSelected = value;
@@ -238,6 +248,7 @@ namespace MusicControl
             ScheduleParametrs.Client = null;
             ScheduleParametrs.Session = null;
             ClientComboBox.SelectedIndex = -1;
+            _selectedClient = -1;
             DurationComboBox.SelectedIndex = -1;
             PrepaymentCheckBox.IsChecked = false;
             var temp = _window.GetVM().SelectedScheduleLine;
@@ -247,18 +258,18 @@ namespace MusicControl
 
         public void Save()
         {
-            if ((ClientComboBox.SelectedIndex != -1) && (DurationComboBox.SelectedIndex != -1))
+            if ((_selectedClient != -1) && (DurationComboBox.SelectedIndex != -1))
             {
                 if (_state == ViewModel.SessionState.New)
                 {
-                    var session = new Session(ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex], _window.GetVM().GetNewSessionStartTime(), _window.GetVM().ClientList[ClientComboBox.SelectedIndex], new TimeSpan(0), (bool)PrepaymentCheckBox.IsChecked);
+                    var session = new Session(ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex], _window.GetVM().GetNewSessionStartTime(), _window.GetVM().ClientList[_selectedClient], new TimeSpan(0), (bool)PrepaymentCheckBox.IsChecked);
                     _window.GetVM().ChangeSession(session, ViewModel.SessionState.New);
                     //_window.GetVM().ChangeSession(_window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID, ViewModel.SessionState.New, PrepaymentCheckBox.IsChecked, ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex]);
                 }
                 else if (_state == ViewModel.SessionState.Changed)
                 {
                     var session = DataAccessManager.GetInstance().GetSessionByID(ScheduleParametrs.Session.SessionID);
-                    session.ClientID = _window.GetVM().ClientList[ClientComboBox.SelectedIndex].ClientID;
+                    session.ClientID = _window.GetVM().ClientList[_selectedClient].ClientID;
                     session.Prepayment = (bool)PrepaymentCheckBox.IsChecked;
                     session.SessionDuration = ScheduleParametrs.SessionDurations[DurationComboBox.SelectedIndex];
                     _window.GetVM().ChangeSession(session, ViewModel.SessionState.Changed);
@@ -275,6 +286,41 @@ namespace MusicControl
                 _window.GetVM().SelectedScheduleLine = temp;
             }
         }
+
+        void OnComboboxTextChanged(object sender, RoutedEventArgs e)
+        {
+            
+            var tb = (TextBox)e.OriginalSource;
+            if (tb.Text == String.Empty)
+                ClientComboBox.IsDropDownOpen = false;
+            else ClientComboBox.IsDropDownOpen = true;
+            if (ClientComboBox.Text == "") ClientComboBox.SelectedIndex = -1;
+            tb.Select(tb.SelectionStart + tb.SelectionLength, 0);
+            CollectionView cv = (CollectionView)CollectionViewSource.GetDefaultView(ClientComboBox.ItemsSource);
+            cv.Filter = s =>
+                ((string)s).IndexOf(ClientComboBox.Text, StringComparison.CurrentCultureIgnoreCase) >= 0;
+            if ((ClientComboBox.SelectedValue != null) && (_window.GetVM().Clients.Count != 0))
+                if (_window.GetVM().Clients.First(x => x == ClientComboBox.SelectedValue.ToString()) != null)
+                {
+                    cv.Filter = s => ((string)s).Length >= 0;
+                    Console.WriteLine(cv.IndexOf(ClientComboBox.SelectedValue));
+                    Console.WriteLine(cv.IndexOf(ClientComboBox.SelectedIndex));
+                    _selectedClient = cv.IndexOf(ClientComboBox.SelectedValue);
+                    ClientComboBox.SelectedIndex = -1;
+                    tb.SelectionBrush = Brushes.Transparent;
+                    tb.CaretBrush = Brushes.Transparent;
+                    DurationComboBox.Focus();
+                }
+        }
+
+        private void ClientListGotFocus(object sender, RoutedEventArgs e)
+        {
+            var tb = (TextBox)e.OriginalSource;
+            tb.SelectionBrush = Brushes.AliceBlue;
+            tb.CaretBrush = Brushes.Black;
+        }
+
+        private int _selectedClient;
 
         private ICommand _doRemove;
 
@@ -348,7 +394,7 @@ namespace MusicControl
                 DoPropertyChanged("InfoVisibility");
                 DoPropertyChanged("ClientName");
                 DoPropertyChanged("SessionDuration"); 
-                DoPropertyChanged("BackgroundBrush");
+                DoPropertyChanged("BackgroundBrush"); 
             }
         }
     }
