@@ -23,6 +23,7 @@ namespace MusicControl
             EditSessionButton.ControlCommand = DoEdit;
             SaveSessionButton.ControlCommand = DoSave;
             RemoveSessionButton.ControlCommand = DoRemove;
+            CancelButton.ControlCommand = DoCancel;
             _window = Application.Current.Windows.OfType<MainWindow>().SingleOrDefault(w => w.IsActive);
         }
 
@@ -222,9 +223,20 @@ namespace MusicControl
             {
                 _isEditMode = value;
                 DoPropertyChanged("InfoVisibility");
+                DoPropertyChanged("CancelVisibility");
                 DoPropertyChanged("EditVisibility");
                 DoPropertyChanged("IsCheckEnabled");
                 DoPropertyChanged("IsPrepayment");
+            }
+        }
+
+        public Visibility CancelVisibility
+        {
+            get
+            {
+                if ((EditVisibility == Visibility.Visible) && (_isEditMode) && (ScheduleParametrs.Client != null))
+                    return Visibility.Visible;
+                return Visibility.Hidden;
             }
         }
 
@@ -302,6 +314,7 @@ namespace MusicControl
             if ((ClientComboBox.SelectedValue != null) && (_window.GetVM().Clients.Count != 0))
                 if (_window.GetVM().Clients.First(x => x == ClientComboBox.SelectedValue.ToString()) != null)
                 {
+                    ClientComboBox.IsDropDownOpen = false;
                     cv.Filter = s => ((string)s).Length >= 0;
                     Console.WriteLine(cv.IndexOf(ClientComboBox.SelectedValue));
                     Console.WriteLine(cv.IndexOf(ClientComboBox.SelectedIndex));
@@ -318,6 +331,42 @@ namespace MusicControl
             var tb = (TextBox)e.OriginalSource;
             tb.SelectionBrush = Brushes.AliceBlue;
             tb.CaretBrush = Brushes.Black;
+        }
+
+        private void Cancel()
+        {
+            if (ScheduleParametrs.Client == null) _state = ViewModel.SessionState.New;
+            if (ScheduleParametrs.IsEnabled) IsLineEnabled = true;
+            else IsLineEnabled = false;
+            if (ScheduleParametrs.Client != null) IsEditMode = false;
+            else IsEditMode = true;
+            if (IsEditMode)
+            {
+                ClientComboBox.SelectedIndex = -1;
+                DurationComboBox.SelectedIndex = -1;
+            }
+            var template = ClientComboBox.Template;
+            var tb = (TextBox)template.FindName("PART_EditableTextBox", ClientComboBox);
+            if (tb != null)
+                tb.Text = String.Empty;
+            DoPropertyChanged("IsSelected");
+            DoPropertyChanged("IsDateEnabled");
+        }
+
+        private ICommand _doCancel;
+
+        public ICommand DoCancel
+        {
+            get
+            {
+                if (_doCancel == null)
+                {
+                    _doCancel = new Command(
+                        p => true,
+                        p => Cancel());
+                }
+                return _doCancel;
+            }
         }
 
         private int _selectedClient;
@@ -392,6 +441,7 @@ namespace MusicControl
                 DoPropertyChanged("Time");
                 DoPropertyChanged("EditVisibility");
                 DoPropertyChanged("InfoVisibility");
+                DoPropertyChanged("CancelVisibility");
                 DoPropertyChanged("ClientName");
                 DoPropertyChanged("SessionDuration"); 
                 DoPropertyChanged("BackgroundBrush"); 

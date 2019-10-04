@@ -34,7 +34,7 @@
                 <TextBlock Style="{StaticResource TextBlockStyle}" Visibility="{Binding InfoVisibility}" Text="{Binding ClientName}" Margin="15,5,5,5" Foreground="White"  Name="Client" Grid.Column="0" FontSize="20"></TextBlock>
                 <TextBlock Style="{StaticResource TextBlockStyle}" Visibility="{Binding InfoVisibility}" Text="{Binding SessionDuration}" Margin="15,5,5,5" Foreground="White"  Name="Duration" Grid.Column="1" FontSize="20"></TextBlock>
                 <ComboBox GotFocus="ClientListGotFocus" TextBoxBase.TextChanged="OnComboboxTextChanged" IsTextSearchEnabled="False" IsEditable="True" IsEnabled="{Binding IsDateEnabled}" Visibility="{Binding EditVisibility}" ItemsSource="{Binding ClientList}" Margin="5" Style="{StaticResource ComboBoxStyle}" Name="ClientComboBox" Grid.Column="0" FontSize="20"/>
-                <ComboBox IsEnabled="{Binding IsDateEnabled}" Visibility="{Binding EditVisibility}" ItemsSource="{Binding Durations}" Margin="5" Style="{StaticResource ComboBoxStyle}" Name="DurationComboBox" Grid.Column="1" FontSize="20"/>
+                <ComboBox IsEditable="False" IsReadOnly="True" IsEnabled="{Binding IsDateEnabled}" Visibility="{Binding EditVisibility}" ItemsSource="{Binding Durations}" Margin="5" Style="{StaticResource ComboBoxStyle}" Name="DurationComboBox" Grid.Column="1" FontSize="20"/>
                 <CheckBox x:Name="PrepaymentCheckBox" IsEnabled="{Binding IsCheckEnabled}" IsChecked="{Binding IsPrepayment, Mode=OneWay}" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
                     <CheckBox.LayoutTransform>
                         <ScaleTransform ScaleX="2" ScaleY="2" />
@@ -53,6 +53,11 @@
             </local:ControlButton.LayoutTransform>
         </local:ControlButton>
         <local:ControlButton IsButtonEnabled="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}, Mode=TwoWay}" Visibility="{Binding InfoVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="3" x:Name="RemoveSessionButton" EnableBackgroundImage="{StaticResource removeButton}">
+            <local:ControlButton.LayoutTransform>
+                <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
+            </local:ControlButton.LayoutTransform>
+        </local:ControlButton>
+        <local:ControlButton IsButtonEnabled="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}, Mode=TwoWay}" Visibility="{Binding CancelVisibility, RelativeSource={RelativeSource AncestorType=local:ScheduleLine}}" Grid.Column="3" x:Name="CancelButton" EnableBackgroundImage="{StaticResource cancelButton}">
             <local:ControlButton.LayoutTransform>
                 <ScaleTransform ScaleX="0.4" ScaleY="0.4"/>
             </local:ControlButton.LayoutTransform>

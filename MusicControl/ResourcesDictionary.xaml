@@ -283,7 +283,7 @@
                             Template="{StaticResource ComboBoxTextBox}" 
                             HorizontalAlignment="Left" 
                             VerticalAlignment="Center" 
-                            Margin="3,3,23,3"
+                            Margin="30,3,23,3"
                             Focusable="True" 
                             Background="Transparent"
                             Foreground="White"
@@ -311,7 +311,7 @@
                                         </LinearGradientBrush>
                                     </Border.Background>
                                 </Border>
-                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                <ScrollViewer Margin="30,6,4,6" SnapsToDevicePixels="True">
                                     <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained"/>
                                 </ScrollViewer>
                             </Grid>

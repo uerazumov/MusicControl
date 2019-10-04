@@ -1148,7 +1148,8 @@ namespace MusicControl
                     duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
                 }
             }
-            if (duration > new TimeSpan(24, 0, 0) - new TimeSpan(18000000000 * counter)) duration = new TimeSpan(24, 0, 0) - new TimeSpan(18000000000 * counter);
+            if (duration > new TimeSpan(24, 0, 0) - new TimeSpan(18000000000 * counter))
+                duration = new TimeSpan(24, 0, 0) - new TimeSpan(18000000000 * counter);
             while (duration.Ticks > 0)
             {
                 _scheduleList.Add(new Schedule(new List<TimeSpan>(), new TimeSpan(18000000000 * counter), null, null, false, false, false));
@@ -1174,6 +1175,7 @@ namespace MusicControl
             var tempDuration = time - new TimeSpan(18000000000 * (counter));
             while (tempDuration.Ticks > 0)
             {
+                if (tempDuration >= new TimeSpan(1, 0, 0, 0)) tempDuration -= new TimeSpan(1, 0, 0, 0);
                 durations.Add(tempDuration);
                 tempDuration -= new TimeSpan(0, 30, 0);
             }
