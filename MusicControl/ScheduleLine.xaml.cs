@@ -57,7 +57,10 @@ namespace MusicControl
             {
                 _selectedClient = -1;
                 SetValue(ScheduleParametrsProperty, value);
-                if (ScheduleParametrs.Client == null) _state = ViewModel.SessionState.New;
+                if (ScheduleParametrs.Client == null)
+                {
+                    _state = ViewModel.SessionState.New;
+                }
                 if (ScheduleParametrs.IsEnabled) IsLineEnabled = true;
                 else IsLineEnabled = false;
                 if (ScheduleParametrs.Client != null) IsEditMode = false;
@@ -72,6 +75,7 @@ namespace MusicControl
                 if (tb != null)
                     tb.Text = String.Empty;
                 DoPropertyChanged("IsSelected");
+                DoPropertyChanged("IsPrepayment");
                 DoPropertyChanged("IsDateEnabled");
             }
         }
@@ -183,7 +187,8 @@ namespace MusicControl
                     var duration = (TimeSpan)ScheduleParametrs.Session.SessionDuration;
                     var time = String.Empty;
                     if (duration.Hours < 10) time += "0" + duration.Hours.ToString();
-                    else time += ScheduleParametrs.StartTime.Hours.ToString();
+                    else time += duration.Hours.ToString();
+                    Console.WriteLine(duration.ToString());
                     if (duration.Minutes < 10) time += ":0" + duration.Minutes.ToString();
                     else time += ":" + duration.Minutes.ToString();
                     return time;

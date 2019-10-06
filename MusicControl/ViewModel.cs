@@ -1106,18 +1106,23 @@ namespace MusicControl
             _scheduleList = new List<Schedule>();
             var counter = 0;
             var thatDaySessions = DataAccessManager.GetInstance().GetSessionsByDate(_calendarDate).ToList();
-            var beforeDaySessions = DataAccessManager.GetInstance().GetSessionsByDate(_calendarDate.AddDays(-1)).ToList();
-            var nextDaySessions = DataAccessManager.GetInstance().GetSessionsByDate(_calendarDate.AddDays(+1)).ToList();
+            var beforeDaySessions = DataAccessManager.GetInstance().GetSessionsByDate(_calendarDate - new TimeSpan(1, 0, 0, 0)).ToList();
+            var nextDaySessions = DataAccessManager.GetInstance().GetSessionsByDate(_calendarDate + new TimeSpan(1, 0, 0, 0)).ToList();
             beforeDaySessions.Sort((x, y) => DateTime.Compare(x.StartSessionTime, y.StartSessionTime));
             thatDaySessions.Sort((x, y) => DateTime.Compare(x.StartSessionTime, y.StartSessionTime));
             nextDaySessions.Sort((x, y) => DateTime.Compare(x.StartSessionTime, y.StartSessionTime));
             var duration = new TimeSpan(0);
             if (beforeDaySessions.Count > 0)
-                if (beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + beforeDaySessions[beforeDaySessions.Count - 1].SessionDuration > new DateTime(_calendarDate.Year, _calendarDate.Month, _calendarDate.Day, 0, 0, 0))
+            {
+                var currentDuration = beforeDaySessions[beforeDaySessions.Count - 1].SessionDuration;
+                //var beforeDate = _calendarDate - new TimeSpan(1, 0, 0, 0);
+                //if (beforeDate.Date < DateTime.Now.Date) currentDuration = beforeDaySessions[beforeDaySessions.Count - 1].CurrentDuration;
+                if (beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + currentDuration > new DateTime(_calendarDate.Year, _calendarDate.Month, _calendarDate.Day, 0, 0, 0))
                 {
-                    var sessionDuration = beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + beforeDaySessions[beforeDaySessions.Count - 1].SessionDuration;
+                    var sessionDuration = beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + currentDuration;
                     duration = new TimeSpan(sessionDuration.Hour, sessionDuration.Minute, sessionDuration.Second);
                 }
+            }
             for (int i = 0; i < thatDaySessions.Count; i++)
             {
                 while (duration.Ticks > 0)
@@ -1126,7 +1131,7 @@ namespace MusicControl
                     counter++;
                     duration -= new TimeSpan(0, 30, 0);
                 }
-                duration = thatDaySessions[i].GetStartSessionTimeSpan() - new TimeSpan(18000000000 * (counter));
+                duration = thatDaySessions[i].GetStartSessionTimeSpan() - new TimeSpan(18000000000 * counter);
                 while (duration.Ticks > 0)
                 {
                     _scheduleList.Add(new Schedule(GetDurations(thatDaySessions[i].GetStartSessionTimeSpan(), counter), new TimeSpan(18000000000 * counter), null, null, false, true, false));
@@ -1141,8 +1146,9 @@ namespace MusicControl
                 }
                 else
                 {
-                    var startTime = new TimeSpan(24, 0, 0);
-                    if (nextDaySessions.Count != 0) startTime = nextDaySessions[0].GetStartSessionTimeSpan() + new TimeSpan(1, 0, 0, 0, 0);
+                    var startTime = new TimeSpan(48, 0, 0);
+                    if (nextDaySessions.Count > 0)
+                        startTime = nextDaySessions[0].GetStartSessionTimeSpan() + new TimeSpan(1, 0, 0, 0, 0);
                     _scheduleList.Add(new Schedule(GetDurations(startTime, counter), new TimeSpan(18000000000 * counter), _clients.First(x => x.ClientID == thatDaySessions[i].ClientID), thatDaySessions[i], thatDaySessions[i].Prepayment, true, false));
                     counter++;
                     duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
@@ -1175,7 +1181,7 @@ namespace MusicControl
             var tempDuration = time - new TimeSpan(18000000000 * (counter));
             while (tempDuration.Ticks > 0)
             {
-                if (tempDuration >= new TimeSpan(1, 0, 0, 0)) tempDuration -= new TimeSpan(1, 0, 0, 0);
+                if (tempDuration >= new TimeSpan(1, 0, 0, 0)) tempDuration = new TimeSpan(23, 30, 0);
                 durations.Add(tempDuration);
                 tempDuration -= new TimeSpan(0, 30, 0);
             }

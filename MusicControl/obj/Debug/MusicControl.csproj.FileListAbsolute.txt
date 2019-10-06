@@ -56,7 +56,6 @@ C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ScheduleL
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ScheduleMonthPage.g.cs
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ScheduleLine.baml
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ScheduleMonthPage.baml
-C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.csprojAssemblyReference.cache
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\x86\e_sqlite3.dll
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\x64\e_sqlite3.dll
 C:\Users\urist\ClonedRepos\MusicControl\MusicControl\bin\Debug\SQLite-net.dll
@@ -78,3 +77,4 @@ C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\bin\Debug\SQLite-ne
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl_Content.g.cs
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.csproj.CopyComplete
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.csprojAssemblyReference.cache
+C:\Users\urist\ClonedRepos\MusicControl\MusicControl\obj\Debug\MusicControl.csprojAssemblyReference.cache
