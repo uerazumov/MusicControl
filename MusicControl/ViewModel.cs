@@ -133,6 +133,7 @@ namespace MusicControl
             get { return _calendarDate; }
             set
             {
+                //if (value != _calendarDate) CalendarVisibility = Visibility.Hidden;
                 _calendarDate = value;
                 UpdateSchedule();
                 DoPropertyChanged("CalendarDateButtonContent");

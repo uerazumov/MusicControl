@@ -17,7 +17,7 @@
     <Grid>
         <local:ControlButton Grid.RowSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" ControlCommand="{Binding Source={StaticResource ViewModel}, Path=DoOpenMainMenuPage}" x:Name="MainMenuButton" EnableBackgroundImage="{StaticResource mainMenuButton}"/>
         <TextBlock Grid.RowSpan="2" Grid.Row="0" Style="{StaticResource HeadlineTextStyle}" HorizontalAlignment="Center" Text="График сеансов"></TextBlock>
-        <Calendar BorderBrush="Transparent" SelectionMode="SingleDate" xmlns:sys="clr-namespace:System;assembly=mscorlib" SelectedDate="{Binding Source={StaticResource ViewModel}, Path=CalendarDate, Mode=TwoWay}" Visibility="{Binding Source={StaticResource ViewModel}, Path=CalendarVisibility}" x:Name="SessionCalendar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,0,40,165" Panel.ZIndex="10" CalendarDayButtonStyle="{StaticResource CalendarDayButtonStyle}">
+        <Calendar CalendarButtonStyle="{StaticResource CalendarButtonStyle}" CalendarItemStyle="{StaticResource CalendarItemStyle}" BorderBrush="Transparent" SelectionMode="SingleDate" xmlns:sys="clr-namespace:System;assembly=mscorlib" SelectedDate="{Binding Source={StaticResource ViewModel}, Path=CalendarDate, Mode=TwoWay}" Visibility="{Binding Source={StaticResource ViewModel}, Path=CalendarVisibility}" x:Name="SessionCalendar" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="40,0,40,115" Panel.ZIndex="10" CalendarDayButtonStyle="{StaticResource CalendarDayButtonStyle}">
             <Calendar.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                     <GradientStop Color="#EE1919" Offset="0"></GradientStop>
@@ -25,7 +25,7 @@
                 </LinearGradientBrush>
             </Calendar.Background>
         </Calendar>
-        <Button FontSize="20" Style="{StaticResource ButtonStyle}" Content="{Binding Source={StaticResource ViewModel}, Path=CalendarDateButtonContent}" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenCalendar}" Width="180" Height="35" Margin="0,0,0,395" Background="White"></Button>
+        <Button FontSize="20" Style="{StaticResource ButtonStyle}" Content="{Binding Source={StaticResource ViewModel}, Path=CalendarDateButtonContent}" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenCalendar}" Width="240" Height="35" Margin="0,0,0,395" Background="White"></Button>
         <ListBox SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedScheduleLine, Mode=TwoWay}" HorizontalAlignment="Center" BorderBrush="Transparent" Background="Transparent" Margin="30,115,30,0">
             <ListBox.Resources>
                 <Style TargetType="ScrollBar">
