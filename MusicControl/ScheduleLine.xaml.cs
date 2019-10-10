@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Linq;
-using System.Drawing;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -188,7 +187,6 @@ namespace MusicControl
                     var time = String.Empty;
                     if (duration.Hours < 10) time += "0" + duration.Hours.ToString();
                     else time += duration.Hours.ToString();
-                    Console.WriteLine(duration.ToString());
                     if (duration.Minutes < 10) time += ":0" + duration.Minutes.ToString();
                     else time += ":" + duration.Minutes.ToString();
                     return time;
@@ -321,8 +319,6 @@ namespace MusicControl
                 {
                     ClientComboBox.IsDropDownOpen = false;
                     cv.Filter = s => ((string)s).Length >= 0;
-                    Console.WriteLine(cv.IndexOf(ClientComboBox.SelectedValue));
-                    Console.WriteLine(cv.IndexOf(ClientComboBox.SelectedIndex));
                     _selectedClient = cv.IndexOf(ClientComboBox.SelectedValue);
                     ClientComboBox.SelectedIndex = -1;
                     tb.SelectionBrush = Brushes.Transparent;

@@ -19,7 +19,6 @@ C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\SessionPa
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.g.resources
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.Properties.Resources.resources
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.csproj.GenerateResource.cache
-C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\MusicControl.csproj.CoreCompileInputs.cache
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ResourcesDictionary.baml
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ClientInfoPage.g.cs
 C:\Users\Юрий\Documents\GitHub\MusicControl\MusicControl\obj\Debug\ClientInfoPage.baml

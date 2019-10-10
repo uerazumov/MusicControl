@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="CustomLetterDayConverter.cs" />
     <Compile Include="DataAccessManager.cs" />
+    <Compile Include="ImageConverter.cs" />
     <Compile Include="MainMenuPage.xaml.cs">
       <DependentUpon>MainMenuPage.xaml</DependentUpon>
     </Compile>
