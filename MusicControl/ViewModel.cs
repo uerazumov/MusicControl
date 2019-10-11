@@ -675,24 +675,24 @@ namespace MusicControl
 
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 23, 11, 30, 0), _clients[0], new TimeSpan(1, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 7, 21, 14, 00, 0), _clients[0], new TimeSpan(3, 0, 0), true));
-            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 9, 5, 11, 00, 0), _clients[0], new TimeSpan(2, 30, 0), true));
+            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 10, 10, 11, 00, 0), _clients[0], new TimeSpan(2, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(4, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 9, 30, 0), _clients[0], new TimeSpan(0), true));
 
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 6, 22, 11, 30, 0), _clients[1], new TimeSpan(1, 0, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(3, 30, 0), new DateTime(2019, 7, 19, 14, 00, 0), _clients[1], new TimeSpan(3, 30, 0), true));
-            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 9, 00, 0), _clients[1], new TimeSpan(2, 0, 0), true));
+            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 10, 10, 9, 00, 0), _clients[1], new TimeSpan(2, 0, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(3, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 30, 0), _clients[1], new TimeSpan(0), false));
 
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 3, 11, 30, 0), _clients[2], new TimeSpan(2, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 30, 0), new DateTime(2019, 7, 1, 14, 00, 0), _clients[2], new TimeSpan(1, 30, 0), false));
-            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 9, 5, 15, 00, 0), _clients[2], new TimeSpan(0, 30, 0), true));
+            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 10, 10, 15, 00, 0), _clients[2], new TimeSpan(0, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 01, 30, 0), _clients[2], new TimeSpan(0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 19, 00, 0), _clients[2], new TimeSpan(0), true));
 
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 30, 0), new DateTime(2019, 6, 4, 11, 30, 0), _clients[4], new TimeSpan(2, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 2, 14, 00, 0), _clients[4], new TimeSpan(1, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 8, 23, 16, 30, 0), _clients[4], new TimeSpan(1, 0, 0), true));
-            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 9, 5, 23, 30, 0), _clients[4], new TimeSpan(1, 30, 0), true));
+            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 10, 10, 23, 30, 0), _clients[4], new TimeSpan(1, 47, 23), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 30, 0), _clients[4], new TimeSpan(0), true));
 
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 30, 0), new DateTime(2018, 6, 5, 11, 30, 0), _clients[5], new TimeSpan(1, 30, 0), true));
@@ -1115,12 +1115,17 @@ namespace MusicControl
             var duration = new TimeSpan(0);
             if (beforeDaySessions.Count > 0)
             {
-                var currentDuration = beforeDaySessions[beforeDaySessions.Count - 1].SessionDuration;
+                //var currentDuration = beforeDaySessions[beforeDaySessions.Count - 1].SessionDuration;
                 //var beforeDate = _calendarDate - new TimeSpan(1, 0, 0, 0);
                 //if (beforeDate.Date < DateTime.Now.Date) currentDuration = beforeDaySessions[beforeDaySessions.Count - 1].CurrentDuration;
-                if (beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + currentDuration > new DateTime(_calendarDate.Year, _calendarDate.Month, _calendarDate.Day, 0, 0, 0))
+                //if (beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + currentDuration > new DateTime(_calendarDate.Year, _calendarDate.Month, _calendarDate.Day, 0, 0, 0))
+                //{
+                //    var sessionDuration = beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + currentDuration;
+                //    duration = new TimeSpan(sessionDuration.Hour, sessionDuration.Minute, sessionDuration.Second);
+                //}
+                if (beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + GetCurrentDuration(beforeDaySessions[beforeDaySessions.Count - 1]) > new DateTime(_calendarDate.Year, _calendarDate.Month, _calendarDate.Day, 0, 0, 0))
                 {
-                    var sessionDuration = beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + currentDuration;
+                    var sessionDuration = beforeDaySessions[beforeDaySessions.Count - 1].StartSessionTime + GetCurrentDuration(beforeDaySessions[beforeDaySessions.Count - 1]);
                     duration = new TimeSpan(sessionDuration.Hour, sessionDuration.Minute, sessionDuration.Second);
                 }
             }
@@ -1143,7 +1148,8 @@ namespace MusicControl
                 {
                     _scheduleList.Add(new Schedule(GetDurations(thatDaySessions[i + 1].GetStartSessionTimeSpan(), counter), new TimeSpan(18000000000 * counter), _clients.First(x => x.ClientID == thatDaySessions[i].ClientID), thatDaySessions[i], thatDaySessions[i].Prepayment, true, false));
                     counter++;
-                    duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
+                    //duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
+                    duration = GetCurrentDuration(thatDaySessions[i]) - new TimeSpan(0, 30, 0);
                 }
                 else
                 {
@@ -1152,7 +1158,8 @@ namespace MusicControl
                         startTime = nextDaySessions[0].GetStartSessionTimeSpan() + new TimeSpan(1, 0, 0, 0, 0);
                     _scheduleList.Add(new Schedule(GetDurations(startTime, counter), new TimeSpan(18000000000 * counter), _clients.First(x => x.ClientID == thatDaySessions[i].ClientID), thatDaySessions[i], thatDaySessions[i].Prepayment, true, false));
                     counter++;
-                    duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
+                    //duration = thatDaySessions[i].SessionDuration - new TimeSpan(0, 30, 0);
+                    duration = GetCurrentDuration(thatDaySessions[i]) - new TimeSpan(0, 30, 0);
                 }
             }
             if (duration > new TimeSpan(24, 0, 0) - new TimeSpan(18000000000 * counter))
@@ -1174,6 +1181,21 @@ namespace MusicControl
                 duration -= new TimeSpan(0, 30, 0);
             }
             DoPropertyChanged("ScheduleList");
+        }
+
+        private TimeSpan GetCurrentDuration(Session session)
+        {
+            if (session.StartSessionTime + session.SessionDuration < DateTime.Now)
+            {
+                if ((double)session.CurrentDuration.Minutes % 30 != 0)
+                {
+                    if (session.CurrentDuration.Minutes > 30)
+                        return new TimeSpan(session.CurrentDuration.Hours + 1, 00, 0);
+                    return new TimeSpan(session.CurrentDuration.Hours, 30, 0);
+                }
+                return new TimeSpan(session.CurrentDuration.Hours, session.CurrentDuration.Minutes, 0);
+            }
+            return session.SessionDuration;
         }
 
         private List<TimeSpan> GetDurations(TimeSpan time, int counter)

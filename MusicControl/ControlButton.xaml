@@ -35,7 +35,7 @@
         </Style>
     </UserControl.Resources>
     <Grid IsEnabled="{Binding IsButtonEnabled}">
-        <Image x:Name="image" Source="{Binding BackgroundImage, Converter={StaticResource imageConverter}}"/>
+        <!--<Image x:Name="image" Source="{Binding BackgroundImage, Converter={StaticResource imageConverter}}"/>-->
         <Button Style="{StaticResource ControlButtonStyle}" x:Name="BButton" Command="{Binding ControlCommand}" Width="100" Height="100">
             <Button.LayoutTransform>
                 <ScaleTransform ScaleX="0.85" ScaleY="0.85"/>

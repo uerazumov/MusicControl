@@ -26,7 +26,7 @@
             </Calendar.Background>
         </Calendar>
         <Button FontSize="20" Style="{StaticResource ButtonStyle}" Content="{Binding Source={StaticResource ViewModel}, Path=CalendarDateButtonContent}" Command="{Binding Source={StaticResource ViewModel}, Path=DoOpenCalendar}" Width="240" Height="35" Margin="0,0,0,395" Background="White"></Button>
-        <ListBox SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedScheduleLine, Mode=TwoWay}" HorizontalAlignment="Center" BorderBrush="Transparent" Background="Transparent" Margin="30,115,30,0">
+        <ListBox x:Name="SessionsList" SelectedIndex="{Binding Source={StaticResource ViewModel}, Path=SelectedScheduleLine, Mode=TwoWay}" HorizontalAlignment="Center" BorderBrush="Transparent" Background="Transparent" Margin="30,115,30,0">
             <ListBox.Resources>
                 <Style TargetType="ScrollBar">
                     <Setter Property="Template">

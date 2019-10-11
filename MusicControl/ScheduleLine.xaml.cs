@@ -184,11 +184,23 @@ namespace MusicControl
                 if (ScheduleParametrs.Session != null)
                 {
                     var duration = (TimeSpan)ScheduleParametrs.Session.SessionDuration;
+                    Duration.Foreground = Brushes.White;
                     var time = String.Empty;
                     if (duration.Hours < 10) time += "0" + duration.Hours.ToString();
                     else time += duration.Hours.ToString();
                     if (duration.Minutes < 10) time += ":0" + duration.Minutes.ToString();
                     else time += ":" + duration.Minutes.ToString();
+                    if (ScheduleParametrs.Session.StartSessionTime + (TimeSpan)ScheduleParametrs.Session.SessionDuration < DateTime.Now)
+                    {
+                        Duration.Foreground = Brushes.Gray;
+                        duration = (TimeSpan)ScheduleParametrs.Session.CurrentDuration;
+                        time += " (";
+                        if (duration.Hours < 10) time += "0" + duration.Hours.ToString();
+                        else time += duration.Hours.ToString();
+                        if (duration.Minutes < 10) time += ":0" + duration.Minutes.ToString();
+                        else time += ":" + duration.Minutes.ToString();
+                        time += ")";
+                    }
                     return time;
                 }
                 else return "--:--";
