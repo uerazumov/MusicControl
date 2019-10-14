@@ -675,24 +675,24 @@ namespace MusicControl
 
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 23, 11, 30, 0), _clients[0], new TimeSpan(1, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 7, 21, 14, 00, 0), _clients[0], new TimeSpan(3, 0, 0), true));
-            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 10, 10, 11, 00, 0), _clients[0], new TimeSpan(2, 30, 0), true));
+            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(3, 0, 0), new DateTime(2019, 10, 11, 11, 00, 0), _clients[0], new TimeSpan(2, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(4, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 9, 30, 0), _clients[0], new TimeSpan(0), true));
 
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 6, 22, 11, 30, 0), _clients[1], new TimeSpan(1, 0, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(3, 30, 0), new DateTime(2019, 7, 19, 14, 00, 0), _clients[1], new TimeSpan(3, 30, 0), true));
-            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 10, 10, 9, 00, 0), _clients[1], new TimeSpan(2, 0, 0), true));
+            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 10, 11, 9, 00, 0), _clients[1], new TimeSpan(2, 0, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(3, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 30, 0), _clients[1], new TimeSpan(0), false));
 
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 6, 3, 11, 30, 0), _clients[2], new TimeSpan(2, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 30, 0), new DateTime(2019, 7, 1, 14, 00, 0), _clients[2], new TimeSpan(1, 30, 0), false));
-            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 10, 10, 15, 00, 0), _clients[2], new TimeSpan(0, 30, 0), true));
+            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 10, 11, 15, 00, 0), _clients[2], new TimeSpan(0, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 01, 30, 0), _clients[2], new TimeSpan(0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 30, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 19, 00, 0), _clients[2], new TimeSpan(0), true));
 
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 30, 0), new DateTime(2019, 6, 4, 11, 30, 0), _clients[4], new TimeSpan(2, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 7, 2, 14, 00, 0), _clients[4], new TimeSpan(1, 30, 0), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(2019, 8, 23, 16, 30, 0), _clients[4], new TimeSpan(1, 0, 0), true));
-            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 10, 10, 23, 30, 0), _clients[4], new TimeSpan(1, 47, 23), true));
+            //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 0, 0), new DateTime(2019, 10, 11, 23, 30, 0), _clients[4], new TimeSpan(1, 47, 23), true));
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(1, 0, 0), new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 22, 30, 0), _clients[4], new TimeSpan(0), true));
 
             //DataAccessManager.GetInstance().Connection.Insert(new Session(new TimeSpan(2, 30, 0), new DateTime(2018, 6, 5, 11, 30, 0), _clients[5], new TimeSpan(1, 30, 0), true));
@@ -936,6 +936,7 @@ namespace MusicControl
                 _pauseTimer.Interval = 300;
             }
             _navigationService?.Navigate(_sessionPage);
+            UpdateTodaysSessions();
             UpdateTime();
         }
 
@@ -1078,7 +1079,6 @@ namespace MusicControl
 
         private void UpdateNewSessionParametrs(int index)
         {
-            UpdateTodaysSessions();
             if (_todaysSessions.Count != 0) _sessionTime = _todaysSessions[index].SessionDuration;
             else _sessionTime = new TimeSpan(0);
             _pauseTime = new TimeSpan(0, 1, 10, 0);
@@ -1229,7 +1229,7 @@ namespace MusicControl
 
         private void UpdateTime()
         {
-            DoPropertyChanged("SelectedSession");
+            //DoPropertyChanged("SelectedSession");
             DoPropertyChanged("TimeBalance");
             DoPropertyChanged("PauseTime");
             DoPropertyChanged("StartTime");
